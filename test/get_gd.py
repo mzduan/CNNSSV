@@ -1,5 +1,6 @@
 import re
-
+#sed -i -e 's/^/chr/' NA19240.chr20.somatic.vcf
+#grep '^20' NA19238.vcf > NA19238.chr20.vcf
 def getKV(str):
     ret=dict()
     splits=re.split(';',str)
@@ -13,8 +14,8 @@ def getKV(str):
 
 if __name__ == '__main__':
 
-    NA19239_vcf=open('/home/duan/Desktop/somaticSV/groundtruth/NA19238.chr20.vcf','r')
-    NA19240_vcf = open('/home/duan/Desktop/somaticSV/groundtruth/NA19239.chr20.vcf', 'r')
+    NA19239_vcf=open('/home/duan/Desktop/somaticSV/groundtruth/NA19239.chr20.vcf','r')
+    NA19240_vcf = open('/home/duan/Desktop/somaticSV/groundtruth/NA19240.chr20.vcf', 'r')
 
     NA19239_readlines=list()
     NA19240_readlines=list()
@@ -34,7 +35,7 @@ if __name__ == '__main__':
             break
 
 
-    NA19240_somatic=open('/home/duan/Desktop/somaticSV/groundtruth/NA19239.chr20.somatic.vcf', 'w')
+    NA19240_somatic=open('/home/duan/Desktop/somaticSV/groundtruth/NA19240.chr20.somatic.vcf', 'w')
 
     used_pair=dict()
     for i in NA19240_readlines:

@@ -558,11 +558,11 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
         chro=key
         for bk in cdel[chro]:
             # if bk[0]==64011804:
-            pool.submit(generate_features,"DEL",chro,bk,ref_dict,tumor,normal,wkdir)
+            pool.apply_async(generate_features,"DEL",chro,bk,ref_dict,tumor,normal,wkdir)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            pool.submit(generate_features,"DEL",chro,bk,ref_dict,tumor,normal,wkdir)
+            pool.apply_async(generate_features,"DEL",chro,bk,ref_dict,tumor,normal,wkdir)
     for key in cins:
         chro=key
         for bk in cins[chro]:
