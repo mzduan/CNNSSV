@@ -562,7 +562,7 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            pool.apply_async(generate_features,"DEL",chro,bk,ref_dict,tumor,normal,wkdir)
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
