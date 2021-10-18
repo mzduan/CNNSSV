@@ -255,14 +255,15 @@ def analysis_inv(ele_1, ele_2, read_name, sv_list, SV_size):
             if ele_2[0] + 0.5 * (ele_1[2] - ele_2[2]) >= ele_1[1]:
                 sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1]])  #测的负链
 
-def analysis_split_read(split_reads,read_name,read_len,query,candidate,SV_size):
+def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
     '''
     read_start	read_end	ref_start	ref_end	chr	strand
     #0			#1			#2			#3		#4	#5
     '''
+
+    trigger_INS_TRA=0
     sv_list=list()
     sp_list = sorted(split_reads, key=lambda x: x[0])
-
 
     #分析inversion
     if len(sp_list) == 2:
@@ -299,14 +300,14 @@ def analysis_split_read(split_reads,read_name,read_len,query,candidate,SV_size):
                         analysis_inv(ele_2,
                                      ele_3,
                                      read_name,
-                                     candidate,
+                                     sv_list,
                                      SV_size)
                     else:
                         # +--/-++
                         analysis_inv(ele_1,
                                      ele_2,
                                      read_name,
-                                     candidate,
+                                     sv_list,
                                      SV_size)
 
 
@@ -334,8 +335,6 @@ def analysis_split_read(split_reads,read_name,read_len,query,candidate,SV_size):
                         dup_read_pos = read_len - dup_read_pos
 
                     sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos])
-
-
                 if ele_1[3] - ele_2[2] < SV_size:
                     if ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1] >= SV_size:
                         if ele_2[2] - ele_1[3] <= 100 and ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1] <= 10000:
@@ -359,13 +358,49 @@ def analysis_split_read(split_reads,read_name,read_len,query,candidate,SV_size):
                                 del_read_pos=read_len-del_read_pos
 
                             sv_list.append([chro,"DEL",ele_1[3],ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3],read_name,del_read_pos,del_read_pos])
+        else:
+            trigger_INS_TRA = 1
 
+    if len(sp_list) >= 3 and trigger_INS_TRA==1:
+        if sp_list[0][4] == sp_list[-1][4]:
+            if sp_list[0][5] != sp_list[-1][5]:
+                pass
+            else:
+                if sp_list[0][5] == '+':
+                    ele_1 = sp_list[0]
+                    ele_2 = sp_list[-1]
+                else:
+                    ele_1 = [read_len - sp_list[-1][1], read_len - sp_list[-1][0]] + sp_list[-1][2:]
+                    ele_2 = [read_len - sp_list[0][1], read_len - sp_list[0][0]] + sp_list[0][2:]
+                    query = query[::-1]
+
+                # if read_name=='m64039_190922_223056/97387167/ccs':
+                #     print(ele_1)
+                #     print(ele_2)
+                chro=ele_1[4]
+                dis_ref = ele_2[2] - ele_1[3]
+                dis_read = ele_2[0] - ele_1[1]
+                if dis_ref < 100 and dis_read - dis_ref >= SV_size and dis_read - dis_ref <= 10000:
+                    # print(min(ele_2[2], ele_1[3]), dis_read - dis_ref, read_name)
+                    ins_read_pos1 = ele_1[1]
+                    ins_read_pos2 = ele_2[0]
+                    if ele_1[5] == '-':
+                        ins_read_pos1 = read_len - ele_2[0]
+                        ins_read_pos2 = read_len - ele_1[1]
+                    sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),dis_read - dis_ref,read_name,
+                                    str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2])
+
+                if dis_ref <= -SV_size:
+                    dup_read_pos = ele_2[0] #dup前面还有别的变异，这种情况对右断点进行校验
+                    if ele_1[5] == '-':
+                        dup_read_pos = read_len - dup_read_pos
+                    sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos])
     return sv_list
 
 def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
     #输入： pos, len, read_id,read_start,read_end
-    #输出： pos,len,read_name_list,read_start_list,read_end_list
+    #输出： pos,len,read_name_list,read_start_list,read_end_list,ref_start_list,len_list
 
     # 根据read_id去重，只保留len最大的记录
     dedup_reads = dict()
@@ -417,7 +452,7 @@ def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
             if min_sv_len<=sv_len<=max_sv_len:
             #平均位置，平均长度，支持该变异的reads_name
-                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4],cluster[5]])
+                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4],cluster[5],cluster[0],cluster[1]])
 
 def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
 
@@ -458,7 +493,7 @@ def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
 def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
     #输入：pos, len, read_id,ins_seq,read_start,read_end
-    #输出：pos,len,read_name_list,ins_seq,read_start_list,read_end_list
+    #输出：pos,len,read_name_list,ins_seq,read_start_list,read_end_list,ref_start_list,len_list
     # 根据read_id去重，只保留len最大的记录
     dedup_reads = dict()
     for sv in tmp_cluster:
@@ -509,7 +544,7 @@ def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
             #平均位置，平均长度，支持该变异的reads_name,插入的序列
             if min_sv_len<=sv_len<=max_sv_len:
-                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4][0],cluster[5],cluster[6]])
+                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4][0],cluster[5],cluster[6],cluster[0],cluster[1]])
             # print(candidate_sv[-1])
 
 def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
@@ -551,7 +586,7 @@ def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
 def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
     # 输入： start, end, read_name,read_start,read_end
-    # 输出： start,len,read_name_list,read_start_list,read_end_list
+    # 输出： start,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list
 
 
 
@@ -567,6 +602,8 @@ def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
     tmp_cluster.sort(key=lambda bk: (bk[0], bk[1]))
 
     #去重
+    ref_start_list=list(i[0] for i in tmp_cluster)
+    ref_end_list = list(i[1] for i in tmp_cluster)
     support_read = list(i[2] for i in tmp_cluster)
     read_start_list=list(i[3] for i in tmp_cluster)
     read_end_list = list(i[4] for i in tmp_cluster)
@@ -585,7 +622,7 @@ def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         breakpoint_2 = int(sum(breakpoint_2) / len(tmp_cluster[low_b:up_b]))
 
     if min_sv_len<=breakpoint_2-breakpoint_1<=max_sv_len:
-        candidate_sv.append([breakpoint_1,breakpoint_2-breakpoint_1,support_read,read_start_list,read_end_list])
+        candidate_sv.append([breakpoint_1,breakpoint_2-breakpoint_1,support_read,read_start_list,read_end_list,ref_start_list,ref_end_list])
 
 def cluster_DUP(sv_list,min_support,min_sv_len,max_sv_len):
     # dup: chro, dup, start, end, read_name,read_start,read_end
@@ -620,7 +657,7 @@ def cluster_DUP(sv_list,min_support,min_sv_len,max_sv_len):
 
 def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
-    #返回值：bk,len,read_name_list,read_start_list,read_end_list
+    #返回值：bk,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list
 
 
     #输入：pos1,pos2,read_name,read_start,read_end
@@ -641,6 +678,8 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
     # max_sum = 0
     temp_id = dict()
     temp_id[inv_cluster_b2[0][2]] = [inv_cluster_b2[0][3],inv_cluster_b2[0][4]]
+    ref_pos_recorder=dict()
+    ref_pos_recorder[inv_cluster_b2[0][2]] = [inv_cluster_b2[0][0], inv_cluster_b2[0][1]]
 
     for i in inv_cluster_b2[1:]:
         if i[1] - last_bp > max_cluster_bias:
@@ -653,16 +692,20 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
                 read_start_list=list(temp_id[key][0] for key in temp_id.keys())
                 read_end_list=list(temp_id[key][1] for key in temp_id.keys())
 
+                ref_start_list=list(ref_pos_recorder[key][0] for key in ref_pos_recorder.keys())
+                ref_end_list = list(ref_pos_recorder[key][1] for key in ref_pos_recorder.keys())
                 if inv_len >= min_sv_len and inv_len<=max_sv_len and max_count_id>=min_read_count:
-                    candidate_sv.append([breakpoint_1,inv_len,list(temp_id.keys()),read_start_list,read_end_list])
+                    candidate_sv.append([breakpoint_1,inv_len,list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list])
             temp_id = dict()
             temp_count = 1
             temp_sum_b1 = i[0]
             temp_sum_b2 = i[1]
             temp_id[i[2]] = [i[3],i[4]]
+            ref_pos_recorder[i[2]]=[i[0],i[1]]
         else:
             temp_count += 1
             temp_id[i[2]] = [i[3], i[4]]
+            ref_pos_recorder[i[2]] = [i[0], i[1]]
             # if i[2] not in temp_id:
             #     temp_id[i[2]] = 0
             # else:
@@ -677,8 +720,10 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         read_start_list = list(temp_id[key][0] for key in temp_id.keys())
         read_end_list = list(temp_id[key][1] for key in temp_id.keys())
         max_count_id = len(temp_id)
+        ref_start_list = list(ref_pos_recorder[key][0] for key in ref_pos_recorder.keys())
+        ref_end_list = list(ref_pos_recorder[key][1] for key in ref_pos_recorder.keys())
         if inv_len >= min_sv_len and inv_len<=max_sv_len and max_count_id>=min_read_count:
-            candidate_sv.append([breakpoint_1, inv_len, list(temp_id.keys()),read_start_list,read_end_list])
+            candidate_sv.append([breakpoint_1, inv_len, list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list])
 
 def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 
@@ -735,18 +780,17 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         else:
             if aln.is_supplementary:   #对于supplementary，只分析alignment
                 aln_breakpoints=analysis_alignment(aln,min_sv_len)
-
                 breakpoints.extend(aln_breakpoints)
             else:   #对于primary，分析alignment和split
 
                 aln_breakpoints=analysis_alignment(aln,min_sv_len)
                 breakpoints.extend(aln_breakpoints)
-
                 if aln.has_tag("SA"):
                     supps=retrieve_supp(aln)
-                    split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,aln.query_sequence,breakpoints,min_sv_len)
+                    split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,aln.query_sequence,min_sv_len)
                     if split_breakpoints:
                         breakpoints.extend(split_breakpoints)
+
 
     bam.close()
     # del: chro,del,start,len,read_name,read_start,read_end

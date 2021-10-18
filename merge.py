@@ -36,9 +36,9 @@ def merge_depth(depth1,depth2):
         d2=int(depth2[i])
         # merged=d1+d2
         # merged_depth=merged_depth+str(merged)
-        if d1=='0' and d2=='0':
+        if d1==0 and d2==0:
             merged_depth=merged_depth+'0'
-        elif d1=='1' and d2=='1':
+        elif d1==1 and d2==1:
             merged_depth=merged_depth+'2'
         else:
             merged_depth=merged_depth+'1'
@@ -64,8 +64,11 @@ def merge_same_read(read_seq_list,read_direction_list,read_depth_list,read_name_
 
                 merged_direction = merge_seq_direction(read_direction_list[name2column[k][0]], read_direction_list[name2column[k][i]],'0')
                 read_direction_list[name2column[k][0]]=merged_direction
-
+                # print(read_depth_list[name2column[k][0]])
+                # print(read_depth_list[name2column[k][i]])
                 merged_depth = merge_depth(read_depth_list[name2column[k][0]], read_depth_list[name2column[k][i]])
+                # print(merged_depth)
+                # print(' ')
                 read_depth_list[name2column[k][0]]=merged_depth
 
                 # merged_basequal=merge_basequal_mapq(read_basequal_list[name2column[k][0]],read_basequal_list[name2column[k][i]])

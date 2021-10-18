@@ -48,7 +48,7 @@ def predict(model_path,features_path,out_path):
     for step, (x,sup_x,file_name) in enumerate(test_loader):
         file_name=file_name[0]
         output = cnn.forward(x,sup_x)
-        print(output)
+        # print(output)
         if torch.argmax(output)==1:
             splits=re.split('_',file_name)
             chro=splits[0]

@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument("--wkdir", help="work dir", type=str,required=True)
     parser.add_argument("--output", help="output sv bed", type=str,required=True)
     parser.add_argument("--min_support_read", help="min support read(default=1)", default=1,type=int,required=False)
-    parser.add_argument("--min_sv_len", help="min sv len(default=50)", default=30, type=int, required=False)
+    parser.add_argument("--min_sv_len", help="min sv len(default=30)", default=30, type=int, required=False)
     parser.add_argument("--max_sv_len", help="min sv len(default=10000)", default=10000, type=int, required=False)
     parser.add_argument("--min_map_qual", help="min map qual(default=20)", default=20, type=int, required=False)
     parser.add_argument("-t", help="thead number", type=int, required=True)
@@ -29,10 +29,10 @@ if __name__ == '__main__':
     print("Find Candidate SVs")
     cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual)
 
-    # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]]
-    # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list]]
-    # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
-    # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
+    # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list]]
+    # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list]]
+    # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list]]
+    # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list]]
 
     with open(args.wkdir+'/tumor.candidate.bed','w') as fout:
         for key in cdel:

@@ -19,6 +19,7 @@ def record_I(aln,I_pos):
                 I_pos[ref_pos]=c[1] if c[1]>I_pos[ref_pos] else I_pos[ref_pos]
             else:
                 I_pos[ref_pos]=c[1]
+                print(ref_pos,c[1])
         elif c[0]==2:
             ref_pos=ref_pos+c[1]
 
@@ -30,12 +31,17 @@ def has_long_ID(aln,start,end):
             q_pos=q_pos+c[1]
             r_pos=r_pos+c[1]
         elif c[0]==1:
-            if c[1]>=30 and r_pos>=start and r_pos<=end:
-                return True
+            if c[1]>=30:
+                if r_pos>=start and r_pos<=end:
+                    return True
+
             q_pos=q_pos+c[1]
         elif c[0]==2:
-            if c[1]>=30 and r_pos>=start and r_pos<=end:
-                return True
+            if c[1]>=30:
+                if r_pos>=start and r_pos<=end:
+                    return True
+                elif r_pos<=end and r_pos+c[1]>=start:
+                    return True
             r_pos=r_pos+c[1]
 
     return False
@@ -51,7 +57,7 @@ def is_normal(aln):
     return True
 
 
-def get_support_reads(sv_type,chro,bk,bam_file,type):
+def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos):
     read_names = list()
     support_reads=list()
     start=bk[0]
@@ -62,38 +68,69 @@ def get_support_reads(sv_type,chro,bk,bam_file,type):
 
     if type=="tumor":
         read_names=bk[2]
+        for i in range(len(bk[2])):
+            name = bk[2][i]
+            ref_pos = bk[6][i]
+            name2ref_pos[name] = ref_pos
 
     else:
         cdel,cins,cinv,cdup=get_breakpoints(bam_file,1,chro=chro,start=start-50,end=end+50)
         if sv_type=="DEL":
             if chro in cdel.keys():
                 for b in cdel[chro]:
-                    bk1=b[0]
-                    bk2=b[0]+b[1]
-                    if abs(start-bk1)<=20 and abs(end-bk2)<=20:
-                        read_names.extend(b[2])
+                    # print(b)
+                    # bk1=b[0]
+                    # bk2=b[0]+b[1]
+                    # if abs(start-bk1)<=20 and abs(end-bk2)<=20:
+                    #     read_names.extend(b[2])
+                    for i in range(len(b[2])):
+                        read_sv_pos=b[5][i]
+                        read_sv_len=b[6][i]
+                        # print(read_sv_pos,read_sv_len)
+                        if abs(start-read_sv_pos)<=20 and abs(end-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                            name=b[2][i]
+                            read_names.append(name)
         elif sv_type=="INS":
             if chro in cins.keys():
                 for b in cins[chro]:
-                    bk1=b[0]
-                    bk2=b[0]+1
-                    sv_len=b[1]
-                    if abs(start-bk1)<=20 and abs(end-bk2)<=20 and sv_len/bk[1]>=0.9:
-                        read_names.extend(b[2])
+                    #考虑candidate sv里每个read的比对情况，有可能support read被聚类到了unsupport sv里
+                    for i in range(len(b[2])):
+                        read_sv_pos=b[6][i]
+                        read_sv_len=b[7][i]
+                        if abs(start-read_sv_pos)<=20 and abs(end-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                            name=b[2][i]
+                            read_names.append(name)
+                            ref_pos=b[6][i]
+                            name2ref_pos[name]=ref_pos
+
         elif sv_type=="INV":
             if chro in cinv.keys():
                 for b in cinv[chro]:
-                    bk1=b[0]
-                    bk2=b[0]+b[1]
-                    if abs(start-bk1)<=20 and abs(end-bk2)<=20:
-                        read_names.extend(b[2])
+                    for i in range(len(b[2])):
+                        read_sv_start=b[5][i]
+                        read_sv_end=b[6][i]
+                        read_sv_len=read_sv_end-read_sv_start
+                        if abs(start-read_sv_start)<=20 and abs(end-read_sv_end)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                            name=b[2][i]
+                            read_names.append(name)
+                    # bk1=b[0]
+                    # bk2=b[0]+b[1]
+                    # if abs(start-bk1)<=20 and abs(end-bk2)<=20:
+                    #     read_names.extend(b[2])
         elif sv_type=="DUP":
             if chro in cdup.keys():
                 for b in cdup[chro]:
-                    bk1=b[0]
-                    bk2=b[0]+b[1]
-                    if abs(start-bk1)<=20 and abs(end-bk2)<=20:
-                        read_names.extend(b[2])
+                    for i in range(len(b[2])):
+                        read_sv_start=b[5][i]
+                        read_sv_end=b[6][i]
+                        read_sv_len=read_sv_end-read_sv_start
+                        if abs(start-read_sv_start)<=20 and abs(end-read_sv_end)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                            name=b[2][i]
+                            read_names.append(name)
+                    # bk1=b[0]
+                    # bk2=b[0]+b[1]
+                    # if abs(start-bk1)<=20 and abs(end-bk2)<=20:
+                    #     read_names.extend(b[2])
     bam = pysam.AlignmentFile(bam_file, 'r')
     sv_region_reads = bam.fetch(contig=chro, start=start - 500, end=end +500)
     for aln in sv_region_reads:
@@ -109,8 +146,10 @@ def get_support_reads(sv_type,chro,bk,bam_file,type):
     return support_reads
 
 def get_ref_reads(sv_type,chro,bk,bam_file,sv_reads):
+    # print("go")
     start=bk[0]
     end=bk[0]+bk[1]
+    # print(start - 300, end + 300)
     if sv_type=="INS":
         end=start+1
 
@@ -120,9 +159,9 @@ def get_ref_reads(sv_type,chro,bk,bam_file,sv_reads):
     for aln in sv_region_reads:
         # 对于很大的变异，不一定存在正常的reads跨过两个断点，此时就认为normal数量为0,此时依赖字符串特征判别是否是true somatic sv
         if aln not in sv_reads and aln.reference_start < start - 50 and aln.reference_end > end + 50:
-
             #并且必须要求该reads在此区域没有变异信号
-            if not has_long_ID(aln,start-50,end+50):
+            if not has_long_ID(aln,start-300,end+300):
+                # print(aln.query_name)
                 ref_reads.append(aln)
 
     bam.close()
@@ -141,19 +180,22 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     if sv_type=="INS":
         bk2=bk1+1
 
+    name2ref_pos=dict()
     #找出支持reference以及支持sv的alignments'
-    somatic_support_reads=get_support_reads(sv_type,chro,bk,somatic_bam_file,"tumor")
+    somatic_support_reads=get_support_reads(sv_type,chro,bk,somatic_bam_file,"tumor",name2ref_pos)
     somatic_ref_reads=get_ref_reads(sv_type,chro,bk,somatic_bam_file,somatic_support_reads)
-    germline_support_reads=get_support_reads(sv_type,chro,bk,germline_bam_file,"normal")
+    germline_support_reads=get_support_reads(sv_type,chro,bk,germline_bam_file,"normal",name2ref_pos)
     germline_ref_reads=get_ref_reads(sv_type,chro,bk,germline_bam_file,germline_support_reads)
 
 
+    # for aln in germline_support_reads:
+    #     print(aln.query_name)
     #计算一下字符串特征
     type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus = get_somatic_kmer(sv_type,
                                                                                                       somatic_support_reads,
                                                                                                       germline_bam_file,
                                                                                                       ref_dict, chro, bk)
-
+    # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
     somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
     germline_rc=len(germline_support_reads)+len(germline_support_reads)
     r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
@@ -169,12 +211,31 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     #调整insertion位置，否则会导致reference 被多次添加gap
     if sv_type=='INS':
         if len(somatic_support_reads)!=0 or len(germline_support_reads)!=0:
-            somatic_support_reads,germline_support_reads , left_insertion_pos = left_aligned_insertion(somatic_support_reads,germline_support_reads,bk)
+            somatic_support_reads,germline_support_reads , left_insertion_pos = left_aligned_insertion(somatic_support_reads,germline_support_reads,bk,name2ref_pos)
             bk1=left_insertion_pos
             bk2=left_insertion_pos+1
 
     #记录在哪些地方后面有I，以及I的个数,包括 somatic 以及 germline
 
+    # for aln in somatic_support_reads:
+    #     query_pos = 0
+    #     ref_pos = aln.reference_start
+    #     for t in aln.cigartuples:
+    #         flag=t[0]
+    #         counts=t[1]
+    #         if flag==0:
+    #             ref_pos=ref_pos+counts
+    #             query_pos=query_pos+counts
+    #         elif flag==4:
+    #             query_pos=query_pos+counts
+    #         elif flag==1:
+    #             if counts>=35:
+    #                 print(aln.query_name,ref_pos)
+    #             query_pos=query_pos+counts
+    #         elif flag==2:
+    #             if counts>=35:
+    #                 print(aln.query_name,ref_pos)
+    #             ref_pos=ref_pos+counts
 
     I_pos={}
     region_start=999999999
@@ -208,9 +269,11 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     #开始注入gap
     I_pos=sorted(I_pos.items(), key=lambda item: item[0])
+
     revised_region_reference_seq=""
     forward_pos=0
     for i in range(len(I_pos)):
+        # print(I_pos[i][0],I_pos[i][1])
         revised_region_reference_seq=revised_region_reference_seq+region_reference_seq[forward_pos:I_pos[i][0]-region_start]+I_pos[i][1]*'-'
         forward_pos=I_pos[i][0]-region_start
     revised_region_reference_seq=revised_region_reference_seq+region_reference_seq[forward_pos:]
@@ -233,6 +296,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     bk1_in_revised=revised2ref[bk1]
     bk2_in_revised=revised2ref[bk2]
+    print(bk1,bk2)
     # 考虑到bk1和bk2不一定是准确的跨过变异区间，需要向左右拓展20bp
     if bk1-20 in revised2ref.keys() and bk2+20 in revised2ref.keys():
         bk1_in_revised=revised2ref[bk1-20]
@@ -295,8 +359,8 @@ def get_revised_reads(sv_reads,ref_reads,revised_reference,revised_dict,bk1_in_r
             ref_direction=ref_direction+'0'
 
     for i in range(3):
-        read_direction_list.append(ref_direction)
-        read_depth_list.append(ref_depth)
+        read_direction_list.append(ref_direction[left_extend_bk1:right_extend_bk2])
+        read_depth_list.append(ref_depth[left_extend_bk1:right_extend_bk2])
         # read_basequal_list.append(ref_basequal)
     for aln in bk_sv_region_reads:
         read_name_list.append(aln.query_name)
@@ -349,14 +413,14 @@ def get_revised_reads(sv_reads,ref_reads,revised_reference,revised_dict,bk1_in_r
         #表示比对方向的通道 p表示比对到正链，m表示比对到负链
         read_align_seq=read_align_seq[left_extend_bk1:right_extend_bk2]
 
-        read_direction_seq=len(revised_reference)*'0'
+        read_direction_seq=len(read_align_seq)*'0'
         read_direction_seq=list(read_direction_seq)
         for i in range(len(read_align_seq)):
             if read_align_seq[i]!='-':
                 read_direction_seq[i]=direction
 
         # 表示depth的通道 1或者0 merge后会变成2
-        read_depth_seq=len(revised_reference)*'0'
+        read_depth_seq=len(read_align_seq)*'0'
         read_depth_seq=list(read_depth_seq)
         for i in range(len(read_align_seq)):
             if read_align_seq[i]!='-':
@@ -447,6 +511,21 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     somatic_support_reads,germline_support_reads,\
     somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
 
+    print("somatic sv reads")
+    for aln in somatic_support_reads:
+        print(aln.query_name)
+    print("somatic ref reads")
+    for aln in somatic_ref_reads:
+        print(aln.query_name)
+    print("germline sv reads")
+    for aln in germline_support_reads:
+        print(aln.query_name)
+    print("germline ref reads")
+    for aln in germline_ref_reads:
+        print(aln.query_name,aln.reference_start)
+
+
+
     if len(somatic_support_reads)==0:
         print("Error!",bk)
         return
@@ -458,6 +537,10 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                                                                                somatic_ref_reads,
                                                                                revised_region_reference_seq,
                                                                                revised2ref,bk1_in_revised,bk2_in_revised)
+    # for i in range(len(somatic_seq_list)):
+        # if i >=3:
+        #     print(somatic_name_list[i-3])
+        # print(somatic_seq_list[i])
 
     somatic_seq_list,somatic_direction_list,\
     somatic_depth_list=merge_same_read(somatic_seq_list,somatic_direction_list,
@@ -473,11 +556,15 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                                                                                  revised_region_reference_seq,
                                                                                  revised2ref,bk1_in_revised,bk2_in_revised)
 
+    # for i in range(len(germline_seq_list)):
+    #     print(germline_seq_list[i])
+
     germline_seq_list,germline_direction_list,\
     germline_depth_list= merge_same_read(germline_seq_list,germline_direction_list,
                                                             germline_depth_list,
                                                             germline_name_list)
-
+    # for i in range(len(germline_depth_list)):
+    #     print(germline_seq_list[i])
 
     # left_extend=bk1_in_revised-300 if bk1_in_revised-300>=0 else 0
     # right_extend=bk2_in_revised+300
@@ -556,22 +643,31 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
+            # if bk[0]==35901958:
+            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            # continue
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
+            # continue
+            # if bk[0] == 38464072:
+            #     print(bk)
+            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir,))
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cinv:
         chro=key
         for bk in cinv[chro]:
+            # continue
             # pool.submit(generate_features, "INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir,))
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cdup:
         chro=key
         for bk in cdup[chro]:
+            # continue
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir,))
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # # pool.shutdown()
     pool.close()
     pool.join()

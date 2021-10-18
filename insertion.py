@@ -64,7 +64,7 @@ def is_cigar_support(aln,bk):
         elif flag==4:
             query_pos=query_pos+counts
         elif flag==1:
-            if counts>=50:
+            if counts>=30:
                 if abs(ref_pos-bk[0])<=50 and abs(counts-bk[1])<=50:
                     # print(ref_pos)
                     return True
@@ -75,7 +75,7 @@ def is_cigar_support(aln,bk):
 def merge_insertion(to_merge,bk):
 
     #part1: 找出支持该insertion的split alignments，成对出现哦
-
+    print("merge_insertion")
     reads=dict()
     for aln in to_merge:
         if aln.query_name in reads.keys():
@@ -98,9 +98,10 @@ def merge_insertion(to_merge,bk):
                 r=candidate_split_support[i+1]
                 if l.is_reverse==r.is_reverse:
                     insert_len=(r.query_alignment_start-l.query_alignment_end)-(r.reference_start-l.reference_end)
-                    if insert_len>=50:
+                    if insert_len>=30:
                         insert_pos=(r.reference_start+l.reference_end)/2
-                        if abs(insert_pos-bk[0])<=50 and abs(insert_len-bk[1])<=50:
+                        trans_insert_pos=max(r.reference_start,l.reference_end)
+                        if (abs(insert_pos-bk[0])<=50 or abs(trans_insert_pos-bk[0])<=50) and abs(insert_len-bk[1])<=50:
                             split_support[k]=[l,r]
                             split_support_set.add(l)
                             split_support_set.add(r)
@@ -118,7 +119,6 @@ def merge_insertion(to_merge,bk):
         left_query_end=left_alignment.query_alignment_end
         right_ref_start=right_alignment.reference_start
         right_query_start=right_alignment.query_alignment_start
-
         # 把left_alignment的cigarstring右边的S去掉
         revised_cigar=""
         for i in range(len(left_alignment.cigartuples)-1):
@@ -161,7 +161,6 @@ def merge_insertion(to_merge,bk):
 
 
         left_alignment.cigarstring=revised_cigar
-
 
         merged.append(left_alignment)
     return merged
@@ -229,18 +228,23 @@ def adjust_cigar(aln,insertion_start,j,insertion_len):
 
 
 
-def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk):
+def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk,name2ref_pos):
 
+    # print(bk[1])
     insertion_start=bk[0]
+    # print(insertion_start)
     left_insertion_pos = insertion_start
     sv_support_reads=list()
     sv_support_reads.extend(somatic_support_reads)
     sv_support_reads.extend(germline_support_reads)
 
+    # for rn in somatic_support_reads:
+    #     print(rn.query_name)
 
     # all_cigar_list=[]
 
     for aln in sv_support_reads:
+        # print(aln.query_name,name2ref_pos[aln.query_name])
         ref_pos=aln.reference_start
 
         # cigar_list=[]
@@ -250,14 +254,12 @@ def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk):
             if c[0]==0:
                 ref_pos=ref_pos+c[1]
             elif c[0]==1:
-                if c[1]>=50 and abs(ref_pos-insertion_start)<=50 and abs(c[1]-bk[1])<=50:
-                    # print(aln.query_name,ref_pos)
+                if c[1]>=30 and ref_pos==name2ref_pos[aln.query_name]: #该alignment上的insertion支持bk
                     left_insertion_pos=left_insertion_pos if left_insertion_pos<ref_pos else ref_pos
             elif c[0]==2:
                 ref_pos=ref_pos+c[1]
         # all_cigar_list.append(cigar_list)
-
-
+    # print(left_insertion_pos)
     revised_somatic_support_reads=list()
     revised_germline_support_reads=list()
 
@@ -274,7 +276,8 @@ def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk):
 
         for j in range(len(aln.cigartuples)):
             if aln.cigartuples[j][0]==1:
-                if aln.cigartuples[j][1]>=50 and abs(ref_pos-insertion_start)<=50 and abs(aln.cigartuples[j][1]-bk[1])<=50:
+                # if aln.cigartuples[j][1]>=50 and abs(ref_pos-insertion_start)<=50 and abs(aln.cigartuples[j][1]-bk[1])<=50:
+                if aln.cigartuples[j][1]>=30 and ref_pos == name2ref_pos[aln.query_name]:
                     if ref_pos-left_insertion_pos>0:
                         left_cigar=adjust_cigar(aln, left_insertion_pos, j,aln.cigartuples[j][1])
                         right_cigar=tuple2cigar(aln.cigartuples,j)

@@ -43,7 +43,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 normal_kmer_set.add(mkmer)
     normal_bam.close()
 
-    ref_region=ref_dict[chro][ref_bk1:ref_bk2]
+    ref_region=ref_dict[chro][ref_bk1-100:ref_bk2+100]
     for i in range(0, len(ref_region) - k + 1):
         kmer = ref_region[i:i + k]
         rkmer=get_reverse_comp(kmer)
@@ -67,11 +67,10 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
             if not aln.is_reverse:
                 name2seq[aln.query_name]=aln.query_sequence
             else:
+                # print(aln.query_sequence)
                 name2seq[aln.query_name]=get_reverse_comp(aln.query_sequence)
 
-
     for i in range(len(bk[2])):
-
         pos.append(list())
         read_name = bk[2][i]
         read_sv_bk1=bk[3][i]
@@ -82,7 +81,6 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
             read_sv_bk1 = bk[4][i]
             read_sv_bk2 = bk[5][i]
         somatic_count = 0
-        # print(read_name,read_sv_bk1,read_sv_bk2)
         #对于deletion和duplication来说，最多会产生32个somatic k-mer
         if sv_type=='DEL' or sv_type=='DUP':
             # print(read_sv_bk1-k+1,read_sv_bk1+1)
@@ -107,7 +105,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 kmer = query_sequence[j:j + k]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
-                # print(kmer,rkmer)
+                # print(rkmer)
                 if mkmer not in normal_kmer_set:
                     # print("not in ",j)
                     # print(j,mkmer,mkmer)
@@ -127,7 +125,6 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 mkmer = rkmer if rkmer < kmer else kmer
                 # print(kmer,rkmer)
                 if mkmer not in normal_kmer_set:
-                    # print("not in ",j)
                     pos[-1].append(j)
                     if mkmer in somatic_kmer_set.keys():
                         somatic_kmer_set[mkmer]=somatic_kmer_set[mkmer]+1
