@@ -1,9 +1,9 @@
 if __name__ == '__main__':
-    f1=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/0.2.cutesv.tb','r')
-    f2=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.2.CNNSSV.tb','r')
+    f1=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/0.7.cutesv.tb','r')
+    f2=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV.tb','r')
 
 
-    f3=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.2.CNNSSV&cutesv.fnb','w')
+    f3=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV&cutesv.fnb','w')
 
     candidate_lines=set()
     somatic_lines=set()

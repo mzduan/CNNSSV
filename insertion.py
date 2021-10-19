@@ -75,7 +75,7 @@ def is_cigar_support(aln,bk):
 def merge_insertion(to_merge,bk):
 
     #part1: 找出支持该insertion的split alignments，成对出现哦
-    print("merge_insertion")
+    # print("merge_insertion")
     reads=dict()
     for aln in to_merge:
         if aln.query_name in reads.keys():
@@ -119,6 +119,8 @@ def merge_insertion(to_merge,bk):
         left_query_end=left_alignment.query_alignment_end
         right_ref_start=right_alignment.reference_start
         right_query_start=right_alignment.query_alignment_start
+        # print(left_alignment.query_name,left_alignment.reference_start,left_alignment.reference_end,
+        #       right_alignment.reference_start,right_alignment.reference_end)
         # 把left_alignment的cigarstring右边的S去掉
         revised_cigar=""
         for i in range(len(left_alignment.cigartuples)-1):
@@ -163,6 +165,27 @@ def merge_insertion(to_merge,bk):
         left_alignment.cigarstring=revised_cigar
 
         merged.append(left_alignment)
+
+        #校验一下merge的结果是否正确
+        # query_pos = 0
+        # ref_pos = left_alignment.reference_start
+        # for t in left_alignment.cigartuples:
+        #     flag = t[0]
+        #     counts = t[1]
+        #     if flag == 0:
+        #         ref_pos = ref_pos + counts
+        #         query_pos = query_pos + counts
+        #     elif flag == 4:
+        #         query_pos = query_pos + counts
+        #     elif flag == 1:
+        #         if counts >= 30:
+        #             print(left_alignment.query_name,ref_pos)
+        #         query_pos = query_pos + counts
+        #     elif flag == 2:
+        #         ref_pos = ref_pos + counts
+
+
+
     return merged
 
 def tuple2cigar(cigartuple,j):
@@ -254,7 +277,8 @@ def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk,name2
             if c[0]==0:
                 ref_pos=ref_pos+c[1]
             elif c[0]==1:
-                if c[1]>=30 and ref_pos==name2ref_pos[aln.query_name]: #该alignment上的insertion支持bk
+                if c[1]>=30 and abs(ref_pos-name2ref_pos[aln.query_name])<=1: #该alignment上的insertion支持bk
+
                     left_insertion_pos=left_insertion_pos if left_insertion_pos<ref_pos else ref_pos
             elif c[0]==2:
                 ref_pos=ref_pos+c[1]
@@ -277,7 +301,7 @@ def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk,name2
         for j in range(len(aln.cigartuples)):
             if aln.cigartuples[j][0]==1:
                 # if aln.cigartuples[j][1]>=50 and abs(ref_pos-insertion_start)<=50 and abs(aln.cigartuples[j][1]-bk[1])<=50:
-                if aln.cigartuples[j][1]>=30 and ref_pos == name2ref_pos[aln.query_name]:
+                if aln.cigartuples[j][1]>=30 and abs(ref_pos-name2ref_pos[aln.query_name])<=1:
                     if ref_pos-left_insertion_pos>0:
                         left_cigar=adjust_cigar(aln, left_insertion_pos, j,aln.cigartuples[j][1])
                         right_cigar=tuple2cigar(aln.cigartuples,j)

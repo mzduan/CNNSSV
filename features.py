@@ -19,7 +19,7 @@ def record_I(aln,I_pos):
                 I_pos[ref_pos]=c[1] if c[1]>I_pos[ref_pos] else I_pos[ref_pos]
             else:
                 I_pos[ref_pos]=c[1]
-                print(ref_pos,c[1])
+                # print(ref_pos,c[1])
         elif c[0]==2:
             ref_pos=ref_pos+c[1]
 
@@ -71,6 +71,7 @@ def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos):
         for i in range(len(bk[2])):
             name = bk[2][i]
             ref_pos = bk[6][i]
+            # print(name,ref_pos)
             name2ref_pos[name] = ref_pos
 
     else:
@@ -158,7 +159,9 @@ def get_ref_reads(sv_type,chro,bk,bam_file,sv_reads):
     sv_region_reads = bam.fetch(contig=chro, start=start - 50, end=end +50)
     for aln in sv_region_reads:
         # 对于很大的变异，不一定存在正常的reads跨过两个断点，此时就认为normal数量为0,此时依赖字符串特征判别是否是true somatic sv
+        # print(aln.query_name,aln.reference_start,start,aln.reference_end,end)
         if aln not in sv_reads and aln.reference_start < start - 50 and aln.reference_end > end + 50:
+
             #并且必须要求该reads在此区域没有变异信号
             if not has_long_ID(aln,start-300,end+300):
                 # print(aln.query_name)
@@ -296,7 +299,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     bk1_in_revised=revised2ref[bk1]
     bk2_in_revised=revised2ref[bk2]
-    print(bk1,bk2)
+    # print(bk1,bk2)
     # 考虑到bk1和bk2不一定是准确的跨过变异区间，需要向左右拓展20bp
     if bk1-20 in revised2ref.keys() and bk2+20 in revised2ref.keys():
         bk1_in_revised=revised2ref[bk1-20]
@@ -511,19 +514,18 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     somatic_support_reads,germline_support_reads,\
     somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
 
-    print("somatic sv reads")
-    for aln in somatic_support_reads:
-        print(aln.query_name)
-    print("somatic ref reads")
-    for aln in somatic_ref_reads:
-        print(aln.query_name)
-    print("germline sv reads")
-    for aln in germline_support_reads:
-        print(aln.query_name)
-    print("germline ref reads")
-    for aln in germline_ref_reads:
-        print(aln.query_name,aln.reference_start)
-
+    # print("somatic sv reads")
+    # for aln in somatic_support_reads:
+    #     print(aln.query_name)
+    # print("somatic ref reads")
+    # for aln in somatic_ref_reads:
+    #     print(aln.query_name)
+    # print("germline sv reads")
+    # for aln in germline_support_reads:
+    #     print(aln.query_name)
+    # print("germline ref reads")
+    # for aln in germline_ref_reads:
+    #     print(aln.query_name,aln.reference_start)
 
 
     if len(somatic_support_reads)==0:
@@ -538,9 +540,9 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                                                                                revised_region_reference_seq,
                                                                                revised2ref,bk1_in_revised,bk2_in_revised)
     # for i in range(len(somatic_seq_list)):
-        # if i >=3:
-        #     print(somatic_name_list[i-3])
-        # print(somatic_seq_list[i])
+    #     if i >=3:
+    #         print(somatic_name_list[i-3])
+    #     print(somatic_seq_list[i])
 
     somatic_seq_list,somatic_direction_list,\
     somatic_depth_list=merge_same_read(somatic_seq_list,somatic_direction_list,
@@ -557,6 +559,8 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                                                                                  revised2ref,bk1_in_revised,bk2_in_revised)
 
     # for i in range(len(germline_seq_list)):
+    #     if i >=3:
+    #         print(germline_name_list[i-3])
     #     print(germline_seq_list[i])
 
     germline_seq_list,germline_direction_list,\
@@ -564,6 +568,8 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                                                             germline_depth_list,
                                                             germline_name_list)
     # for i in range(len(germline_depth_list)):
+    #     if i >=3:
+    #         print(germline_name_list[i-3])
     #     print(germline_seq_list[i])
 
     # left_extend=bk1_in_revised-300 if bk1_in_revised-300>=0 else 0
@@ -643,7 +649,7 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0]==35901958:
+            # if bk[0]==31170569:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
             # continue
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
@@ -651,7 +657,7 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
         chro=key
         for bk in cins[chro]:
             # continue
-            # if bk[0] == 38464072:
+            # if bk[0] == 58520306:
             #     print(bk)
             #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)

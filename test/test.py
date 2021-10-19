@@ -1,18 +1,46 @@
-import multiprocessing
-import glob
-import os
-import re
-def getKV(str):
-    ret=dict()
-    splits=re.split(';',str)
-    for kv in splits:
-        infos=re.split('=',kv)
-        if len(infos)==2:
-            key=re.split('=',kv)[0]
-            value=re.split('=',kv)[1]
-            ret[key]=value
-    return ret
+import pysam
+import cigar
 if __name__ == '__main__':
-    kv=getKV("DBVARID=nssv14269924;SVTYPE=INS;IMPRECISE;END=142869;CIPOS=0,.;CIEND=.,0;SVLEN=7093;EXPERIMENT=1;SAMPLE=NA19240;REGIONID=nsv3215982");
-    for k in kv.keys():
-        print(k,kv[k])
+    bam=pysam.AlignmentFile('/home/duan/Desktop/somaticSV/bam/NA19239_NA19240_mixed/0.7/mixed.chr20.bam','rb')
+    for aln in bam:
+        if aln.query_name=='m54336U_190829_230546/120719613/ccs':
+            query_pos = 0
+            ref_pos = aln.reference_start
+            # bias=0
+            # for t in aln.cigartuples:
+            #     flag = t[0]
+            #     counts = t[1]
+            #     if flag == 0:
+            #         ref_pos = ref_pos + counts
+            #         query_pos = query_pos + counts
+            #     elif flag == 4:
+            #         query_pos = query_pos + counts
+            #     elif flag == 1:
+            #         query_pos = query_pos + counts
+            #     elif flag == 2:
+            #         ref_pos = ref_pos + counts
+            #     elif flag == 7:
+            #         print("go")
+            #     elif flag == 8:
+            #         print("go")
+            # print(aln.reference_start,aln.reference_end,ref_pos)
+
+            seq = list(cigar.Cigar(aln.cigarstring).items())
+            bias = 0
+            for i in seq:
+                if i[1]=='M':
+                    ref_pos=ref_pos+i[0]
+                    bias +=i[0]
+                elif i[1]=='S':
+                    query_pos=query_pos+i[0]
+                elif i[1]=='I':
+                    query_pos=query_pos+i[0]
+                elif i[1]=='D':
+                    ref_pos=ref_pos+i[0]
+                    bias += i[0]
+            print(bias)
+            print(aln.reference_start,ref_pos)
+            print("=========================")
+    bam.close()
+
+

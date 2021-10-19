@@ -208,7 +208,8 @@ def retrieve_supp(aln):
 
     sa_tag = aln.get_tag("SA").split(";")
 
-
+    # if aln.query_name=='m54336U_190829_230546/120719613/ccs':
+    #     print(sa_tag)
     for sup_aln in sa_tag:
         fields = sup_aln.split(",")
         if len(fields) !=6:
@@ -221,6 +222,8 @@ def retrieve_supp(aln):
         if local_mapq >= 0:
             # if local_mapq >= 0:
             local_set = acquire_clip_pos(local_cigar)
+            # if aln.query_name=='m54336U_190829_230546/120719613/ccs':
+            #     print(local_start,local_set[2])
             if local_strand == '+':
                 split_reads.append([local_set[0], aln.query_length - local_set[1], local_start,
                                    local_start + local_set[2], local_chr, local_strand])
@@ -265,6 +268,8 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
     sv_list=list()
     sp_list = sorted(split_reads, key=lambda x: x[0])
 
+    # if read_name=='m54336U_190829_230546/120719613/ccs':
+    #     print(split_reads)
     #分析inversion
     if len(sp_list) == 2:
         ele_1 = sp_list[0]
@@ -387,6 +392,9 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                     if ele_1[5] == '-':
                         ins_read_pos1 = read_len - ele_2[0]
                         ins_read_pos2 = read_len - ele_1[1]
+
+                    if read_name=='m54336U_190829_230546/120719613/ccs':
+                        print(ele_2[2],ele_1[3])
                     sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),dis_read - dis_ref,read_name,
                                     str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2])
 
