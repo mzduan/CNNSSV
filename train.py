@@ -21,15 +21,15 @@ if __name__ == '__main__':
     loss_function = nn.CrossEntropyLoss()
 
     ccs_feat_path=sys.argv[1]
-    clr_feat_path=sys.argv[2]
-    model_output=sys.argv[3]
+    # clr_feat_path=sys.argv[2]
+    model_output=sys.argv[2]
 
 
     # feat_path = '/Users/duan/Desktop/results/somaticSV/features'
     # model_output='/Users/duan/Desktop/cnn.model'
 
 
-    train_set=TrainSet.TrainSet(ccs_feat_path,clr_feat_path)
+    train_set=TrainSet.TrainSet(ccs_feat_path)
     train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
     # 开始训练
     for epoch in range(epoches):
