@@ -10,10 +10,8 @@ class SiameseTrainNetworkDataset(data.Dataset):
         self.tumor_features = list()
         self.labels = list()
         for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
-            if p!="bam_0.7":
-                continue
             for c in range(1, 23, 1):
-                if c!=20:
+                if c==20:
                     continue
                 current_feat_path = ccs_feat_path + '/' + p + '/chr' + str(c)
                 germline_path=current_feat_path+'/germline'

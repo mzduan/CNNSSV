@@ -13,20 +13,20 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/duan/Desktop/trainlog')
+    writer = SummaryWriter('/home/mzduan/trainlog')
     siamese= Siamese.Siamese()
     if cuda_gpu:
         siamese=siamese.cuda()
     optimizer = torch.optim.Adam(siamese.parameters(), lr=learning_rate)
     loss_function = nn.CrossEntropyLoss()
 
-    # ccs_feat_path=sys.argv[1]
+    ccs_feat_path=sys.argv[1]
     # clr_feat_path=sys.argv[2]
-    # model_output=sys.argv[2]
+    model_output=sys.argv[2]
 
 
-    ccs_feat_path = '/home/duan/Desktop/train'
-    model_output='/home/duan/Desktop/test.model'
+    #ccs_feat_path = '/home/duan/Desktop/train'
+    #model_output='/home/duan/Desktop/test.model'
 
 
     train_set=SiameseTrainNetworkDataset.SiameseTrainNetworkDataset(ccs_feat_path)
