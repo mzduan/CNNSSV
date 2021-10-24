@@ -12,6 +12,7 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0,
             ),
+            nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)    #   16*48*498  ->  16*24*249
         )
@@ -23,6 +24,7 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0
             ),
+            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)  #    32*22*247  ->32*11*123
         )
@@ -35,11 +37,12 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0
             ),
+            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)  #  64*9*122   ->   64*4*60
         )
 
-        #处理绝对值差
+        #处理卷积层的特征
         self.fc1 = nn.Sequential(
             nn.Linear(in_features=64*4*60, out_features=64),
             nn.ReLU()
@@ -47,13 +50,13 @@ class Siamese(nn.Module):
 
         #处理字符串特征
         self.fc2=nn.Sequential(
-            nn.Linear(in_features=12, out_features=64),
+            nn.Linear(in_features=10, out_features=64),
             nn.ReLU()
         )
 
         #处理融合特征
         self.fc3 = nn.Sequential(
-            nn.Linear(in_features=128, out_features=1),
+            nn.Linear(in_features=128, out_features=2),
         )
     def forward_once(self,x):
         x = self.conv1(x)
@@ -66,8 +69,8 @@ class Siamese(nn.Module):
     def forward(self,normal,tumor,sup_feature):
         n_output=self.forward_once(normal)
         t_output=self.forward_once(tumor)
-        dis=torch.abs(n_output,t_output)
+        dis=torch.abs(n_output-t_output)
         sup=self.fc2(sup_feature)
         combined = torch.cat((sup.view(sup.size(0), -1), dis.view(dis.size(0), -1)), dim=1)
-        ret=self.fc3(dis)
+        ret=self.fc3(combined)
         return ret
