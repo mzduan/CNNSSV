@@ -349,7 +349,9 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                             if ele_1[5]=='-':
                                 ins_read_pos1=read_len-ele_2[0]
                                 ins_read_pos2=read_len-ele_1[1]
-                            sv_list.append([chro,"INS",int((ele_2[2] + ele_1[3]) / 2),
+
+                            #int((ele_2[2] + ele_1[3]) / 2)
+                            sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),
                                                                ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1],
                                                                read_name,
                                                                str(query[
@@ -393,8 +395,8 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                         ins_read_pos1 = read_len - ele_2[0]
                         ins_read_pos2 = read_len - ele_1[1]
 
-                    if read_name=='m54336U_190829_230546/120719613/ccs':
-                        print(ele_2[2],ele_1[3])
+                    # if read_name=='m54336U_190829_230546/120719613/ccs':
+                    #     print(ele_2[2],ele_1[3])
                     sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),dis_read - dis_ref,read_name,
                                     str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2])
 

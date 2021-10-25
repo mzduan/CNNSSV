@@ -277,6 +277,8 @@ def left_aligned_insertion(somatic_support_reads,germline_support_reads,bk,name2
             if c[0]==0:
                 ref_pos=ref_pos+c[1]
             elif c[0]==1:
+                # if c[1]>=30:
+                #     print(aln.query_name,ref_pos)
                 if c[1]>=30 and abs(ref_pos-name2ref_pos[aln.query_name])<=1: #该alignment上的insertion支持bk
 
                     left_insertion_pos=left_insertion_pos if left_insertion_pos<ref_pos else ref_pos

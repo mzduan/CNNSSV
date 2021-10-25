@@ -204,7 +204,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
     sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-                             len(germline_support_reads),len(germline_ref_reads)],r1,r2)
+                             len(germline_support_reads),len(germline_ref_reads)])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
     os.mkdir(sv_str)
     np.save(sv_str + '/sup_feat',sup_features)
@@ -259,6 +259,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
         region_start=region_start if region_start < aln.reference_start else aln.reference_start
         region_end=region_end if region_end > aln.reference_end else aln.reference_end
         record_I(aln, I_pos)
+
 
     if chro in ref_dict.keys():
         if region_start<region_end:
@@ -643,7 +644,7 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
     ref_dict = reference.initial_fa(ref)
-    pool = multiprocessing.Pool(processes=int(thread_num))
+    # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
 
     for key in cdel:
@@ -651,29 +652,29 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
         for bk in cdel[chro]:
             # if bk[0]==31170569:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            # continue
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+            continue
+            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
             # continue
-            # if bk[0] == 58520306:
-            #     print(bk)
-            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+            if bk[0] == 63028984:
+                print(bk)
+                generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cinv:
-        chro=key
-        for bk in cinv[chro]:
+            # pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cinv:
+    #     chro=key
+    #     for bk in cinv[chro]:
             # continue
             # pool.submit(generate_features, "INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cdup:
-        chro=key
-        for bk in cdup[chro]:
+            # pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cdup:
+    #     chro=key
+    #     for bk in cdup[chro]:
             # continue
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            # pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # # pool.shutdown()
-    pool.close()
-    pool.join()
+    # pool.close()
+    # pool.join()
