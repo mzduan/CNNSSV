@@ -12,7 +12,6 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0,
             ),
-            nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)    #   16*48*498  ->  16*24*249
         )
@@ -24,7 +23,6 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0
             ),
-            nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)  #    32*22*247  ->32*11*123
         )
@@ -37,7 +35,6 @@ class Siamese(nn.Module):
                 stride=1,
                 padding=0
             ),
-            nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)  #  64*9*122   ->   64*4*60
         )

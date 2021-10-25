@@ -278,7 +278,7 @@ def load_svim(base_path):
 
 def cmp_callsets(base, call, flag, Bias, Offect):
 
-	tb=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV.tb',"w")
+	tb=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.5.CNNSSV.tb',"w")
 
 	for svtype in base:
 		if svtype not in call:

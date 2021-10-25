@@ -38,7 +38,7 @@ class SiameseTrainNetworkDataset(data.Dataset):
                             elif image[0]=='s':
                                 sup_feat=np.load(absolute_path+'/'+image)
                                 self.sup_features.append(sup_feat)
-                    self.labels.append(0)
+                        self.labels.append(0)
                 somatic_path=current_feat_path+'/somatic'
                 for f in os.listdir(somatic_path):
                     if f[0] != '.':
@@ -63,7 +63,7 @@ class SiameseTrainNetworkDataset(data.Dataset):
                             elif image[0]=='s':
                                 sup_feat=np.load(absolute_path+'/'+image)
                                 self.sup_features.append(sup_feat)
-                    self.labels.append(1)
+                        self.labels.append(1)
     def __len__(self):
         return len(self.labels)
 
