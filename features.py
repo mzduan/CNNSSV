@@ -647,25 +647,27 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
 
-    for key in cdel:
-        chro=key
-        for bk in cdel[chro]:
+    # for key in cdel:
+    #     chro=key
+    #     for bk in cdel[chro]:
             # if bk[0]==31170569:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            continue
+            # continue
             # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cins:
-        chro=key
-        for bk in cins[chro]:
-            continue
+    # for key in cins:
+    #     chro=key
+    #     for bk in cins[chro]:
+    #         continue
             # if bk[0] ==38124014:
             #     print(bk)
             #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cinv:
-    #     chro=key
-    #     for bk in cinv[chro]:
+    for key in cinv:
+        chro=key
+        for bk in cinv[chro]:
+            if bk[0]==22104272:
+                generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
             # continue
             # pool.submit(generate_features, "INV", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
