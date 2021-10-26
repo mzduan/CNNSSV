@@ -15,7 +15,6 @@ class SiameseTestNetworkDataset(data.Dataset):
             splits = f.split('_')
             if len(splits) == 4:
                 absolute_path = feat_path + '/' + f
-                sub_feature = np.zeros((6, 50, 500))
                 for image in os.listdir(absolute_path):
                     if image[0] == 'n':
                         n_feature = np.zeros((3, 50, 500))
