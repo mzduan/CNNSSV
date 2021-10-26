@@ -657,10 +657,10 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cins:
         chro=key
         for bk in cins[chro]:
-            # continue
-            if bk[0] ==38124014:
-                print(bk)
-                generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+            continue
+            # if bk[0] ==38124014:
+            #     print(bk)
+            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
     # for key in cinv:
