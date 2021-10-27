@@ -18,6 +18,9 @@ class SiameseTrainNetworkDataset(data.Dataset):
                 for f in os.listdir(germline_path):
                     if f[0] != '.':
                         absolute_path = germline_path + '/' + f
+                        n_flag=False
+                        t_flag=False
+                        s_flag=False
                         for image in os.listdir(absolute_path):
                             if image[0]=='n':
                                 n_feature = np.zeros((3, 50, 500))
@@ -26,6 +29,7 @@ class SiameseTrainNetworkDataset(data.Dataset):
                                 n_feature[0]=normal[:,:,0]
                                 n_feature[1]=normal[:,:,1]
                                 n_feature[2]=normal[:,:,2]
+                                n_flag=True
                                 self.normal_features.append(n_feature)
                             elif image[0]=='t':
                                 t_feature = np.zeros((3, 50, 500))
@@ -34,15 +38,21 @@ class SiameseTrainNetworkDataset(data.Dataset):
                                 t_feature[0]=tumor[:,:,0]
                                 t_feature[1]=tumor[:,:,1]
                                 t_feature[2]=tumor[:,:,2]
+                                t_flag=True
                                 self.tumor_features.append(t_feature)
                             elif image[0]=='s':
                                 sup_feat=np.load(absolute_path+'/'+image)
+                                s_flag=True
                                 self.sup_features.append(sup_feat)
-                        self.labels.append(0)
+                        if n_flag==True and t_flag==True and s_flag==True:
+                            self.labels.append(0)
                 somatic_path=current_feat_path+'/somatic'
                 for f in os.listdir(somatic_path):
                     if f[0] != '.':
                         absolute_path = somatic_path + '/' + f
+                        n_flag=False
+                        t_flag=False
+                        s_flag=False
                         for image in os.listdir(absolute_path):
                             if image[0]=='n':
                                 n_feature = np.zeros((3, 50, 500))
@@ -51,6 +61,7 @@ class SiameseTrainNetworkDataset(data.Dataset):
                                 n_feature[0]=normal[:,:,0]
                                 n_feature[1]=normal[:,:,1]
                                 n_feature[2]=normal[:,:,2]
+                                n_flag = True
                                 self.normal_features.append(n_feature)
                             elif image[0]=='t':
                                 t_feature = np.zeros((3, 50, 500))
@@ -59,16 +70,17 @@ class SiameseTrainNetworkDataset(data.Dataset):
                                 t_feature[0]=tumor[:,:,0]
                                 t_feature[1]=tumor[:,:,1]
                                 t_feature[2]=tumor[:,:,2]
+                                t_flag = True
                                 self.tumor_features.append(t_feature)
                             elif image[0]=='s':
                                 sup_feat=np.load(absolute_path+'/'+image)
+                                s_flag = True
                                 self.sup_features.append(sup_feat)
-                        self.labels.append(1)
+                        if n_flag==True and t_flag==True and s_flag==True:
+                            self.labels.append(1)
+
+
     def __len__(self):
-        print(len(self.normal_features))
-        print(len(self.tumor_features))
-        print(len(self.sup_features))
-        print(len(self.labels))
         return len(self.labels)
 
 

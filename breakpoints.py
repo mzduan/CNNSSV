@@ -215,7 +215,7 @@ def retrieve_supp(aln):
         if len(fields) !=6:
             continue
         local_chr = fields[0]
-        local_start = int(fields[1])
+        local_start = int(fields[1])-1
         local_cigar = fields[3]
         local_strand = fields[2]
         local_mapq = int(fields[4])
@@ -268,7 +268,7 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
     sv_list=list()
     sp_list = sorted(split_reads, key=lambda x: x[0])
 
-    # if read_name=='m54336U_190829_230546/120719613/ccs':
+    # if read_name=='C1_H1_17895':
     #     print(split_reads)
     #分析inversion
     if len(sp_list) == 2:

@@ -133,7 +133,7 @@ def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos):
                     # if abs(start-bk1)<=20 and abs(end-bk2)<=20:
                     #     read_names.extend(b[2])
     bam = pysam.AlignmentFile(bam_file, 'r')
-    sv_region_reads = bam.fetch(contig=chro, start=start - 500, end=end +500)
+    sv_region_reads = bam.fetch(contig=chro, start=start - 1000, end=end +1000)
     for aln in sv_region_reads:
         if aln.query_name in read_names:
             support_reads.append(aln)
@@ -189,6 +189,20 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     somatic_ref_reads=get_ref_reads(sv_type,chro,bk,somatic_bam_file,somatic_support_reads)
     germline_support_reads=get_support_reads(sv_type,chro,bk,germline_bam_file,"normal",name2ref_pos)
     germline_ref_reads=get_ref_reads(sv_type,chro,bk,germline_bam_file,germline_support_reads)
+
+
+    # print("somatic sv reads")
+    # for aln in somatic_support_reads:
+    #     print(aln.query_name)
+    # print("somatic ref reads")
+    # for aln in somatic_ref_reads:
+    #     print(aln.query_name)
+    # print("germline sv reads")
+    # for aln in germline_support_reads:
+    #     print(aln.query_name)
+    # print("germline ref reads")
+    # for aln in germline_ref_reads:
+    #     print(aln.query_name)
 
 
     # for aln in germline_support_reads:
@@ -260,7 +274,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
         region_end=region_end if region_end > aln.reference_end else aln.reference_end
         record_I(aln, I_pos)
 
-
+    print(region_start,region_end)
     if chro in ref_dict.keys():
         if region_start<region_end:
             region_reference_seq=ref_dict[chro][region_start:region_end]
@@ -292,6 +306,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
             continue
         else:
             revised2ref[current_ref_pos] = i
+            # print(current_ref_pos,i)
             current_ref_pos=current_ref_pos+1
     if current_ref_pos!=region_end:
         raise Exception('Error in coordinate transformation!')
@@ -526,7 +541,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     #     print(aln.query_name)
     # print("germline ref reads")
     # for aln in germline_ref_reads:
-    #     print(aln.query_name,aln.reference_start)
+    #     print(aln.query_name)
 
 
     if len(somatic_support_reads)==0:
@@ -644,37 +659,27 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
     ref_dict = reference.initial_fa(ref)
-    # pool = multiprocessing.Pool(processes=int(thread_num))
+    pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
 
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0]==31170569:
-            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            continue
-            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
-            continue
-            # if bk[0] ==38124014:
-            #     print(bk)
-            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.submit(generate_features, "INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cinv:
-    #     chro=key
-    #     for bk in cinv[chro]:
-            # continue
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cinv:
+        chro=key
+        for bk in cinv[chro]:
             # pool.submit(generate_features, "INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cdup:
-    #     chro=key
-    #     for bk in cdup[chro]:
-            # continue
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cdup:
+        chro=key
+        for bk in cdup[chro]:
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # # pool.shutdown()
-    # pool.close()
-    # pool.join()
+    pool.close()
+    pool.join()
