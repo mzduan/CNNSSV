@@ -661,7 +661,6 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     ref_dict = reference.initial_fa(ref)
     pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
-
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
@@ -673,7 +672,6 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cinv:
         chro=key
         for bk in cinv[chro]:
-            # pool.submit(generate_features, "INV", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cdup:
         chro=key
