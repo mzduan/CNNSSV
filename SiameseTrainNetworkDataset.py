@@ -80,7 +80,7 @@ class SiameseTrainNetworkDataset(data.Dataset):
                             self.normal_features.append(n_feature)
                             self.tumor_features.append(t_feature)
                             self.sup_features.append(sup_feat)
-                            self.labels.append(0)
+                            self.labels.append(1)
 
 
     def __len__(self):
