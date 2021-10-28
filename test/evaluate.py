@@ -1,7 +1,7 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/Users/duan/Desktop/results/various_depth/0.2/15/15.tumor.nanomonsv.result.bed'
+    predict_bed='/home/duan/Downloads/chr20_0.5_simulate_somatic.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/Users/duan/Desktop/results/somaticSV/simulate/sv/chr20.somatic.bed','r') as fin:
+    with open('/home/duan/Desktop/somaticSV/sv/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:
@@ -69,17 +69,6 @@ if __name__ == '__main__':
     for p in predict:
         for g in groundtruth:
             if p[2]==g[2]:
-                # gd_len=int(g[1])-int(g[0])
-                # p_len=int(p[1])-int(p[0])
-                # Offect=1000
-                # if int(g[0]) - Offect <= int(p[0]) <= int(g[1]) + Offect \
-                #         or int(g[0]) - Offect <= int(p[1]) <= int(g[1]) + Offect \
-                #         or int(p[0]) - Offect <=int(g[0]) <= int(p[1]) + Offect:
-                    # if min(gd_len, p_len) * 1.0 / max(gd_len, p_len)>= 0.7:
-                    #     p[3]=1
-                    #     g[3]=1
-                        # true_p.add(p)
-                        # break
                 if abs(int(p[0])-int(g[0]))<=50 and abs(int(p[1])-int(g[1]))<=50:
                     true_p.add(p)
                 #     break
@@ -87,14 +76,6 @@ if __name__ == '__main__':
         find_flag = False
         for p in predict:
             if g[2]==p[2]:
-                # gd_len=int(g[1])-int(g[0])
-                # p_len=int(p[1])-int(p[0])
-                # Offect=1000
-                # if int(p[0]) - Offect <= int(g[0]) <= int(p[1]) + Offect \
-                #         or int(p[0]) - Offect <= int(g[1]) <= int(p[1]) + Offect \
-                #         or int(g[0]) - Offect <=int(p[0]) <= int(g[1]) + Offect:
-                #     if min(gd_len, p_len) * 1.0 / max(gd_len, p_len)>= 0.7:
-                #         true_g.add(g)
                 if abs(int(g[0])-int(p[0]))<=50 and abs(int(g[1])-int(p[1]))<=50:
                     true_g.add(g)
                     find_flag=True
