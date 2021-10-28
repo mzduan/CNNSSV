@@ -40,16 +40,16 @@ class Siamese(nn.Module):
         )
 
         #处理卷积层的特征
-        self.fc1 = nn.Sequential(
-            nn.Linear(in_features=64*4*60, out_features=64),
-            nn.ReLU()
-        )
-
-        #处理字符串特征
-        self.fc2=nn.Sequential(
-            nn.Linear(in_features=10, out_features=64),
-            nn.ReLU()
-        )
+        # self.fc1 = nn.Sequential(
+        #     nn.Linear(in_features=64*4*60, out_features=64),
+        #     nn.ReLU()
+        # )
+        #
+        # #处理字符串特征
+        # self.fc2=nn.Sequential(
+        #     nn.Linear(in_features=10, out_features=64),
+        #     nn.ReLU()
+        # )
 
         #处理融合特征
         self.fc3 = nn.Sequential(
