@@ -50,11 +50,17 @@ class Siamese(nn.Module):
         #     nn.Linear(in_features=10, out_features=64),
         #     nn.ReLU()
         # )
-
         #处理融合特征
-        self.fc3 = nn.Sequential(
-            nn.Linear(in_features=64, out_features=2),
+
+
+
+        self.fc1 = nn.Sequential(
+            nn.Linear(in_features=64*4*60, out_features=128),
         )
+        self.fc2 = nn.Sequential(
+            nn.Linear(in_features=128, out_features=2),
+        )
+
     def forward_once(self,x):
         x = self.conv1(x)
         x = self.conv2(x)
@@ -70,5 +76,5 @@ class Siamese(nn.Module):
         # sup=self.fc2(sup_feature)
         # combined = torch.cat((sup.view(sup.size(0), -1), dis.view(dis.size(0), -1)), dim=1)
         # ret=self.fc3(combined)
-        ret=self.fc3(dis)
+        ret=self.fc2(dis)
         return ret
