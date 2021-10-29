@@ -1,7 +1,7 @@
 from breakpoints import get_breakpoints
 from merge import merge_same_read
 from insertion import merge_insertion,left_aligned_insertion
-from supplement import get_somatic_kmer
+from get_kmer_count import get_somatic_kmer
 import pysam
 import numpy as np
 import reference
@@ -208,18 +208,16 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # for aln in germline_support_reads:
     #     print(aln.query_name)
     #计算一下字符串特征
-    type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus = get_somatic_kmer(sv_type,
-                                                                                                      somatic_support_reads,
-                                                                                                      germline_bam_file,
-                                                                                                      ref_dict, chro, bk)
+    tumor_kmer_vector ,normal_kmer_vector = get_somatic_kmer(sv_type,somatic_support_reads,
+                                                             germline_bam_file,ref_dict, chro, bk)
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
-    somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
-    germline_rc=len(germline_support_reads)+len(germline_support_reads)
-    r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
-    r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
-    sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-                             len(germline_support_reads),len(germline_ref_reads)])
-    sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
+    # somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
+    # germline_rc=len(germline_support_reads)+len(germline_support_reads)
+    # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
+    # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
+    # sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
+    #                          len(germline_support_reads),len(germline_ref_reads)])
+    # sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
     os.mkdir(sv_str)
     np.save(sv_str + '/sup_feat',sup_features)
 
@@ -642,7 +640,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
             # germline_img.putpixel((j, i), (0, 0, bcolor))
     germline_img=np.array(germline_img)
     transformed=transform.resize(germline_img,(50,500))
-    transformed=transformed*255
+    # transformed=transformed*255
     transformed=transformed.astype(np.uint8)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/normal.png')

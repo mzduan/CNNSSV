@@ -1,11 +1,9 @@
-import pysam
-import cigar
+import numpy as np
+from PIL import Image
+from skimage import transform
+import matplotlib.pyplot as plt
 if __name__ == '__main__':
-    bam=pysam.AlignmentFile('/home/duan/Downloads/0.2.chr18.tumor.bam','rb')
-    for aln in bam:
-        if aln.query_name=='C1_H1_17895':
-            print(aln.reference_start,aln.reference_end,aln.get_tag("SA"))
-
-    bam.close()
-
-
+    a=[1,2,3,4,5]
+    for i in range(len(a)):
+        a[i]=a[i]/7
+    print(a)

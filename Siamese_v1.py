@@ -1,9 +1,11 @@
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
-class Siamese(nn.Module):
+
+#sup_feature为频率直方图
+class Siamese_V1(nn.Module):
     def __init__(self):
-        super(Siamese, self).__init__()
+        super(Siamese_V1, self).__init__()
         self.conv1 = nn.Sequential(    # 3*50*500  ->   16*48*498
             nn.Conv2d(
                 in_channels=3,
@@ -56,25 +58,34 @@ class Siamese(nn.Module):
 
         self.fc1 = nn.Sequential(
             nn.Linear(in_features=64*4*60, out_features=128),
+            nn.ReLU()
         )
+        #
         self.fc2 = nn.Sequential(
-            nn.Linear(in_features=128, out_features=2),
+            nn.Linear(in_features=62, out_features=64),
+            nn.ReLU()
         )
-
-    def forward_once(self,x):
+        self.fc3 = nn.Sequential(
+            nn.Linear(in_features=192, out_features=64),
+        )
+        self.fc4 = nn.Sequential(
+            nn.Linear(in_features=64, out_features=2),
+        )
+    def forward_once(self,x,sup_feature):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
         x = x.view(x.size(0), -1)
         c = self.fc1(x)
-        return c
+        s=self.fc2(sup_feature)
+        combined = torch.cat((c.view(c.size(0), -1), s.view(s.size(0), -1)), dim=1)
+        ret=self.fc3(combined)
+        return ret
 
-    def forward(self,normal,tumor,sup_feature):
-        n_output=self.forward_once(normal)
-        t_output=self.forward_once(tumor)
+    def forward(self,normal,tumor,nsup_feature,tsup_feature):
+        n_output=self.forward_once(normal,nsup_feature)
+        t_output=self.forward_once(tumor,tsup_feature)
         dis=torch.abs(n_output-t_output)
-        # sup=self.fc2(sup_feature)
-        # combined = torch.cat((sup.view(sup.size(0), -1), dis.view(dis.size(0), -1)), dim=1)
-        # ret=self.fc3(combined)
-        ret=self.fc2(dis)
+        ret=self.fc4(dis)
+        # ret=self.fc2(dis)
         return ret
