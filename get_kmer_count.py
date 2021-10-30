@@ -32,7 +32,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     ref_bk2=bk[0]+bk[1]
     if sv_type=="INS":
         ref_bk2=ref_bk1+1
-    k=31
+    kmer_len=31
     #先找出跨过 tumor sv断点的 kmer
     tumor_sv_kmer=dict()
     for i in range(len(bk[2])):
@@ -46,8 +46,8 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
             read_sv_bk2 = bk[4][i]
 
         if sv_type == 'INS' or sv_type == 'INV':
-            for j in range(read_sv_bk1 - k + 1, read_sv_bk1 + 1):
-                kmer = query_sequence[j:j + k]
+            for j in range(read_sv_bk1 - kmer_len + 1, read_sv_bk1 + 1):
+                kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
 
@@ -55,8 +55,8 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     tumor_sv_kmer[mkmer] = 1
                 else:
                     tumor_sv_kmer[mkmer] +=1
-            for j in range(read_sv_bk2 - k, read_sv_bk2):
-                kmer = query_sequence[j:j + k]
+            for j in range(read_sv_bk2 - kmer_len, read_sv_bk2):
+                kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer not in tumor_sv_kmer.keys():
@@ -64,8 +64,8 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 else:
                     tumor_sv_kmer[mkmer] +=1
         elif sv_type=='DEL' or sv_type=='DUP': #只有一个断点
-            for j in range(read_sv_bk1-k-15,read_sv_bk1+16):  #k+31
-                kmer = query_sequence[j:j + k]
+            for j in range(read_sv_bk1-kmer_len-15,read_sv_bk1+16):  #k+31
+                kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer not in tumor_sv_kmer.keys():
@@ -95,8 +95,8 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
             continue
         else:
             seq = aln.query_sequence
-            for i in range(0, len(seq) - k + 1):
-                kmer = seq[i:i + k]
+            for i in range(0, len(seq) - kmer_len + 1):
+                kmer = seq[i:i + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer in somatic_kmer.keys():
