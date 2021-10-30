@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import Siamese_v1
+import Siamese_v2
 import SiameseTrainNetworkDataset
 import sys
 from torch.utils.data import DataLoader
@@ -13,8 +13,8 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/trainlog')
-    siamese= Siamese_v1.Siamese()
+    writer = SummaryWriter('/home/mzduan/trainlog_v2')
+    siamese= Siamese_v2.Siamese()
     if cuda_gpu:
         siamese=siamese.cuda()
     optimizer = torch.optim.Adam(siamese.parameters(), lr=learning_rate)
