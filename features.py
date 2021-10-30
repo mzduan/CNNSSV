@@ -622,7 +622,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
             # somatic_img.putpixel((j, i), (0, 0, bcolor))
     somatic_img=np.array(somatic_img)
     transformed=transform.resize(somatic_img,(50,500))
-    transformed=transformed*255
+    # transformed=transformed*255
     transformed=transformed.astype(np.uint8)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/tumor.png')
