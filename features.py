@@ -217,9 +217,10 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
     # sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
     #                          len(germline_support_reads),len(germline_ref_reads)])
-    # sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
+    sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
     os.mkdir(sv_str)
-    np.save(sv_str + '/sup_feat',sup_features)
+    np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
+    np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
 
 
 

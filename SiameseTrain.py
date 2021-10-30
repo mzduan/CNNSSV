@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # cuda_gpu=False
 
     writer = SummaryWriter('/home/mzduan/trainlog_v2')
-    siamese= Siamese_v2.Siamese()
+    siamese= Siamese_v2.Siamese_V2()
     if cuda_gpu:
         siamese=siamese.cuda()
     optimizer = torch.optim.Adam(siamese.parameters(), lr=learning_rate)
