@@ -40,20 +40,6 @@ class Siamese_V2(nn.Module):
             nn.MaxPool2d(kernel_size=2)  #  64*9*122   ->   64*4*60
         )
 
-        #处理卷积层的特征
-        # self.fc1 = nn.Sequential(
-        #     nn.Linear(in_features=64*4*60, out_features=64),
-        #     nn.ReLU()
-        # )
-        #
-        # #处理字符串特征
-        # self.fc2=nn.Sequential(
-        #     nn.Linear(in_features=10, out_features=64),
-        #     nn.ReLU()
-        # )
-        #处理融合特征
-
-
 
         self.fc1 = nn.Sequential(
             nn.Linear(in_features=64*4*60, out_features=128),
@@ -61,7 +47,7 @@ class Siamese_V2(nn.Module):
         )
         #
         self.fc2 = nn.Sequential(
-            nn.Linear(in_features=62, out_features=64),
+            nn.Linear(in_features=10, out_features=64),
             nn.ReLU()
         )
         self.fc3 = nn.Sequential(
