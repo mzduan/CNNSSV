@@ -658,26 +658,26 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
     ref_dict = reference.initial_fa(ref)
-    # pool = multiprocessing.Pool(processes=int(thread_num))
+    pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cins:
-    #     chro=key
-    #     for bk in cins[chro]:
-    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cinv:
-    #     chro=key
-    #     for bk in cinv[chro]:
-    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cdup:
-    #     chro=key
-    #     for bk in cdup[chro]:
-    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            # generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cins:
+        chro=key
+        for bk in cins[chro]:
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cinv:
+        chro=key
+        for bk in cinv[chro]:
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cdup:
+        chro=key
+        for bk in cdup[chro]:
+            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # # pool.shutdown()
-    # pool.close()
-    # pool.join()
+    pool.close()
+    pool.join()
