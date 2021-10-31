@@ -68,6 +68,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
+                print(kmer,rkmer)
                 if mkmer not in tumor_sv_kmer.keys():
                     tumor_sv_kmer[mkmer] = 1
                 else:
@@ -77,7 +78,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
 
     sorted(tumor_sv_kmer.items(), key=lambda item: item[1], reverse=True)
 
-    somatic_kmer=dict()
+    somatic_kmer=dict()  #key->(t_counts,n_counts)
     count=0
     for k in tumor_sv_kmer.keys():
         somatic_kmer[k]=[tumor_sv_kmer[k],0]
@@ -121,11 +122,16 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     n_min=min(normal_vector)
     n_max=max(normal_vector)
     min_count=t_min if t_min<n_min else n_min
-    max_count=t_max if t_max>n_max else t_max
+    max_count=t_max if t_max>n_max else n_max
 
-    for i in range(len(tumor_vector)):
-        tumor_vector[i]=(tumor_vector[i]-min_count)/(max_count-min_count)
-        normal_vector[i] = (normal_vector[i] - min_count) / (max_count - min_count)
+    if min_count==max_count:
+        for i in range(len(tumor_vector)):
+            tumor_vector[i]=1
+            normal_vector[i]=1
+    else:
+        for i in range(len(tumor_vector)):
+            tumor_vector[i]=(tumor_vector[i]-min_count)/(max_count-min_count)
+            normal_vector[i] = (normal_vector[i] - min_count) / (max_count - min_count)
     return np.array(tumor_vector,dtype=np.int16),np.array(normal_vector,dtype=np.int16)
 
 
