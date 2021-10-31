@@ -273,7 +273,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
         region_end=region_end if region_end > aln.reference_end else aln.reference_end
         record_I(aln, I_pos)
 
-    print(region_start,region_end)
+    # print(region_start,region_end)
     if chro in ref_dict.keys():
         if region_start<region_end:
             region_reference_seq=ref_dict[chro][region_start:region_end]
@@ -521,7 +521,7 @@ def transfer(s_seq_list,g_seq_list,s_direction_list,g_direction_list,s_depth_lis
 
 def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
 
-    print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
+    # print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
     # try:
             #获取修正过的 reference
     revised_region_reference_seq, revised2ref, \

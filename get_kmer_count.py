@@ -68,7 +68,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
-                print(kmer,rkmer)
+                # print(kmer,rkmer)
                 if mkmer not in tumor_sv_kmer.keys():
                     tumor_sv_kmer[mkmer] = 1
                 else:
