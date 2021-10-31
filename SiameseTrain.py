@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import Siamese_v2
-import SiameseTrainNetworkDataset
+import SiameseTrainNetworkDataset_v2
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     #model_output='/home/duan/Desktop/test.model'
 
 
-    train_set=SiameseTrainNetworkDataset.SiameseTrainNetworkDataset(ccs_feat_path)
+    train_set=SiameseTrainNetworkDataset_v2.SiameseTrainNetworkDataset(ccs_feat_path)
     train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
     # 开始训练
 

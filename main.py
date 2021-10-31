@@ -1,8 +1,8 @@
 import argparse
 from breakpoints import get_breakpoints
 from features import run
-# from SiameseTest import predict
-from test import predict
+from SiameseTest import predict
+# from test import predict
 import sys
 import os
 import time
@@ -11,9 +11,9 @@ if __name__ == '__main__':
     parser.add_argument("--tumor", help="tumor bam", type=str,required=True)
     parser.add_argument("--normal", help="normal bam", type=str,required=True)
     parser.add_argument("--ref", help="reference fasta", type=str,required=True)
-    # parser.add_argument("--model", help="trained cnn model", type=str,required=True)
+    parser.add_argument("--model", help="trained cnn model", type=str,required=True)
     parser.add_argument("--wkdir", help="work dir", type=str,required=True)
-    # parser.add_argument("--output", help="output sv bed", type=str,required=True)
+    parser.add_argument("--output", help="output sv bed", type=str,required=True)
     parser.add_argument("--min_support_read", help="min support read(default=1)", default=1,type=int,required=False)
     parser.add_argument("--min_sv_len", help="min sv len(default=30)", default=30, type=int, required=False)
     parser.add_argument("--max_sv_len", help="min sv len(default=10000)", default=10000, type=int, required=False)
@@ -54,8 +54,8 @@ if __name__ == '__main__':
                 fout.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[0] + bk[1]) + '\t' + 'DUP\t'+str(bk[1])+'\n')
     print("Generate Features for Cancidate SVs")
     run(cdel,cins,cinv,cdup,args.ref,args.tumor,args.normal,args.wkdir,int(args.t))
-    # print("Predict...")
-    # predict(args.model,args.wkdir,args.output)
-    # print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
+    print("Predict...")
+    predict(args.model,args.wkdir,args.output)
+    print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
 
 

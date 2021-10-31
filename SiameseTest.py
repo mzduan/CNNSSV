@@ -1,6 +1,6 @@
-import Siamese_v1
+import Siamese_v2
 import torch
-import SiameseTestNetworkDataset
+import SiameseTestNetworkDataset_v2
 from torch.utils.data import DataLoader
 import re
 import sys
@@ -37,9 +37,9 @@ import sys
 #     # print(correct_count,error_count)
 
 def predict(model_path,features_path,out_path):
-    siamese = Siamese_v1.Siamese()
+    siamese = Siamese_v2.Siamese_V2()
     siamese.load_state_dict(torch.load(model_path))
-    test_set=SiameseTestNetworkDataset.SiameseTestNetworkDataset(features_path)
+    test_set=SiameseTestNetworkDataset_v2.SiameseTestNetworkDataset(features_path)
     test_loader=DataLoader(test_set,batch_size=1,shuffle=True)
 
     fout=open(out_path,'w')
