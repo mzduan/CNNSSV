@@ -67,6 +67,7 @@ class Siamese_V1(nn.Module):
         )
         self.fc3 = nn.Sequential(
             nn.Linear(in_features=192, out_features=64),
+            nn.ReLU()
         )
         self.fc4 = nn.Sequential(
             nn.Linear(in_features=64, out_features=2),

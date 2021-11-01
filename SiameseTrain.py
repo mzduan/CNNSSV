@@ -24,15 +24,10 @@ if __name__ == '__main__':
     # clr_feat_path=sys.argv[2]
     model_output=sys.argv[2]
 
-
-    #ccs_feat_path = '/home/duan/Desktop/train'
-    #model_output='/home/duan/Desktop/test.model'
-
-
     train_set=SiameseTrainNetworkDataset_v2.SiameseTrainNetworkDataset(ccs_feat_path)
     train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
-    # 开始训练
 
+    # 开始训练
     for epoch in range(epoches):
         print("进行第{}个epoch".format(epoch))
         for step, (batch_n,batch_t, batch_sup,batch_y) in enumerate(train_loader):
