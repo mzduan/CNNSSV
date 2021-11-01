@@ -1,8 +1,9 @@
-import numpy as np
-from PIL import Image
-from skimage import transform
-import matplotlib.pyplot as plt
+import CNN
+import torch
+import TestSet
+from torch.utils.data import DataLoader
 if __name__ == '__main__':
-    a=np.array([1,2,3,4,5])
-    b = np.array([5, 2, 3, 4, 5])
-    print(abs(a-b))
+    cnn = CNN.CNN()
+    model=torch.load('/home/duan/Desktop/somaticSV/cnn_10_21.model')
+    for k in model.keys():
+        print(k,model[k].shape)
