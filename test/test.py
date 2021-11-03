@@ -1,9 +1,8 @@
-import CNN
-import torch
-import TestSet
-from torch.utils.data import DataLoader
+import numpy as np
 if __name__ == '__main__':
-    cnn = CNN.CNN()
-    model=torch.load('/home/duan/Desktop/somaticSV/cnn_10_21.model')
-    for k in model.keys():
-        print(k,model[k].shape)
+    a=[1,2,3,4,5]
+    for i in range(len(a)):
+        a[i]=a[i]/5
+
+    b=np.array(a,dtype=int)
+    print(b)

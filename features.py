@@ -1,8 +1,8 @@
 from breakpoints import get_breakpoints
 from merge import merge_same_read
 from insertion import merge_insertion,left_aligned_insertion
-# from get_kmer_count import get_somatic_kmer
-from supplement import get_somatic_kmer
+from get_kmer_count import get_somatic_kmer
+# from supplement import get_somatic_kmer
 import pysam
 import numpy as np
 import reference
@@ -213,23 +213,23 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     #                                                          germline_bam_file,ref_dict, chro, bk)
 
 
-    # tumor_kmer_vector, normal_kmer_vector = get_somatic_kmer(sv_type, somatic_support_reads,
-    #                                                      germline_bam_file, ref_dict, chro, bk)
-
-    type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
+    tumor_kmer_vector, normal_kmer_vector = get_somatic_kmer(sv_type, somatic_support_reads,
                                                          germline_bam_file, ref_dict, chro, bk)
+
+    # type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
+    #                                                      germline_bam_file, ref_dict, chro, bk)
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
     # somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
     # germline_rc=len(germline_support_reads)+len(germline_support_reads)
     # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
-    sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-                             len(germline_support_reads),len(germline_ref_reads)])
+    # sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
+    #                          len(germline_support_reads),len(germline_ref_reads)])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
     os.mkdir(sv_str)
-    # np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
-    # np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
-    np.save(sv_str + '/sup_feat', sup_features)
+    np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
+    np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
+    # np.save(sv_str + '/sup_feat', sup_features)
 
 
     #调整insertion位置，否则会导致reference 被多次添加gap
@@ -630,7 +630,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
             # somatic_img.putpixel((j, i), (0, 0, bcolor))
     somatic_img=np.array(somatic_img)
     transformed=transform.resize(somatic_img,(50,500))
-    transformed=transformed*255
+    # transformed=transformed*255
     transformed=transformed.astype(np.uint8)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/tumor.png')
@@ -649,7 +649,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
             # germline_img.putpixel((j, i), (0, 0, bcolor))
     germline_img=np.array(germline_img)
     transformed=transform.resize(germline_img,(50,500))
-    transformed=transformed*255
+    # transformed=transformed*255
     transformed=transformed.astype(np.uint8)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/normal.png')
@@ -665,18 +665,35 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
+    # fin = open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV.fnc', 'r')
+    # pos_set=set()
+    # while True:
+    #     l=fin.readline()
+    #     if l:
+    #         splits = re.split('\s+', l)
+    #         sv_start = int(splits[1])
+    #         sv_type=splits[3]
+    #         if sv_type=='INS':
+    #             pos_set.add(sv_start)
+    #     else:
+    #         break
+    # fin.close()
+
     ref_dict = reference.initial_fa(ref)
     pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
+            # if bk[0] in pos_set:
             # if bk[0]==180027:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
+            # if bk[0] in pos_set:
+            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cinv:
         chro=key
