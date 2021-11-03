@@ -631,7 +631,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     somatic_img=np.array(somatic_img)
     transformed=transform.resize(somatic_img,(50,500))
     # transformed=transformed*255
-    transformed=transformed.astype(np.uint8)
+    transformed=transformed.astype(np.float64)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/tumor.png')
     germline_base_channel = features[1]
@@ -650,7 +650,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     germline_img=np.array(germline_img)
     transformed=transform.resize(germline_img,(50,500))
     # transformed=transformed*255
-    transformed=transformed.astype(np.uint8)
+    transformed=transformed.astype(np.float64)
     transformed=Image.fromarray(transformed)
     transformed.save(sv_str+'/normal.png')
     # except Exception as exp:
