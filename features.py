@@ -686,8 +686,8 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
         for bk in cdel[chro]:
             # if bk[0] in pos_set:
             # if bk[0]==180027:
-            generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+            # generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
