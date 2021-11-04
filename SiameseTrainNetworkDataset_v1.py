@@ -29,16 +29,14 @@ class SiameseTrainNetworkDataset(data.Dataset):
                         n_feat = None
                         t_feat=None
                         for image in os.listdir(absolute_path):
-                            if image=='normal.png':
-                                normal=Image.open(absolute_path+'/'+image)
-                                normal=np.array(normal)
-                                n_feature[0]=normal[:,:,0]
-                                n_feature[1]=normal[:,:,1]
-                                t_feature[2] = normal[:, :, 2]
+                            if image=='normal.npy':
+                                normal=np.load(absolute_path+'/'+image)
+                                n_feature[0] = normal[:,:,0]
+                                n_feature[1] = normal[:,:,1]
+                                n_feature[2] = normal[:, :, 2]
                                 n_flag=True
-                            elif image=='tumor.png':
-                                tumor=Image.open(absolute_path+'/'+image)
-                                tumor=np.array(tumor)
+                            elif image=='tumor.npy':
+                                tumor=np.load(absolute_path+'/'+image)
                                 t_feature[0]=tumor[:,:,0]
                                 t_feature[1]=tumor[:,:,1]
                                 t_feature[2]=tumor[:,:,2]

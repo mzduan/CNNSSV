@@ -618,22 +618,22 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
     somatic_base_channel = features[0]
     somatic_dir_channel = features[2]
     somatic_dep_channel = features[4]
-    somatic_img = Image.new("RGB", (dim2, dim1))
+    somatic_img = Image.new("RGB", (dim2, dim1))  #宽、高
     for i in range(dim1):
         for j in range(dim2):
             rcolor=somatic_base_channel[i][j]
             gcolor=somatic_dir_channel[i][j]
             bcolor = somatic_dep_channel[i][j]
             somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
-            # somatic_img.putpixel((j, i), (rcolor, 0, 0))
-            # somatic_img.putpixel((j, i), (0, gcolor, 0))
-            # somatic_img.putpixel((j, i), (0, 0, bcolor))
     somatic_img=np.array(somatic_img)
     transformed=transform.resize(somatic_img,(50,500))
     # transformed=transformed*255
     transformed=transformed.astype(np.float64)
-    transformed=Image.fromarray(transformed)
-    transformed.save(sv_str+'/tumor.png')
+    # transformed=Image.fromarray(transformed)
+    # transformed.save(sv_str+'/tumor.png')
+    np.save(sv_str+'/tumor',transformed)
+
+
     germline_base_channel = features[1]
     germline_dir_channel = features[3]
     germline_dep_channel = features[5]
@@ -644,15 +644,14 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
             gcolor=germline_dir_channel[i][j]
             bcolor = germline_dep_channel[i][j]
             germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
-            # germline_img.putpixel((j, i), (rcolor, 0, 0))
-            # germline_img.putpixel((j, i), (0, gcolor, 0))
-            # germline_img.putpixel((j, i), (0, 0, bcolor))
     germline_img=np.array(germline_img)
     transformed=transform.resize(germline_img,(50,500))
     # transformed=transformed*255
     transformed=transformed.astype(np.float64)
-    transformed=Image.fromarray(transformed)
-    transformed.save(sv_str+'/normal.png')
+    # transformed=Image.fromarray(transformed)
+    # print(transformed.shape)
+    np.save(sv_str+'/normal',transformed)
+    # transformed.save(sv_str+'/normal.png')
     # except Exception as exp:
     #     msg="Error in\t"+somatic_bam_file+"\t"+sv_type+"\t"+str(bk[0])+"\t"+str(bk[1])
     #     print(msg)
@@ -680,30 +679,30 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # fin.close()
 
     ref_dict = reference.initial_fa(ref)
-    pool = multiprocessing.Pool(processes=int(thread_num))
+    # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
             # if bk[0] in pos_set:
             # if bk[0]==180027:
-            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cins:
-        chro=key
-        for bk in cins[chro]:
-            # if bk[0] in pos_set:
-            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cinv:
-        chro=key
-        for bk in cinv[chro]:
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cdup:
-        chro=key
-        for bk in cdup[chro]:
-            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
-    # # pool.shutdown()
-    pool.close()
-    pool.join()
+            generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cins:
+    #     chro=key
+    #     for bk in cins[chro]:
+    #         # if bk[0] in pos_set:
+    #         #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cinv:
+    #     chro=key
+    #     for bk in cinv[chro]:
+    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cdup:
+    #     chro=key
+    #     for bk in cdup[chro]:
+    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+    # # # pool.shutdown()
+    # pool.close()
+    # pool.join()
