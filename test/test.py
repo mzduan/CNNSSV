@@ -1,5 +1,8 @@
 import numpy as np
+import torch
 if __name__ == '__main__':
-    n_feature = np.zeros((3, 50, 500))
-    normal = np.load('/home/duan/Desktop/test/chr20_DEL_62150_1688/normal.npy')
-    print(n_feature[0].shape)
+    input = torch.randn(3, 5, requires_grad=True)
+    target = torch.empty(3, dtype=torch.long).random_(5)
+    print(input)
+    print(target)
+    print(target.shape)

@@ -7,13 +7,13 @@ from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 epoches = 4
 batch_size = 4
-learning_rate = 0.001
+learning_rate = 0.0005
 if __name__ == '__main__':
 
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/trainlog_v1')
+    writer = SummaryWriter('/home/duan/Desktop/trainlog_v1')
     siamese= Siamese_v1.Siamese_V1()
     if cuda_gpu:
         siamese=siamese.cuda()
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     model_output=sys.argv[2]
 
     train_set=SiameseTrainNetworkDataset_v1.SiameseTrainNetworkDataset(ccs_feat_path)
-    train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
+    train_loader=DataLoader(train_set,batch_size=1,shuffle=True)
 
     # 开始训练
     for epoch in range(epoches):
@@ -39,7 +39,6 @@ if __name__ == '__main__':
                 bathc_y=batch_y.cuda()
             output = siamese(batch_n,batch_t,batch_nv,batch_tv)
             loss = loss_function(output, batch_y)
-
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
 
             optimizer.zero_grad()
