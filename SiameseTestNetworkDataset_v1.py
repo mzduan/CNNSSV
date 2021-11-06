@@ -56,6 +56,7 @@ class SiameseTestNetworkDataset(data.Dataset):
                             self.file_names.append(f)
 
     def __len__(self):
+        print(len(self.normal_features))
         return len(self.normal_features)
 
     def __getitem__(self, index):
