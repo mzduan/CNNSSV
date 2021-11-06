@@ -39,6 +39,7 @@ if __name__ == '__main__':
                 bathc_y=batch_y.cuda()
             output = siamese(batch_n,batch_t,batch_nv,batch_tv)
             loss = loss_function(output, batch_y)
+            print(output,batch_y)
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
 
             optimizer.zero_grad()
