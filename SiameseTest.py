@@ -1,6 +1,6 @@
-import Siamese_v2
+import Siamese_v1
 import torch
-import SiameseTestNetworkDataset_v2
+import SiameseTestNetworkDataset_v1
 from torch.utils.data import DataLoader
 import re
 import sys
@@ -37,16 +37,16 @@ import sys
 #     # print(correct_count,error_count)
 
 def predict(model_path,features_path,out_path):
-    siamese = Siamese_v2.Siamese_V2()
+    siamese = Siamese_v1.Siamese_V1()
     siamese.load_state_dict(torch.load(model_path))
-    test_set=SiameseTestNetworkDataset_v2.SiameseTestNetworkDataset(features_path)
+    test_set=SiameseTestNetworkDataset_v1.SiameseTestNetworkDataset(features_path)
     test_loader=DataLoader(test_set,batch_size=1,shuffle=True)
 
     fout=open(out_path,'w')
 
-    for step, (batch_n,batch_t, batch_sup,file_name) in enumerate(test_loader):
+    for step, (batch_n,batch_t,batch_nv,batch_tv,file_name) in enumerate(test_loader):
         file_name=file_name[0]
-        output = siamese.forward(batch_n,batch_t,batch_sup)
+        output = siamese.forward(batch_n,batch_t,batch_nv,batch_tv)
         # print(output)
         if torch.argmax(output)==1:
             splits=re.split('_',file_name)
