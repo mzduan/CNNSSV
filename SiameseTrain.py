@@ -5,7 +5,7 @@ import SiameseTrainNetworkDataset_v1
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
-epoches = 4
+epoches = 1
 batch_size = 4
 learning_rate = 0.0005
 if __name__ == '__main__':
@@ -24,8 +24,9 @@ if __name__ == '__main__':
     # clr_feat_path=sys.argv[2]
     model_output=sys.argv[2]
 
+
     train_set=SiameseTrainNetworkDataset_v1.SiameseTrainNetworkDataset(ccs_feat_path)
-    train_loader=DataLoader(train_set,batch_size=1,shuffle=True)
+    train_loader=DataLoader(train_set,batch_size=batch_size,shuffle=True)
 
     # 开始训练
     for epoch in range(epoches):
@@ -39,7 +40,7 @@ if __name__ == '__main__':
                 bathc_y=batch_y.cuda()
             output = siamese(batch_n,batch_t,batch_nv,batch_tv)
             loss = loss_function(output, batch_y)
-            print(output,batch_y)
+            # print(output,batch_y)
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
 
             optimizer.zero_grad()
