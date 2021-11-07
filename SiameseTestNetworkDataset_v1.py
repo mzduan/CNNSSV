@@ -31,7 +31,7 @@ class SiameseTestNetworkDataset(data.Dataset):
                         normal = np.array(normal)
                         n_feature[0] = normal[:, :, 0]
                         n_feature[1] = normal[:, :, 1]
-                        t_feature[2] = normal[:, :, 2]
+                        n_feature[2] = normal[:, :, 2]
                         n_flag = True
                     elif image == 'tumor.npy':
                         tumor=np.load(absolute_path+'/'+image)
