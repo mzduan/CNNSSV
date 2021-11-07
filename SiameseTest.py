@@ -46,7 +46,7 @@ def predict(model_path,features_path,out_path):
 
     for step, (batch_n,batch_t,batch_nv,batch_tv,file_name) in enumerate(test_loader):
         file_name=file_name[0]
-        output = siamese.forward(batch_n,batch_t,batch_nv,batch_tv)
+        output = siamese(batch_n,batch_t,batch_nv,batch_tv)
         print(output)
         if torch.argmax(output)==1:
             splits=re.split('_',file_name)

@@ -46,12 +46,12 @@ class SiameseTestNetworkDataset(data.Dataset):
                     elif image == 'tumor_sup_feature.npy':
                         t_feat = np.load(absolute_path + '/' + image)
                         tv_flag = True
-                    if n_flag==True and t_flag==True and nv_flag==True and tv_flag==True:
-                        self.normal_features.append(n_feature)
-                        self.tumor_features.append(t_feature)
-                        self.n_vector.append(n_feat)
-                        self.t_vector.append(t_feat)
-                        self.file_names.append(f)
+                if n_flag==True and t_flag==True and nv_flag==True and tv_flag==True:
+                    self.normal_features.append(n_feature)
+                    self.tumor_features.append(t_feature)
+                    self.n_vector.append(n_feat)
+                    self.t_vector.append(t_feat)
+                    self.file_names.append(f)
 
     def __len__(self):
 
