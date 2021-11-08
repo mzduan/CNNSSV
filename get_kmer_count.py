@@ -64,7 +64,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 else:
                     tumor_sv_kmer[mkmer] +=1
         elif sv_type=='DEL' or sv_type=='DUP': #只有一个断点
-            for j in range(read_sv_bk1-kmer_len-15,read_sv_bk1+16):  #k+31
+            for j in range(read_sv_bk1-kmer_len,read_sv_bk1):  #k
                 kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
@@ -73,18 +73,28 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     tumor_sv_kmer[mkmer] = 1
                 else:
                     tumor_sv_kmer[mkmer] +=1
-
     #按出现次数排序，选出出现次数最高的62个k-mer，作为somatic k-mer
 
-    sorted(tumor_sv_kmer.items(), key=lambda item: item[1], reverse=True)
+    sorted_tumor_sv_kmer=sorted(tumor_sv_kmer.items(), key=lambda item: item[1], reverse=True)
+
+
 
     somatic_kmer=dict()  #key->(t_counts,n_counts)
     count=0
-    for k in tumor_sv_kmer.keys():
-        somatic_kmer[k]=[tumor_sv_kmer[k],0]
-        count=count+1
-        if count==62:
-            break
+    if sv_type=='INS' or sv_type=='INV':
+        for k in sorted_tumor_sv_kmer:
+
+            somatic_kmer[k[0]]=[k[1],0]
+            count=count+1
+            if count==62:
+                break
+
+    elif sv_type=='DEL' or sv_type=='DUP':
+        for k in sorted_tumor_sv_kmer:
+            somatic_kmer[k[0]] = [k[1], 0]
+            count = count + 1
+            if count == 31:
+                break
 
     #计算somatic_kmers在normal样本中出现的次数
 
@@ -104,7 +114,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     somatic_kmer[mkmer][1]=somatic_kmer[mkmer][1]+1
     normal_bam.close()
 
-    sorted(somatic_kmer.items(), key=lambda item: item[1][0], reverse=True)
+    # sorted(somatic_kmer.items(), key=lambda item: item[1][0], reverse=True)
 
 
     tumor_vector=list()
@@ -112,10 +122,12 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     for k in somatic_kmer.keys():
         tumor_vector.append(somatic_kmer[k][0])
         normal_vector.append(somatic_kmer[k][1])
+        # print(k,somatic_kmer[k][0],somatic_kmer[k][1])
     if len(somatic_kmer)<62:
         for i in range(62-len(somatic_kmer)):
             tumor_vector.append(0)
             normal_vector.append(0)
+
 
     t_min=min(tumor_vector)
     t_max=max(tumor_vector)
@@ -132,6 +144,9 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
         for i in range(len(tumor_vector)):
             tumor_vector[i]=(tumor_vector[i]-min_count)/(max_count-min_count)
             normal_vector[i] = (normal_vector[i] - min_count) / (max_count - min_count)
+
+    # print(np.array(tumor_vector,dtype=np.float64))
+    # print(np.array(normal_vector,dtype=np.float64))
     return np.array(tumor_vector,dtype=np.float64),np.array(normal_vector,dtype=np.float64)
 
 

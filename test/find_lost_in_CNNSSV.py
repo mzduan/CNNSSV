@@ -1,10 +1,10 @@
 import re
 if __name__ == '__main__':
-    cutesv_kv=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/0.7.cutesv.kv','r')
-    CNNSSV_fnb=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV&cutesv.fnb','r')
+    cutesv_kv=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/0.2.cutesv.kv','r')
+    CNNSSV_fnb=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/v1/0.2.CNNSSV&cutesv.fnb','r')
     CNNSSV_candidate=open('/home/duan/Desktop/test/tumor.candidate.bed','r')
 
-    fout=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/0.7.CNNSSV.fnc','w')
+    fout=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/CNNSSV_MIXED/v1/0.2.CNNSSV.fnc','w')
 
     fnb_set=set()
     while True:
