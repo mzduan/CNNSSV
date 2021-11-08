@@ -5,7 +5,7 @@ import SiameseTrainNetworkDataset_v1
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
-epoches = 1
+epoches = 3
 batch_size = 4
 learning_rate = 0.0005
 if __name__ == '__main__':

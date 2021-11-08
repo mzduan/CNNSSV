@@ -1,7 +1,7 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/home/duan/Desktop/chr20_0.5_simulate_somatic.bed'
+    predict_bed='/home/duan/Downloads/chr20_0.5_simulate_somatic.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
