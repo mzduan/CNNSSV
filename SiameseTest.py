@@ -47,7 +47,6 @@ def predict(model_path,features_path,out_path):
     for step, (batch_n,batch_t, batch_nv,batch_tv,file_name) in enumerate(test_loader):
         file_name=file_name[0]
         output = siamese(batch_n,batch_t,batch_nv,batch_tv)
-        print(output)
         if torch.argmax(output)==1:
             splits=re.split('_',file_name)
             chro=splits[0]
@@ -58,5 +57,5 @@ def predict(model_path,features_path,out_path):
                 end=start+1
             fout.write(chro+'\t'+str(start)+'\t'+str(end)+'\t'+sv_type+'\t'+str(splits[3])+'\n')
         else:
-            print("not a somatic sv")
+            print(file_name+"not a somatic sv")
     fout.close()
