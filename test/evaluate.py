@@ -1,7 +1,7 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/home/duan/Downloads/chr20_0.5_simulate_somatic.bed'
+    predict_bed='/Users/duan/Desktop/results/somaticSV/callset/simulate/CCS/0.5/chr20/CNNSSV/Siamese_v1/chr20_0.5_simulate_somatic.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/home/duan/Desktop/somaticSV/sv/chr20.somatic.bed','r') as fin:
+    with open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:
@@ -119,8 +119,13 @@ if __name__ == '__main__':
     # print(len(true_g))
 
     # print(len(true_p),len(predict),len(groundtruth))
-    print("Recall:\t",len(true_g)/len(groundtruth))
-    print("Precision:\t",len(true_p)/len(predict))
+
+    recall=len(true_g)/len(groundtruth)
+    precision=len(true_p)/len(predict)
+
+    print("Recall:\t",recall)
+    print("Precision:\t",precision)
+    print("F1:\t",2*recall*precision/(recall+precision))
 
 
 

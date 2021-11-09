@@ -1,8 +1,8 @@
 from breakpoints import get_breakpoints
 from merge import merge_same_read
 from insertion import merge_insertion,left_aligned_insertion
-from get_kmer_count import get_somatic_kmer
-# from supplement import get_somatic_kmer
+# from get_kmer_count import get_somatic_kmer
+from supplement import get_somatic_kmer
 import pysam
 import numpy as np
 import reference
@@ -627,12 +627,12 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
         somatic_img=np.array(somatic_img)
         transformed=transform.resize(somatic_img,(50,500))
-        # transformed=transformed*255
-        transformed=transformed.astype(np.float64)
-        # transformed = transformed.astype(np.uint8)
-        # transformed=Image.fromarray(transformed)
-        # transformed.save(sv_str+'/tumor.png')
-        np.save(sv_str+'/tumor',transformed)
+        transformed=transformed*255
+        # transformed=transformed.astype(np.float64)
+        transformed = transformed.astype(np.uint8)
+        transformed=Image.fromarray(transformed)
+        transformed.save(sv_str+'/tumor.png')
+        # np.save(sv_str+'/tumor',transformed)
 
 
         germline_base_channel = features[1]
@@ -647,12 +647,12 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
         germline_img=np.array(germline_img)
         transformed=transform.resize(germline_img,(50,500))
-        # transformed=transformed*255
-        transformed=transformed.astype(np.float64)
-        # transformed = transformed.astype(np.uint8)
+        transformed=transformed*255
+        # transformed=transformed.astype(np.float64)
+        transformed = transformed.astype(np.uint8)
         # transformed=Image.fromarray(transformed)
-        np.save(sv_str+'/normal',transformed)
-        # transformed.save(sv_str+'/normal.png')
+        # np.save(sv_str+'/normal',transformed)
+        transformed.save(sv_str+'/normal.png')
     except Exception as exp:
         msg="Error in\t"+somatic_bam_file+"\t"+sv_type+"\t"+str(bk[0])+"\t"+str(bk[1])
         print(msg)
