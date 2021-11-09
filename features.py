@@ -650,7 +650,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
         transformed=transformed*255
         # transformed=transformed.astype(np.float64)
         transformed = transformed.astype(np.uint8)
-        # transformed=Image.fromarray(transformed)
+        transformed=Image.fromarray(transformed)
         # np.save(sv_str+'/normal',transformed)
         transformed.save(sv_str+'/normal.png')
     except Exception as exp:
