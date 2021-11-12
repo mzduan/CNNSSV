@@ -1,8 +1,8 @@
 import pysam
 if __name__ == '__main__':
-    bam=pysam.AlignmentFile('/Users/duan/Downloads/bam/NA19239_NA19240_mixed/NA19239.chr20.bam','rb')
+    bam=pysam.AlignmentFile('/home/duan/Desktop/somaticSV/bam/NA19239_NA19240_mixed/0.7/NA19239.chr20.bam','rb')
     for aln in bam:
-        if aln.query_name=='m54336U_191005_142313/73074350/ccs' and aln.reference_start==14054367:
+        if aln.query_name=='m64039_190910_140737/179440323/ccs' and aln.reference_start==24400773:
             peer_base_cigar=""
             for t in aln.cigartuples:
                 flag = t[0]
@@ -19,7 +19,7 @@ if __name__ == '__main__':
                     ref_pos=ref_pos+1
                 elif m=='2':
                     ref_pos=ref_pos+1
-                if query_pos==18110:
+                if query_pos==7888:
                     print(ref_pos)
             break
 

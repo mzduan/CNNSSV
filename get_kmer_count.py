@@ -69,7 +69,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
                 kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
-                print(kmer,mkmer)
+                # print(kmer,rkmer)
                 if mkmer not in tumor_sv_kmer.keys():
                     tumor_sv_kmer[mkmer] = 1
                 else:
@@ -85,14 +85,14 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     if sv_type=='INS' or sv_type=='INV':
         for k in sorted_tumor_sv_kmer:
 
-            somatic_kmer[k[0]]=[k[1],0]
+            somatic_kmer[k[0]]=[0,0]
             count=count+1
             if count==62:
                 break
 
     elif sv_type=='DEL' or sv_type=='DUP':
         for k in sorted_tumor_sv_kmer:
-            somatic_kmer[k[0]] = [k[1], 0]
+            somatic_kmer[k[0]] = [0, 0]
             count = count + 1
             if count == 31:
                 break
@@ -116,20 +116,20 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     normal_bam.close()
 
 
-    # tumor_bam = pysam.AlignmentFile(somatic_bam_file, 'r')
-    # tumor_region_reads = tumor_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
-    # for aln in tumor_region_reads:
-    #     if aln.is_unmapped or aln.mapping_quality < 20:
-    #         continue
-    #     else:
-    #         seq = aln.query_sequence
-    #         for i in range(0, len(seq) - kmer_len + 1):
-    #             kmer = seq[i:i + kmer_len]
-    #             rkmer = get_reverse_comp(kmer)
-    #             mkmer = rkmer if rkmer < kmer else kmer
-    #             if mkmer in somatic_kmer.keys():
-    #                 somatic_kmer[mkmer][0]=somatic_kmer[mkmer][0]+1
-    # tumor_bam.close()
+    tumor_bam = pysam.AlignmentFile(somatic_bam_file, 'r')
+    tumor_region_reads = tumor_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    for aln in tumor_region_reads:
+        if aln.is_unmapped or aln.mapping_quality < 20:
+            continue
+        else:
+            seq = aln.query_sequence
+            for i in range(0, len(seq) - kmer_len + 1):
+                kmer = seq[i:i + kmer_len]
+                rkmer = get_reverse_comp(kmer)
+                mkmer = rkmer if rkmer < kmer else kmer
+                if mkmer in somatic_kmer.keys():
+                    somatic_kmer[mkmer][0]=somatic_kmer[mkmer][0]+1
+    tumor_bam.close()
 
 
     # sorted(somatic_kmer.items(), key=lambda item: item[1][0], reverse=True)
@@ -140,7 +140,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     for k in somatic_kmer.keys():
         tumor_vector.append(somatic_kmer[k][0])
         normal_vector.append(somatic_kmer[k][1])
-        print(k,somatic_kmer[k][0],somatic_kmer[k][1])
+        # print(k,somatic_kmer[k][0],somatic_kmer[k][1])
     if len(somatic_kmer)<62:
         for i in range(62-len(somatic_kmer)):
             tumor_vector.append(0)
