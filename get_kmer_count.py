@@ -15,7 +15,7 @@ def get_reverse_comp(s):
         elif s[i]=='G':
             ret=ret+'C'
     return ret
-def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro,bk):
+def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_file,ref_dict,chro,bk):
 
     name2seq=dict()
     for aln in somatic_support_reads:
@@ -37,6 +37,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     tumor_sv_kmer=dict()
     for i in range(len(bk[2])):
         read_name = bk[2][i]
+        # print(read_name)
         query_sequence=name2seq[read_name]
         if sv_type=="INS":
             read_sv_bk1 = bk[4][i]
@@ -68,7 +69,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                 kmer = query_sequence[j:j + kmer_len]
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
-                # print(kmer,rkmer)
+                print(kmer,mkmer)
                 if mkmer not in tumor_sv_kmer.keys():
                     tumor_sv_kmer[mkmer] = 1
                 else:
@@ -114,6 +115,23 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     somatic_kmer[mkmer][1]=somatic_kmer[mkmer][1]+1
     normal_bam.close()
 
+
+    # tumor_bam = pysam.AlignmentFile(somatic_bam_file, 'r')
+    # tumor_region_reads = tumor_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    # for aln in tumor_region_reads:
+    #     if aln.is_unmapped or aln.mapping_quality < 20:
+    #         continue
+    #     else:
+    #         seq = aln.query_sequence
+    #         for i in range(0, len(seq) - kmer_len + 1):
+    #             kmer = seq[i:i + kmer_len]
+    #             rkmer = get_reverse_comp(kmer)
+    #             mkmer = rkmer if rkmer < kmer else kmer
+    #             if mkmer in somatic_kmer.keys():
+    #                 somatic_kmer[mkmer][0]=somatic_kmer[mkmer][0]+1
+    # tumor_bam.close()
+
+
     # sorted(somatic_kmer.items(), key=lambda item: item[1][0], reverse=True)
 
 
@@ -122,11 +140,12 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     for k in somatic_kmer.keys():
         tumor_vector.append(somatic_kmer[k][0])
         normal_vector.append(somatic_kmer[k][1])
-        # print(k,somatic_kmer[k][0],somatic_kmer[k][1])
+        print(k,somatic_kmer[k][0],somatic_kmer[k][1])
     if len(somatic_kmer)<62:
         for i in range(62-len(somatic_kmer)):
             tumor_vector.append(0)
             normal_vector.append(0)
+
 
 
     t_min=min(tumor_vector)
@@ -148,5 +167,3 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     # print(np.array(tumor_vector,dtype=np.float64))
     # print(np.array(normal_vector,dtype=np.float64))
     return np.array(tumor_vector,dtype=np.float64),np.array(normal_vector,dtype=np.float64)
-
-
