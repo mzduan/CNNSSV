@@ -13,7 +13,7 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/somaticSV/trainlog_CNN')
+    writer = SummaryWriter('/home/mzduan/somaticSV/trainlog_CNN_without_sup')
     cnn=CNN.CNN()
     if cuda_gpu:
         cnn=cnn.cuda()
@@ -34,12 +34,11 @@ if __name__ == '__main__':
     # 开始训练
     for epoch in range(epoches):
         print("进行第{}个epoch".format(epoch))
-        for step, (batch_x, batch_sup_x,batch_y) in enumerate(train_loader):
+        for step, (batch_x,batch_y) in enumerate(train_loader):
             if cuda_gpu:
                 batch_x=batch_x.cuda()
-                batch_sup_x=batch_sup_x.cuda()
                 batch_y = batch_y.cuda()
-            output = cnn(batch_x,batch_sup_x)
+            output = cnn(batch_x)
             loss = loss_function(output, batch_y)
 
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)

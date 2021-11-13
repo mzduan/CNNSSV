@@ -31,7 +31,7 @@ class TrainSet(data.Dataset):
     #             self.features.append(features)
     #             self.labels.append(1)
     def __init__(self,ccs_feat_path):
-        self.sup_features=list()
+        # self.sup_features=list()
         self.features=list()
         self.labels = list()
         for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
@@ -58,9 +58,9 @@ class TrainSet(data.Dataset):
                                 sub_feature[0]=tumor[:,:,0]
                                 sub_feature[1]=tumor[:,:,1]
                                 sub_feature[2]=tumor[:,:,2]
-                            elif image[0]=='s':
-                                sup_feat=np.load(absolute_path+'/'+image)
-                                self.sup_features.append(sup_feat)
+                            # elif image[0]=='s':
+                            #     sup_feat=np.load(absolute_path+'/'+image)
+                            #     self.sup_features.append(sup_feat)
                         self.features.append(sub_feature)
                         self.labels.append(0)
                 somatic_path=current_feat_path+'/somatic'
@@ -81,9 +81,9 @@ class TrainSet(data.Dataset):
                                 sub_feature[0]=tumor[:,:,0]
                                 sub_feature[1]=tumor[:,:,1]
                                 sub_feature[2]=tumor[:,:,2]
-                            elif image[0] == 's':
-                                sup_feat = np.load(absolute_path+'/'+image)
-                                self.sup_features.append(sup_feat)
+                            # elif image[0] == 's':
+                            #     sup_feat = np.load(absolute_path+'/'+image)
+                            #     self.sup_features.append(sup_feat)
                         self.features.append(sub_feature)
                         self.labels.append(1)
         # for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
@@ -144,4 +144,5 @@ class TrainSet(data.Dataset):
 
 
     def __getitem__(self, index):
-        return torch.tensor(self.features[index],dtype=torch.float),torch.tensor(self.sup_features[index],dtype=torch.float),torch.tensor(self.labels[index],dtype=torch.long)
+        # torch.tensor(self.sup_features[index], dtype=torch.float)
+        return torch.tensor(self.features[index],dtype=torch.float),torch.tensor(self.labels[index],dtype=torch.long)
