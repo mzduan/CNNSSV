@@ -292,6 +292,6 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
             tumor_vector[i]=(tumor_vector[i]-min_count)/(max_count-min_count)
             normal_vector[i] = (normal_vector[i] - min_count) / (max_count - min_count)
 
-    print(np.array(tumor_vector,dtype=np.float64))
-    print(np.array(normal_vector,dtype=np.float64))
+    # print(np.array(tumor_vector,dtype=np.float64))
+    # print(np.array(normal_vector,dtype=np.float64))
     return np.array(tumor_vector,dtype=np.float64),np.array(normal_vector,dtype=np.float64)
