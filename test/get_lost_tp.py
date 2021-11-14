@@ -1,9 +1,9 @@
 if __name__ == '__main__':
-    f1=open('/Users/duan/Desktop/getBreakpoint/results/mixed/cutesv/0.2.cutesv.tb','r')
-    f2=open('/Users/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.2.Siamese.tb','r')
+    f1=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/0.2.cutesv.tb','r')
+    f2=open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.2.Siamese.tb','r')
 
 
-    f3=open('/Users/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.2.Siamese&cutesv.fnb','w')
+    f3=open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.2.Siamese&cutesv.fnb','w')
 
     candidate_lines=set()
     somatic_lines=set()

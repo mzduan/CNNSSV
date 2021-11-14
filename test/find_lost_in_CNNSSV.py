@@ -1,10 +1,10 @@
 import re
 if __name__ == '__main__':
-    cutesv_kv=open('/Users/duan/Desktop/getBreakpoint/results/mixed/cutesv/0.2.cutesv.kv','r')
-    CNNSSV_fnb=open('/Users/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.2.Siamese&cutesv.fnb','r')
-    CNNSSV_candidate=open('/Users/duan/Desktop/test/tumor.candidate.bed','r')
+    cutesv_kv=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/0.2.cutesv.kv','r')
+    CNNSSV_fnb=open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.2.Siamese&cutesv.fnb','r')
+    CNNSSV_candidate=open('/home/duan/Desktop/test/tumor.candidate.bed','r')
 
-    fout=open('/Users/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.2.Siamese.fnc','w')
+    fout=open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.2.Siamese.fnc','w')
 
     fnb_set=set()
     while True:

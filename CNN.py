@@ -64,7 +64,7 @@ class CNN(nn.Module):
 
         self.fc2=nn.Sequential(
             nn.Linear(in_features=128, out_features=2),
-            nn.ReLU()
+            # nn.ReLU()
         )
 
 

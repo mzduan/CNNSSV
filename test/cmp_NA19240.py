@@ -278,7 +278,7 @@ def load_svim(base_path):
 
 def cmp_callsets(base, call, flag, Bias, Offect):
 
-	# tb=open('/Users/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.2.Siamese.tb',"w")
+	tb=open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.7.Siamese.tb',"w")
 
 	for svtype in base:
 		if svtype not in call:
@@ -311,7 +311,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 			for i in base[svtype][chr]:
 				total_base += 1
 				if i[3] == flag:
-					# tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
+					tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
 					tp_base += 1
 				# else:
 				# 	print(flag, svtype, chr, i[0], i[1], i[2])
@@ -346,7 +346,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	logging.info("Recall: %.2f"%(100.0*tp_base/total_base))
 	logging.info("F-measure: %.2f"%(200.0*tp_base*tp_call/(total_base*tp_call+tp_base*total_call)))
 
-	# tb.close()
+	tb.close()
 
 def main_ctrl(args):
 	# pass

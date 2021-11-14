@@ -6,7 +6,7 @@ from PIL import Image
 class TestSet(data.Dataset):
     def __init__(self,feat_path):
         self.features=list()
-        self.sup_features=list()
+        # self.sup_features=list()
         self.file_names=list()
         for f in os.listdir(feat_path):
             splits=f.split('_')
@@ -26,9 +26,9 @@ class TestSet(data.Dataset):
                         sub_feature[0] = tumor[:, :, 0]
                         sub_feature[1] = tumor[:, :, 1]
                         sub_feature[2] = tumor[:, :, 2]
-                    elif image[0] == 's':
-                        sup_feat = np.load(absolute_path + '/' + image)
-                        self.sup_features.append(sup_feat)
+                    # elif image[0] == 's':
+                    #     sup_feat = np.load(absolute_path + '/' + image)
+                    #     self.sup_features.append(sup_feat)
                 self.features.append(sub_feature)
                 self.file_names.append(f)
 
@@ -38,4 +38,5 @@ class TestSet(data.Dataset):
 
 
     def __getitem__(self, index):
-        return torch.tensor(self.features[index],dtype=torch.float),torch.tensor(self.sup_features[index],dtype=torch.float),self.file_names[index]
+        # torch.tensor(self.sup_features[index], dtype=torch.float)
+        return torch.tensor(self.features[index],dtype=torch.float),self.file_names[index]

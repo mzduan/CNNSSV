@@ -103,6 +103,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     normal_bam = pysam.AlignmentFile(normal_bam_file, 'r')
     normal_region_reads = normal_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
     for aln in normal_region_reads:
+        print(aln.query_name)
         if aln.is_unmapped or aln.mapping_quality < 20:
             continue
         else:
@@ -112,7 +113,9 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer in somatic_kmer.keys():
+                    print(i,end=" ")
                     somatic_kmer[mkmer][1]=somatic_kmer[mkmer][1]+1
+        print(" ")
     normal_bam.close()
 
 

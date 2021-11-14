@@ -528,7 +528,7 @@ def transfer(s_seq_list,g_seq_list,s_direction_list,g_direction_list,s_depth_lis
 
 def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
 
-    # print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
+    print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
     try:
          #获取修正过的 reference
         revised_region_reference_seq, revised2ref, \
@@ -665,40 +665,44 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
-    # fin = open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/0.7.Siamese.fnc', 'r')
-    # pos_set=set()
-    # while True:
-    #     l=fin.readline()
-    #     if l:
-    #         splits = re.split('\s+', l)
-    #         sv_start = int(splits[1])
-    #         sv_type=splits[3]
-    #         if sv_type=='INS':
-    #             pos_set.add(sv_start)
-    #     else:
-    #         break
-    # fin.close()
+    fin = open('/home/duan/Desktop/getBreakpoint/results/mixed/Siamese/11_12/0.7.Siamese.fnc', 'r')
+    pos_set=set()
+    while True:
+        l=fin.readline()
+        if l:
+            splits = re.split('\s+', l)
+            sv_start = int(splits[1])
+            sv_type=splits[3]
+            if sv_type=='DEL':
+                pos_set.add(sv_start)
+        else:
+            break
+    fin.close()
 
     ref_dict = reference.initial_fa(ref)
-    pool = multiprocessing.Pool(processes=int(thread_num))
+    # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cins:
-        chro=key
-        for bk in cins[chro]:
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cinv:
-        chro=key
-        for bk in cinv[chro]:
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cdup:
-        chro=key
-        for bk in cdup[chro]:
-            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            if bk[0] in pos_set:
+                generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cins:
+    #     chro=key
+    #     for bk in cins[chro]:
+    #         if bk[0] in pos_set:
+    #             generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cinv:
+    #     chro=key
+    #     for bk in cinv[chro]:
+    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cdup:
+    #     chro=key
+    #     for bk in cdup[chro]:
+    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # # pool.shutdown()
-    pool.close()
-    pool.join()
+    # pool.close()
+    # pool.join()
