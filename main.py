@@ -1,8 +1,8 @@
 import argparse
 from breakpoints import get_breakpoints
 from features import run
-from SiameseTest import predict
-# from test import predict
+# from SiameseTest import predict
+from test import predict
 import sys
 import os
 import time
