@@ -13,7 +13,7 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/trainlog_v1_11_12')
+    writer = SummaryWriter('/home/mzduan/trainlog_v1_11_14')
     siamese= Siamese_v1.Siamese_V1()
     if cuda_gpu:
         siamese=siamese.cuda()
