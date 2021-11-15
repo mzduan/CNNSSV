@@ -226,8 +226,8 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     #                          len(germline_support_reads),len(germline_ref_reads)])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
     os.mkdir(sv_str)
-    # np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
-    # np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
+    np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
+    np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
     # np.save(sv_str + '/sup_feat', sup_features)
 
 
@@ -626,12 +626,12 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
         somatic_img=np.array(somatic_img)
         transformed=transform.resize(somatic_img,(50,500))
-        transformed=transformed*255
-        # transformed=transformed.astype(np.float64)
-        transformed = transformed.astype(np.uint8)
-        transformed=Image.fromarray(transformed)
-        transformed.save(sv_str+'/tumor.png')
-        # np.save(sv_str+'/tumor',transformed)
+        # transformed=transformed*255
+        transformed=transformed.astype(np.float64)
+        # transformed = transformed.astype(np.uint8)
+        # transformed=Image.fromarray(transformed)
+        # transformed.save(sv_str+'/tumor.png')
+        np.save(sv_str+'/tumor',transformed)
 
 
         germline_base_channel = features[1]
@@ -646,12 +646,12 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
         germline_img=np.array(germline_img)
         transformed=transform.resize(germline_img,(50,500))
-        transformed=transformed*255
-        # transformed=transformed.astype(np.float64)
-        transformed = transformed.astype(np.uint8)
-        transformed=Image.fromarray(transformed)
-        # np.save(sv_str+'/normal',transformed)
-        transformed.save(sv_str+'/normal.png')
+        # transformed=transformed*255
+        transformed=transformed.astype(np.float64)
+        # transformed = transformed.astype(np.uint8)
+        # transformed=Image.fromarray(transformed)
+        np.save(sv_str+'/normal',transformed)
+        # transformed.save(sv_str+'/normal.png')
     except Exception as exp:
         msg="Error in\t"+somatic_bam_file+"\t"+sv_type+"\t"+str(bk[0])+"\t"+str(bk[1])
         print(msg)
