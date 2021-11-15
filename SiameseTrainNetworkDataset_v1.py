@@ -98,6 +98,8 @@ class SiameseTrainNetworkDataset(data.Dataset):
 
 
     def __getitem__(self, index):
-        return torch.tensor(self.normal_features[index],dtype=torch.float),torch.tensor(self.tumor_features[index],dtype=torch.float),torch.tensor(self.n_vector[index],dtype=torch.float),\
-               torch.tensor(self.t_vector[index],dtype=torch.float),\
+
+        #torch.tensor(self.n_vector[index],dtype=torch.float)
+        #torch.tensor(self.t_vector[index],dtype=torch.float)
+        return torch.tensor(self.normal_features[index],dtype=torch.float),torch.tensor(self.tumor_features[index],dtype=torch.float),\
                torch.tensor(self.labels[index],dtype=torch.long)

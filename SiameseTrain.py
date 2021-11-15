@@ -13,7 +13,7 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/trainlog_v1_11_14')
+    writer = SummaryWriter('/home/mzduan/trainlog_v1_without_sup')
     siamese= Siamese_v1.Siamese_V1()
     if cuda_gpu:
         siamese=siamese.cuda()
@@ -31,14 +31,14 @@ if __name__ == '__main__':
     # 开始训练
     for epoch in range(epoches):
         print("进行第{}个epoch".format(epoch))
-        for step, (batch_n,batch_t, batch_nv,batch_tv,batch_y) in enumerate(train_loader):
+        for step, (batch_n,batch_t,batch_y) in enumerate(train_loader):
             if cuda_gpu:
                 batch_n=batch_n.cuda()
                 batch_t=batch_t.cuda()
-                batch_nv=batch_nv.cuda()
-                batch_tv = batch_tv.cuda()
+                # batch_nv=batch_nv.cuda()
+                # batch_tv = batch_tv.cuda()
                 bathc_y=batch_y.cuda()
-            output = siamese(batch_n,batch_t,batch_nv,batch_tv)
+            output = siamese(batch_n,batch_t)
             loss = loss_function(output, batch_y)
             # print(output,batch_y)
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)

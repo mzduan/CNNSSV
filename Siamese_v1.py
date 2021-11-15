@@ -56,37 +56,50 @@ class Siamese_V1(nn.Module):
 
 
 
+        # self.fc1 = nn.Sequential(
+        #     nn.Linear(in_features=64*4*60, out_features=128),
+        #     nn.ReLU()
+        # )
+        # #
+        # self.fc2 = nn.Sequential(
+        #     nn.Linear(in_features=62, out_features=64),
+        #     nn.ReLU()
+        # )
+        # self.fc3 = nn.Sequential(
+        #     nn.Linear(in_features=192, out_features=64),
+        #     nn.ReLU()
+        # )
+        # self.fc4 = nn.Sequential(
+        #     nn.Linear(in_features=64, out_features=2),
+        # )
+
         self.fc1 = nn.Sequential(
             nn.Linear(in_features=64*4*60, out_features=128),
             nn.ReLU()
         )
-        #
         self.fc2 = nn.Sequential(
-            nn.Linear(in_features=62, out_features=64),
+            nn.Linear(in_features=128, out_features=64),
             nn.ReLU()
         )
         self.fc3 = nn.Sequential(
-            nn.Linear(in_features=192, out_features=64),
-            nn.ReLU()
-        )
-        self.fc4 = nn.Sequential(
             nn.Linear(in_features=64, out_features=2),
         )
-    def forward_once(self,x,sup_feature):
+    def forward_once(self,x):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
         x = x.view(x.size(0), -1)
         c = self.fc1(x)
-        s=self.fc2(sup_feature)
-        combined = torch.cat((c.view(c.size(0), -1), s.view(s.size(0), -1)), dim=1)
-        ret=self.fc3(combined)
-        return ret
+        c = self.fc2(c)
+        # s=self.fc2(sup_feature)
+        # combined = torch.cat((c.view(c.size(0), -1), s.view(s.size(0), -1)), dim=1)
+        # ret=self.fc3(combined)
+        return c
 
-    def forward(self,normal,tumor,nsup_feature,tsup_feature):
-        n_output=self.forward_once(normal,nsup_feature)
-        t_output=self.forward_once(tumor,tsup_feature)
+    def forward(self,normal,tumor):
+        n_output=self.forward_once(normal)
+        t_output=self.forward_once(tumor)
         dis=torch.abs(n_output-t_output)
-        ret=self.fc4(dis)
+        ret=self.fc3(dis)
         # ret=self.fc2(dis)
         return ret

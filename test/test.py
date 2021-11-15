@@ -1,9 +1,9 @@
 import numpy as np
+import CNN
+import torch
 if __name__ == '__main__':
-    n_feat=np.load('/home/duan/Desktop/test/chr20_DEL_709833_92/normal_sup_feature.npy')
-    t_feat=np.load('/home/duan/Desktop/test/chr20_DEL_709833_92/tumor_sup_feature.npy')
-
-    print(n_feat)
-    print(t_feat)
+    model_path='/Users/duan/Desktop/getBreakpoint/model/CNN_without_sup.model'
+    cnn = CNN.CNN()
+    cnn.load_state_dict(torch.load(model_path))
 
 
