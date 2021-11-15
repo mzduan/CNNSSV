@@ -1,11 +1,11 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/CNN/11_14_with_no_sup/chr20_0.7_simulate_somatic.bed'
+    predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_14_with_no_sup/chr20_0.7_simulate_somatic.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
-    # fp_name='/Users/duan/Desktop/ccsmodel_chr20_0.5_fp.txt'
+    fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_14_with_no_sup/chr20_0.7_simulate_somatic.fp'
 
     predict=list()
     with open(predict_bed,'r') as fin:
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
+    with open('/home/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:
@@ -93,15 +93,15 @@ if __name__ == '__main__':
                 # fn=fn+1
         # print(fn)
 
-    # print("FP:")
-    # fp=0
-    # with open(fp_name, 'w') as fout:
-    #     for p in predict:
-    #         if p not in true_p:
-    #             # print(p)
-    #             fout.write('chr20' + '\t' + str(p[0]) + '\t' + str(p[1]) + '\t' + str(p[2]) + '\n')
-    #             fp=fp+1
-    # print(fp)
+    print("FP:")
+    fp=0
+    with open(fp_name, 'w') as fout:
+        for p in predict:
+            if p not in true_p:
+                # print(p)
+                fout.write('chr20' + '\t' + str(p[0]) + '\t' + str(p[1]) + '\t' + str(p[2]) + '\n')
+                fp=fp+1
+    print(fp)
 
 
     # for q in groundtruth:
