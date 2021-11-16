@@ -83,7 +83,7 @@ class CNN(nn.Module):
         x = x.view(x.size(0), -1)
         c = self.fc1(x)
         final_output = self.fc2(c)
-        final_output = self.fc3(c)
+        final_output = self.fc3(final_output)
         # combined=torch.cat((c.view(c.size(0), -1),f.view(f.size(0), -1)), dim=1)
 
         # final_output=self.fc3(combined)
