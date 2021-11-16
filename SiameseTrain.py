@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-import Siamese_v1
-import SiameseTrainNetworkDataset_v1
+import Siamese
+import SiameseTrainDataset
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
@@ -14,18 +14,17 @@ if __name__ == '__main__':
     # cuda_gpu=False
 
     writer = SummaryWriter('/home/mzduan/trainlog_v1_without_sup')
-    siamese= Siamese_v1.Siamese_V1()
+    siamese= Siamese.Siamese()
     if cuda_gpu:
         siamese=siamese.cuda()
     optimizer = torch.optim.Adam(siamese.parameters(), lr=learning_rate)
     loss_function = nn.CrossEntropyLoss()
 
     ccs_feat_path=sys.argv[1]
-    # clr_feat_path=sys.argv[2]
     model_output=sys.argv[2]
 
 
-    train_set=SiameseTrainNetworkDataset_v1.SiameseTrainNetworkDataset(ccs_feat_path)
+    train_set=SiameseTrainDataset.SiameseTrainNetworkDataset(ccs_feat_path)
     train_loader=DataLoader(train_set,batch_size=batch_size,shuffle=True)
 
     # 开始训练
@@ -40,7 +39,6 @@ if __name__ == '__main__':
                 bathc_y=batch_y.cuda()
             output = siamese(batch_n,batch_t)
             loss = loss_function(output, batch_y)
-            # print(output,batch_y)
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
 
             optimizer.zero_grad()

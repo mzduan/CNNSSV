@@ -1,11 +1,10 @@
 import torch.nn as nn
-import torch.nn.functional as F
 import torch
 
 #sup_feature为频率直方图
-class Siamese_V1(nn.Module):
+class Siamese(nn.Module):
     def __init__(self):
-        super(Siamese_V1, self).__init__()
+        super(Siamese, self).__init__()
         self.conv1 = nn.Sequential(    # 3*50*500  ->   16*48*498
             nn.Conv2d(
                 in_channels=3,

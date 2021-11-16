@@ -1,6 +1,4 @@
 import torch.nn as nn
-import torch.nn.functional as F
-import torch
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
