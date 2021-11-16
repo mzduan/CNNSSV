@@ -60,8 +60,12 @@ class CNN(nn.Module):
             nn.ReLU()
         )
 
-        self.fc2=nn.Sequential(
-            nn.Linear(in_features=128, out_features=2),
+        self.fc2 = nn.Sequential(
+            nn.Linear(in_features=128, out_features=64),
+            nn.ReLU()
+        )
+        self.fc3=nn.Sequential(
+            nn.Linear(in_features=64, out_features=2),
             # nn.ReLU()
         )
 
@@ -79,7 +83,7 @@ class CNN(nn.Module):
         x = x.view(x.size(0), -1)
         c = self.fc1(x)
         final_output = self.fc2(c)
-
+        final_output = self.fc3(c)
         # combined=torch.cat((c.view(c.size(0), -1),f.view(f.size(0), -1)), dim=1)
 
         # final_output=self.fc3(combined)
