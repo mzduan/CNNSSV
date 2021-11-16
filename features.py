@@ -192,12 +192,6 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     germline_ref_reads=get_ref_reads(sv_type,chro,bk,germline_bam_file,germline_support_reads)
 
 
-
-    if len(germline_support_reads)==0 and len(somatic_support_reads)>0:
-        sv_str = output_dir + '/' + chro + '_' + sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
-        os.mkdir(sv_str)
-    return
-
     # print("somatic sv reads")
     # for aln in somatic_support_reads:
     #     print(aln.query_name)
