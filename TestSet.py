@@ -14,15 +14,13 @@ class TestSet(data.Dataset):
                 absolute_path=feat_path+'/'+f
                 sub_feature = np.zeros((6, 50, 500))
                 for image in os.listdir(absolute_path):
-                    if image[0] == 'n':
-                        normal = Image.open(absolute_path + '/' + image)
-                        normal = np.array(normal)
+                    if image == 'normal.npy':
+                        normal = np.load(absolute_path + '/' + image)
                         sub_feature[3] = normal[:, :, 0]
                         sub_feature[4] = normal[:, :, 1]
                         sub_feature[5] = normal[:, :, 2]
-                    elif image[0] == 't':
-                        tumor = Image.open(absolute_path + '/' + image)
-                        tumor = np.array(tumor)
+                    elif image[0] == 'tumor.npy':
+                        tumor = np.load(absolute_path + '/' + image)
                         sub_feature[0] = tumor[:, :, 0]
                         sub_feature[1] = tumor[:, :, 1]
                         sub_feature[2] = tumor[:, :, 2]
