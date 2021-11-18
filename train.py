@@ -13,7 +13,7 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/somaticSV/trainlog_CNN_without_sup_minmax')
+    writer = SummaryWriter('/home/mzduan/somaticSV/trainlog_CNN_without_sup_11_18')
     cnn=CNN.CNN()
     if cuda_gpu:
         cnn=cnn.cuda()
