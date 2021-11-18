@@ -26,7 +26,7 @@ class TrainSet(data.Dataset):
                                 sub_feature[3]=normal[:,:,0]
                                 sub_feature[4]=normal[:,:,1]
                                 sub_feature[5]=normal[:,:,2]
-                            elif image[0]=='tumor.npy':
+                            elif image=='tumor.npy':
                                 # tumor=Image.open(absolute_path+'/'+image)
                                 tumor = np.load(absolute_path + '/' + image)
                                 sub_feature[0]=tumor[:,:,0]
