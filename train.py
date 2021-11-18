@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 epoches = 3
 batch_size = 4
-learning_rate = 0.0005
+learning_rate = 0.001
 if __name__ == '__main__':
 
     cuda_gpu = torch.cuda.is_available()
