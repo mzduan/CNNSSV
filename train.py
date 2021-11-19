@@ -5,15 +5,15 @@ import TrainSet
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
-epoches = 3
+epoches = 4
 batch_size = 4
-learning_rate = 0.001
+learning_rate = 0.0005
 if __name__ == '__main__':
 
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/somaticSV/trainlog_CNN_without_sup_11_18')
+    writer = SummaryWriter('/home/mzduan/somaticSV/model/trainlog_CNN')
     cnn=CNN.CNN()
     if cuda_gpu:
         cnn=cnn.cuda()
