@@ -5,7 +5,7 @@ import SiameseTrainDataset
 import sys
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
-epoches = 3
+epoches = 4
 batch_size = 4
 learning_rate = 0.0005
 if __name__ == '__main__':
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     cuda_gpu = torch.cuda.is_available()
     # cuda_gpu=False
 
-    writer = SummaryWriter('/home/mzduan/trainlog_v1_without_sup')
+    writer = SummaryWriter('/home/mzduan/somaticSV/model/trainlog_Siamese')
     siamese= Siamese.Siamese()
     if cuda_gpu:
         siamese=siamese.cuda()
