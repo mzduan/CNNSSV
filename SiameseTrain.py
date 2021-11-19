@@ -30,14 +30,14 @@ if __name__ == '__main__':
     # 开始训练
     for epoch in range(epoches):
         print("进行第{}个epoch".format(epoch))
-        for step, (batch_n,batch_t,batch_y) in enumerate(train_loader):
+        for step, (batch_n,batch_t,batch_nv,batch_tv,batch_y) in enumerate(train_loader):
             if cuda_gpu:
                 batch_n=batch_n.cuda()
                 batch_t=batch_t.cuda()
                 # batch_nv=batch_nv.cuda()
                 # batch_tv = batch_tv.cuda()
                 bathc_y=batch_y.cuda()
-            output = siamese(batch_n,batch_t)
+            output = siamese(batch_n,batch_t,batch_nv,batch_tv)
             loss = loss_function(output, batch_y)
             writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
 
