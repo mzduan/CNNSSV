@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
@@ -37,37 +38,32 @@ class CNN(nn.Module):
             nn.MaxPool2d(kernel_size=2)  #  64*9*122   ->   64*4*60
         )
 
-        # #处理image的fc
-        # self.fc1 = nn.Sequential(
-        #     nn.Linear(in_features=64*4*60, out_features=8),
-        #     nn.ReLU()
-        # )
-        #
-        # #处理vector的fc
-        # self.fc2=nn.Sequential(
-        #     nn.Linear(in_features=10, out_features=4),
-        #     nn.ReLU()
-        # )
-        #
-        # #处理融合后的特征
-        # self.fc3=nn.Sequential(
-        #     nn.Linear(in_features=12, out_features=2),
-        #     # nn.ReLU()
-        # )
-
+        #处理image的fc
         self.fc1 = nn.Sequential(
-            nn.Linear(in_features=64*4*60, out_features=128),
+            nn.Linear(in_features=64*4*60, out_features=8),
             nn.ReLU()
         )
 
-        # self.fc2 = nn.Sequential(
-        #     nn.Linear(in_features=128, out_features=64),
-        #     nn.ReLU()
-        # )
+        #处理vector的fc
         self.fc2=nn.Sequential(
-            nn.Linear(in_features=128, out_features=2),
+            nn.Linear(in_features=10, out_features=4),
+            nn.ReLU()
+        )
+
+        #处理融合后的特征
+        self.fc3=nn.Sequential(
+            nn.Linear(in_features=12, out_features=2),
             # nn.ReLU()
         )
+
+        # self.fc1 = nn.Sequential(
+        #     nn.Linear(in_features=64*4*60, out_features=128),
+        #     nn.ReLU()
+        # )
+        # self.fc2=nn.Sequential(
+        #     nn.Linear(in_features=128, out_features=2),
+        #     # nn.ReLU()
+        # )
 
 
 
@@ -75,16 +71,17 @@ class CNN(nn.Module):
 
 
 
-    def forward(self, x):
+    def forward(self, x,sup_x):
 
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
         x = x.view(x.size(0), -1)
         c = self.fc1(x)
+        f = self.fc2(sup_x)
         # final_output = self.fc2(c)
-        final_output = self.fc2(c)
-        # combined=torch.cat((c.view(c.size(0), -1),f.view(f.size(0), -1)), dim=1)
+        # final_output = self.fc2(c)
+        combined=torch.cat((c.view(c.size(0), -1),f.view(f.size(0), -1)), dim=1)
 
-        # final_output=self.fc3(combined)
+        final_output=self.fc3(combined)
         return final_output

@@ -34,8 +34,8 @@ if __name__ == '__main__':
             if cuda_gpu:
                 batch_n=batch_n.cuda()
                 batch_t=batch_t.cuda()
-                # batch_nv=batch_nv.cuda()
-                # batch_tv = batch_tv.cuda()
+                batch_nv=batch_nv.cuda()
+                batch_tv = batch_tv.cuda()
                 bathc_y=batch_y.cuda()
             output = siamese(batch_n,batch_t,batch_nv,batch_tv)
             loss = loss_function(output, batch_y)
