@@ -11,9 +11,9 @@ def predict(model_path,features_path,out_path):
 
     fout=open(out_path,'w')
 
-    for step, (batch_n,batch_t,file_name) in enumerate(test_loader):
+    for step, (batch_n,batch_t,batch_nv,batch_tv,file_name) in enumerate(test_loader):
         file_name=file_name[0]
-        output = siamese(batch_n,batch_t)
+        output = siamese(batch_n,batch_t,batch_nv,batch_tv)
         if torch.argmax(output)==1:
             splits=re.split('_',file_name)
             chro=splits[0]
