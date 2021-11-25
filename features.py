@@ -1,8 +1,8 @@
 from breakpoints import get_breakpoints
 from merge import merge_same_read
 from insertion import merge_insertion,left_aligned_insertion
-# from get_kmer_count import get_somatic_kmer
-from supplement import get_somatic_kmer
+from get_kmer_count import get_somatic_kmer
+# from supplement import get_somatic_kmer
 import pysam
 import numpy as np
 import reference
