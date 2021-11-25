@@ -10,10 +10,10 @@ def getKV(str):
             ret[key]=value
     return ret
 if __name__ == '__main__':
-    tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.tumor7.vcf','r')
+    tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.tumor2.vcf','r')
     normal_vcf = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.normal.vcf', 'r')
 
-    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic72.vcf', 'w')
+    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic2.bigger50.vcf', 'w')
 
     tumor_readlines=list()
     normal_readlines=list()
@@ -70,6 +70,8 @@ if __name__ == '__main__':
             if 'SVLEN' in j_kv.keys():
                 j_sv_len = abs(int(j_kv['SVLEN']))
                 j_sv_end=j_sv_start+j_sv_len
+                if j_sv_len<50:
+                    continue
             else:
                 continue
             if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<=100 and abs(i_sv_end-j_sv_end) <=100:
