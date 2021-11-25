@@ -10,10 +10,10 @@ def getKV(str):
             ret[key]=value
     return ret
 if __name__ == '__main__':
-    tumor_vcf=open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/sniffles.tumor7.vcf','r')
-    normal_vcf = open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/sniffles.normal.vcf', 'r')
+    tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/random/sniffles/sniffles.tumor7.vcf','r')
+    normal_vcf = open('/home/duan/Desktop/getBreakpoint/results/random/sniffles/sniffles.normal.vcf', 'r')
 
-    somatic_vcf = open('/home/duan/Desktop/somaticSV/callset/NA19239_NA19240_mixed/sniffles.somatic7.vcf', 'w')
+    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/random/sniffles/sniffles.somatic7.vcf', 'w')
 
     tumor_readlines=list()
     normal_readlines=list()
@@ -66,6 +66,10 @@ if __name__ == '__main__':
         else:
             i_sv_len=abs(int(tumor_kv['SVLEN']))
 
+        if i_sv_len<50:
+            continue
+
+
         i_sv_end=i_sv_start+i_sv_len
 
         find_flag=False
@@ -81,7 +85,8 @@ if __name__ == '__main__':
                 continue
             else:
                 j_sv_len = abs(int(normal_kv['SVLEN']))
-
+                if j_sv_len<50:
+                    continue
             j_sv_end = j_sv_start + j_sv_len
 
             if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<=100 and abs(i_sv_end-j_sv_end) <=100:

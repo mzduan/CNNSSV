@@ -10,10 +10,10 @@ def getKV(str):
             ret[key]=value
     return ret
 if __name__ == '__main__':
-    tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.tumor2.vcf','r')
-    normal_vcf = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.normal.vcf', 'r')
+    tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/random/cutesv/cutesv.tumor2.vcf','r')
+    normal_vcf = open('/home/duan/Desktop/getBreakpoint/results/random/cutesv/cutesv.normal.vcf', 'r')
 
-    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic2.bigger50.vcf', 'w')
+    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/random/cutesv/cutesv.somatic2.vcf', 'w')
 
     tumor_readlines=list()
     normal_readlines=list()
