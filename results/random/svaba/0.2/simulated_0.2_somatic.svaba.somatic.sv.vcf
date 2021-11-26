@@ -1,0 +1,75 @@
+##fileformat=VCFv4.2
+##fileDate=20211126
+##source=svaba(v1.1.3) run -t /home/duan/Desktop/bioinfomatic/NGS/0.2sim.srt.bam -n /home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam -a simulated_0.2_somatic -G /home/duan/Desktop/bioinfomatic/fa/chr20.fa 
+##reference=/home/duan/Desktop/bioinfomatic/fa/chr20.fa
+##contig=<ID=chr20,length=64444167>
+##INFO=<ID=SPAN,Number=1,Type=Integer,Description="Distance between the breakpoints. -1 for interchromosomal">
+##INFO=<ID=INSERTION,Number=1,Type=String,Description="Sequence insertion at the breakpoint.">
+##INFO=<ID=SCTG,Number=1,Type=String,Description="Identifier for the contig assembled by svaba to make the SV call">
+##INFO=<ID=EVDNC,Number=1,Type=String,Description="Evidence for variant. ASSMB assembly only, ASDIS assembly+discordant. DSCRD discordant only, TSI_L templated-sequence insertion (local, e.g. AB or BC of an ABC), TSI_G global (e.g. AC of ABC)">
+##INFO=<ID=BX,Number=.,Type=String,Description="Table of BX tag counts for supporting reads">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=NM,Number=1,Type=Integer,Description="Number of mismatches of this alignment fragment to reference">
+##INFO=<ID=SUBN,Number=1,Type=Integer,Description="Number of secondary alignments associated with this contig fragment">
+##INFO=<ID=DISC_MAPQ,Number=1,Type=Integer,Description="Mean mapping quality of discordant reads mapped here">
+##INFO=<ID=REPSEQ,Number=1,Type=String,Description="Repeat sequence near the event">
+##INFO=<ID=MATEID,Number=1,Type=String,Description="ID of mate breakends">
+##INFO=<ID=HOMSEQ,Number=1,Type=String,Description="Sequence of base pair identical micro-homology at event breakpoints. Plus strand sequence displayed.">
+##INFO=<ID=READNAMES,Number=.,Type=String,Description="IDs of ALT reads">
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##INFO=<ID=MAPQ,Number=1,Type=Integer,Description="Mapping quality (BWA-MEM) of this fragement of the contig (-1 if discordant only)">
+##INFO=<ID=MATEMAPQ,Number=1,Type=Integer,Description="Mapping quality of the partner fragment of the contig">
+##INFO=<ID=SECONDARY,Number=0,Type=Flag,Description="SV calls comes from a secondary alignment">
+##INFO=<ID=HOMLEN,Number=1,Type=Integer,Description="Length of base pair identical micro-homology at event breakpoints">
+##INFO=<ID=MATENM,Number=1,Type=Integer,Description="Number of mismatches of partner alignment fragment to reference">
+##INFO=<ID=NUMPARTS,Number=1,Type=Integer,Description="If detected with assembly, number of parts the contig maps to. Otherwise 0">
+##FILTER=<ID=LOWSPANDSCRD,Description="Discordant-only cluster is too small given isize distribution to call confidently">
+##FILTER=<ID=MULTIMATCH,Description="Low MAPQ and this contig fragment maps well to multiple locations">
+##FILTER=<ID=PASS,Description="Strong assembly support, strong discordant support, or combined support. Strong MAPQ">
+##FILTER=<ID=TOOSHORT,Description="Contig alignment for part of this rearrangement has <= 25bp match to reference">
+##FILTER=<ID=WEAKSUPPORTHIREP,Description="Fewer then 7 split reads for variant with >= 10 bases of repeat sequence (need to be more strict)">
+##FILTER=<ID=LOCALMATCH,Description="Contig realigned to assembly region without clipping">
+##FILTER=<ID=DUPREADS,Description="Contig built from what appear to be duplicate reads (split reads all same contig cov))">
+##FILTER=<ID=LOWSPLITSMALL,Description="Fewer than 4 split reads for small events ( < 1500 bp)">
+##FILTER=<ID=SIMPLESEQUENCE,Description="Major portion of one contig mapping falls in a simple sequence, as given by -R flag. Assembly-only filter">
+##FILTER=<ID=HIGHHOMOLOGY,Description="Contig realigns with > 25% of readlength of homology. High probaility of assembly/mapping artifact">
+##FILTER=<ID=WEAKDISC,Description="Fewer than 7 supporting discordant reads and no assembly support">
+##FILTER=<ID=COMPETEDISC,Description="Discordant cluster found with nearly same breakpoints, but different strands for DSCRD event">
+##FILTER=<ID=LOWSUPPORT,Description="Fewer than 2 split reads or < 4 total alt reads for ASDISC">
+##FILTER=<ID=NOLOCAL,Description="Contig realigned to region outside of local assembly region, and no disc support.">
+##FILTER=<ID=LOWSPAN,Description="Discordant read cluster (no split read support), and less than 10kb span and < 12 reads">
+##FILTER=<ID=LOWAS,Description="Alignment score of one end is less than 80% of contig length, or number of mismatch bases (NM) on one end is >= 10">
+##FILTER=<ID=NODISC,Description="Rearrangement was not detected independently by assembly">
+##FILTER=<ID=LOWQINVERSION,Description="Assembly-only inversion of span < 300 and < 6 split reads. Common artifact in Illumina data">
+##FILTER=<ID=LOWMATCHLEN,Description="Assembly contig has fewer than 40 bases mapping uniquely to a reference locus (<100 if complex mapping or ">
+##FILTER=<ID=SINGLEBX,Description="Variant is supported by only a single BX tag (if run with 10X Genomics data)">
+##FILTER=<ID=LOWMAPQDISC,Description="Both clusters of reads failed to achieve mean mapq of > 30 for DSCRD">
+##FILTER=<ID=LOWMAPQ,Description="Assembly contig has non 60/60 mapq and no discordant support">
+##FILTER=<ID=LOWICSUPPORT,Description="Less than 60bp of contig match on one end of an inter-chromosomal break">
+##FORMAT=<ID=SL,Number=1,Type=Float,Description="Alignment-quality Scaled log-odds, where LO is LO * (MAPQ - 2*NM)/60">
+##FORMAT=<ID=LO,Number=1,Type=Float,Description="Log-odds that this variant is real vs artifact">
+##FORMAT=<ID=DR,Number=1,Type=Integer,Description="Number of discordant-supported reads for this variant">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Depth of coverage: Number of reads covering site.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Most likely genotype">
+##FORMAT=<ID=AD,Number=1,Type=Integer,Description="Allele depth: Number of reads supporting the variant">
+##FORMAT=<ID=GQ,Number=1,Type=String,Description="Genotype quality (currently not supported. Always 0)">
+##FORMAT=<ID=LR,Number=1,Type=Float,Description="Log-odds that this variant is REF vs AF=0.5">
+##FORMAT=<ID=PL,Number=.,Type=Float,Description="Normalized likelihood of the current genotype">
+##FORMAT=<ID=SR,Number=1,Type=Integer,Description="Number of spanning reads for this variants">
+##SAMPLE=<ID=/home/duan/Desktop/bioinfomatic/NGS/0.2sim.srt.bam>
+##SAMPLE=<ID=/home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	/home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam	/home/duan/Desktop/bioinfomatic/NGS/0.2sim.srt.bam
+chr20	16168200	516271640:1	T	]chr20:16169700]T	19	PASS	DISC_MAPQ=60;EVDNC=ASDIS;MAPQ=60;MATEID=516271640:2;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_16145501_16170501_1C;SPAN=1500;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:17:4.5:0,4.5,49.5:0:0:4.776:0	0/1:8:25:19.4:19.4,0,42.5:6:6:-19.38:19.89
+chr20	16169700	516271640:2	G	G[chr20:16168200[	19	PASS	DISC_MAPQ=60;EVDNC=ASDIS;MAPQ=60;MATEID=516271640:1;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_16145501_16170501_1C;SPAN=1500;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:17:4.5:0,4.5,49.5:0:0:4.776:0	0/1:8:25:19.4:19.4,0,42.5:6:6:-19.38:19.89
+chr20	22062799	2449855276:1	A	]chr20:22064700]A	19	PASS	EVDNC=ASSMB;HOMSEQ=A;MAPQ=60;MATEID=2449855276:2;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_22050001_22075001_0C;SPAN=1901;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:21:5.7:0,5.7,62.7:0:0:5.9:0	0/1:8:25:19.4:19.4,0,42.5:8:0:-19.38:19.89
+chr20	22064700	2449855276:2	A	A[chr20:22062799[	19	PASS	EVDNC=ASSMB;HOMSEQ=A;MAPQ=60;MATEID=2449855276:1;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_22050001_22075001_0C;SPAN=1901;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:21:5.7:0,5.7,62.7:0:0:5.9:0	0/1:8:25:19.4:19.4,0,42.5:8:0:-19.38:19.89
+chr20	23103327	2362586348:1	A	A[chr20:23103606[	9	PASS	EVDNC=ASSMB;HOMSEQ=AA;MAPQ=60;MATEID=2362586348:2;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_23079001_23104001_0C;SPAN=279;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:19:5.1:0,5.1,56.1:0:0:5.338:0	0/1:4:14:9.2:9.2,0,25.7:4:0:-9.271:9.71
+chr20	23103606	2362586348:2	A	]chr20:23103327]A	9	PASS	EVDNC=ASSMB;HOMSEQ=AA;MAPQ=60;MATEID=2362586348:1;MATENM=0;NM=0;NUMPARTS=2;SCTG=c_1_23079001_23104001_0C;SPAN=279;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:19:5.1:0,5.1,56.1:0:0:5.338:0	0/1:4:14:9.2:9.2,0,25.7:4:0:-9.271:9.71
+chr20	29551700	717960733:1	C	]chr20:29568000]C	44	PASS	DISC_MAPQ=43;EVDNC=ASDIS;MAPQ=60;MATEID=717960733:2;MATENM=1;NM=0;NUMPARTS=2;SCTG=c_1_29547001_29572001_5C;SPAN=16300;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:15:4.2:0,4.2,46.2:0:0:4.214:0	0/1:15:20:4.4:44,0,4.4:10:8:-45.5:45.5
+chr20	29568000	717960733:2	G	G[chr20:29551700[	44	PASS	DISC_MAPQ=46;EVDNC=ASDIS;MAPQ=60;MATEID=717960733:1;MATENM=0;NM=1;NUMPARTS=2;SCTG=c_1_29547001_29572001_5C;SPAN=16300;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:15:4.2:0,4.2,46.2:0:0:4.214:0	0/1:15:20:4.4:44,0,4.4:10:8:-45.5:45.5
+chr20	29623799	514940169:1	C	]chr20:29638636]C	46	PASS	DISC_MAPQ=55;EVDNC=DSCRD;IMPRECISE;MAPQ=55;MATEID=514940169:2;MATENM=-1;NM=-1;NUMPARTS=0;SCTG=chr20:29623799(-)-chr20:29638636(+)__1_29620501_29645501D;SPAN=14837;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:24:6.6:0,6.6,72.6:0:0:6.743:0	0/1:16:23:10.1:46.4,0,10.1:0:8:-47.52:47.52
+chr20	29638636	514940169:2	A	A[chr20:29623799[	46	PASS	DISC_MAPQ=45;EVDNC=DSCRD;IMPRECISE;MAPQ=45;MATEID=514940169:1;MATENM=-1;NM=-1;NUMPARTS=0;SCTG=chr20:29623799(-)-chr20:29638636(+)__1_29620501_29645501D;SPAN=14837;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:24:6.6:0,6.6,72.6:0:0:6.743:0	0/1:16:23:10.1:46.4,0,10.1:0:8:-47.52:47.52
+chr20	54101700	4110098489:1	A	]chr20:54103201]A	23	PASS	DISC_MAPQ=60;EVDNC=ASDIS;HOMSEQ=A;MAPQ=60;MATEID=4110098489:2;MATENM=1;NM=0;NUMPARTS=2;SCTG=c_1_54096001_54121001_5C;SPAN=1501;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:16:4.2:0,4.2,46.2:0:0:4.495:0	0/1:9:23:23.3:23.3,0,33.2:5:5:-23.25:23.37
+chr20	54103201	4110098489:2	A	A[chr20:54101700[	23	PASS	DISC_MAPQ=60;EVDNC=ASDIS;HOMSEQ=A;MAPQ=60;MATEID=4110098489:1;MATENM=0;NM=1;NUMPARTS=2;SCTG=c_1_54096001_54121001_5C;SPAN=1501;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:16:4.2:0,4.2,46.2:0:0:4.495:0	0/1:9:23:23.3:23.3,0,33.2:5:5:-23.25:23.37
+chr20	62722087	834306491:1	A	A[chr20:62722322[	15	PASS	EVDNC=ASSMB;MAPQ=60;MATEID=834306491:2;MATENM=1;NM=0;NUMPARTS=2;SCTG=c_1_62720001_62745001_6C;SPAN=235;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:22:6:0,6,66:0:0:6.181:0	0/1:6:17:15.2:15.2,0,25.1:6:0:-15.03:15.24
+chr20	62722322	834306491:2	T	]chr20:62722087]T	15	PASS	EVDNC=ASSMB;MAPQ=60;MATEID=834306491:1;MATENM=0;NM=1;NUMPARTS=2;SCTG=c_1_62720001_62745001_6C;SPAN=235;SVTYPE=BND	GT:AD:DP:GQ:PL:SR:DR:LR:LO	0/0:0:22:6:0,6,66:0:0:6.181:0	0/1:6:17:15.2:15.2,0,25.1:6:0:-15.03:15.24
