@@ -1,0 +1,4 @@
+[2021-11-26T12:02:18.544015Z] [mzduan] [79105_1] [pyflowTaskWrapper:sort_sortSomaticSV] [wrapperSignal] wrapperStart
+[2021-11-26T12:02:18.553605Z] [mzduan] [79105_1] [pyflowTaskWrapper:sort_sortSomaticSV] [wrapperSignal] taskStart
+[2021-11-26T12:02:18.578409Z] [mzduan] [79105_1] [pyflowTaskWrapper:sort_sortSomaticSV] [wrapperSignal] taskExitCode 0
+[2021-11-26T12:02:18.579899Z] [mzduan] [79105_1] [pyflowTaskWrapper:sort_sortSomaticSV] [wrapperSignal] taskElapsedSec 0

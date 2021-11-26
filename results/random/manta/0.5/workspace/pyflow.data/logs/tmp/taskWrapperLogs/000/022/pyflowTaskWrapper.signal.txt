@@ -1,0 +1,4 @@
+[2021-11-26T11:58:11.847859Z] [mzduan] [78605_1] [pyflowTaskWrapper:removeTmpDir] [wrapperSignal] wrapperStart
+[2021-11-26T11:58:11.859514Z] [mzduan] [78605_1] [pyflowTaskWrapper:removeTmpDir] [wrapperSignal] taskStart
+[2021-11-26T11:58:11.863814Z] [mzduan] [78605_1] [pyflowTaskWrapper:removeTmpDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:58:11.865928Z] [mzduan] [78605_1] [pyflowTaskWrapper:removeTmpDir] [wrapperSignal] taskElapsedSec 0

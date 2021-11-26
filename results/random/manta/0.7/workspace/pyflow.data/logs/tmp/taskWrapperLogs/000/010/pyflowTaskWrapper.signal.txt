@@ -1,0 +1,4 @@
+[2021-11-26T12:00:30.967457Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] [wrapperSignal] wrapperStart
+[2021-11-26T12:00:30.975918Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] [wrapperSignal] taskStart
+[2021-11-26T12:00:30.997999Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] [wrapperSignal] taskExitCode 0
+[2021-11-26T12:00:31.000277Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] [wrapperSignal] taskElapsedSec 0

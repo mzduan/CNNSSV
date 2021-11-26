@@ -1,0 +1,196 @@
+[2021-11-26T12:00:26.239777Z] [mzduan] [79105_1] [WorkflowRunner] Initiating pyFlow run
+[2021-11-26T12:00:26.241075Z] [mzduan] [79105_1] [WorkflowRunner] pyFlowClientWorkflowClass: MantaWorkflow
+[2021-11-26T12:00:26.241981Z] [mzduan] [79105_1] [WorkflowRunner] pyFlowVersion: 1.1.20
+[2021-11-26T12:00:26.242761Z] [mzduan] [79105_1] [WorkflowRunner] pythonVersion: 2.7.18.final.0
+[2021-11-26T12:00:26.243509Z] [mzduan] [79105_1] [WorkflowRunner] WorkingDir: '/home/duan/Desktop/bioinfomatic/manta-1.6.0.centos6_x86_64/bin'
+[2021-11-26T12:00:26.244178Z] [mzduan] [79105_1] [WorkflowRunner] ProcessCmdLine: '/home/duan/Desktop/NGS_results/manta/0.7/runWorkflow.py'
+[2021-11-26T12:00:26.244700Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] mode: local
+[2021-11-26T12:00:26.245194Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] nCores: 2
+[2021-11-26T12:00:26.245669Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] memMb: 7934
+[2021-11-26T12:00:26.246130Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] dataDir: /home/duan/Desktop/NGS_results/manta/0.7/workspace/pyflow.data
+[2021-11-26T12:00:26.246608Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] isDryRun: False
+[2021-11-26T12:00:26.247115Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] isContinue: False
+[2021-11-26T12:00:26.247489Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] isForceContinue: True
+[2021-11-26T12:00:26.247859Z] [mzduan] [79105_1] [WorkflowRunner] [RunParameters] mailTo: ''
+[2021-11-26T12:00:26.248636Z] [mzduan] [79105_1] [TaskRunner:masterWorkflow] Starting task specification for master workflow
+[2021-11-26T12:00:26.249080Z] [mzduan] [79105_1] [MantaWorkflow] Initiating Manta workflow version: 1.6.0
+[2021-11-26T12:00:26.249746Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getAlignmentStats_makeTmpDir' to master workflow
+[2021-11-26T12:00:26.250412Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getAlignmentStats_generateStats_000' to master workflow
+[2021-11-26T12:00:26.250948Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getAlignmentStats_generateStats_001' to master workflow
+[2021-11-26T12:00:26.251494Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getAlignmentStats_mergeStats' to master workflow
+[2021-11-26T12:00:26.256748Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getAlignmentStats_removeTmpDir' to master workflow
+[2021-11-26T12:00:26.257975Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'summarizeStats' to master workflow
+[2021-11-26T12:00:26.259714Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_makeTmpDir' to master workflow
+[2021-11-26T12:00:26.261109Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_makeTmpDir' to master workflow
+[2021-11-26T12:00:26.262286Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_estimateChromDepth_000_chr20' to master workflow
+[2021-11-26T12:00:26.263147Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_catChromDepth' to master workflow
+[2021-11-26T12:00:26.264361Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getAlignmentStats_makeTmpDir' from master workflow
+[2021-11-26T12:00:26.265141Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_mergeChromDepth' to master workflow
+[2021-11-26T12:00:26.266000Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_makeTmpDir' from master workflow
+[2021-11-26T12:00:26.266620Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'getChromDepth_removeTmpDir' to master workflow
+[2021-11-26T12:00:26.273513Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeGraphTmpDir' to master workflow
+[2021-11-26T12:00:26.275092Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0000' to master workflow
+[2021-11-26T12:00:26.275783Z] [mzduan] [79105_1] [TaskRunner:getAlignmentStats_makeTmpDir] Task initiated on local node
+[2021-11-26T12:00:26.280227Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0001' to master workflow
+[2021-11-26T12:00:26.282572Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0002' to master workflow
+[2021-11-26T12:00:26.284287Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0003' to master workflow
+[2021-11-26T12:00:26.285258Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0004' to master workflow
+[2021-11-26T12:00:26.286422Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeLocusGraph_chromId_000_chr20_0005' to master workflow
+[2021-11-26T12:00:26.288125Z] [mzduan] [79105_1] [WorkflowRunner] Adding sub-workflow task 'mergeLocusGraphInputList' to master workflow
+[2021-11-26T12:00:26.289334Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'mergeLocusGraph' to master workflow
+[2021-11-26T12:00:26.291178Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_makeTmpDir] Task initiated on local node
+[2021-11-26T12:00:26.292528Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'checkLocusGraph' to master workflow
+[2021-11-26T12:00:26.293669Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'removeTmpDir' to master workflow
+[2021-11-26T12:00:26.294807Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'locusGraphStats' to master workflow
+[2021-11-26T12:00:26.296009Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'makeHyGenDir' to master workflow
+[2021-11-26T12:00:26.297588Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'generateCandidateSV_0000' to master workflow
+[2021-11-26T12:00:26.304530Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'fixVcfHeader_sortCandidateSV' to master workflow
+[2021-11-26T12:00:26.306423Z] [mzduan] [79105_1] [WorkflowRunner] Adding sub-workflow task 'sortCandidateSVInputList' to master workflow
+[2021-11-26T12:00:26.308264Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'sort_sortCandidateSV' to master workflow
+[2021-11-26T12:00:26.309077Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'tabix_sortCandidateSV' to master workflow
+[2021-11-26T12:00:26.310247Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'fixVcfHeader_sortDiploidSV' to master workflow
+[2021-11-26T12:00:26.311668Z] [mzduan] [79105_1] [WorkflowRunner] Adding sub-workflow task 'sortDiploidSVInputList' to master workflow
+[2021-11-26T12:00:26.312456Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'sort_sortDiploidSV' to master workflow
+[2021-11-26T12:00:26.313742Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'tabix_sortDiploidSV' to master workflow
+[2021-11-26T12:00:26.316282Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'fixVcfHeader_sortSomaticSV' to master workflow
+[2021-11-26T12:00:26.318501Z] [mzduan] [79105_1] [WorkflowRunner] Adding sub-workflow task 'sortSomaticSVInputList' to master workflow
+[2021-11-26T12:00:26.319574Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'sort_sortSomaticSV' to master workflow
+[2021-11-26T12:00:26.320608Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'tabix_sortSomaticSV' to master workflow
+[2021-11-26T12:00:26.321929Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'extractSmallIndels' to master workflow
+[2021-11-26T12:00:26.323655Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'extractSmallIndels_tabix' to master workflow
+[2021-11-26T12:00:26.336329Z] [mzduan] [79105_1] [WorkflowRunner] Adding sub-workflow task 'sortEdgeRuntimeLogsInputList' to master workflow
+[2021-11-26T12:00:26.337980Z] [mzduan] [79105_1] [WorkflowRunner] Adding command task 'sortEdgeRuntimeLogs' to master workflow
+[2021-11-26T12:00:26.340602Z] [mzduan] [79105_1] [TaskRunner:masterWorkflow] Finished task specification for master workflow
+[2021-11-26T12:00:26.375891Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getAlignmentStats_makeTmpDir' launched from master workflow
+[2021-11-26T12:00:26.377343Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getAlignmentStats_generateStats_001' from master workflow
+[2021-11-26T12:00:26.379482Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_makeTmpDir' launched from master workflow
+[2021-11-26T12:00:26.382452Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_sample000_makeTmpDir' from master workflow
+[2021-11-26T12:00:26.385411Z] [mzduan] [79105_1] [TaskRunner:getAlignmentStats_generateStats_001] Task initiated on local node
+[2021-11-26T12:00:26.387780Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_sample000_makeTmpDir] Task initiated on local node
+[2021-11-26T12:00:26.450773Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_sample000_makeTmpDir' launched from master workflow
+[2021-11-26T12:00:26.452223Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_sample000_estimateChromDepth_000_chr20' from master workflow
+[2021-11-26T12:00:26.455579Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_sample000_estimateChromDepth_000_chr20] Task initiated on local node
+[2021-11-26T12:00:28.397916Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getAlignmentStats_generateStats_001' launched from master workflow
+[2021-11-26T12:00:28.399065Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getAlignmentStats_generateStats_000' from master workflow
+[2021-11-26T12:00:28.403135Z] [mzduan] [79105_1] [TaskRunner:getAlignmentStats_generateStats_000] Task initiated on local node
+[2021-11-26T12:00:29.985448Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getAlignmentStats_generateStats_000' launched from master workflow
+[2021-11-26T12:00:29.986891Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getAlignmentStats_mergeStats' from master workflow
+[2021-11-26T12:00:29.990139Z] [mzduan] [79105_1] [TaskRunner:getAlignmentStats_mergeStats] Task initiated on local node
+[2021-11-26T12:00:30.054105Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getAlignmentStats_mergeStats' launched from master workflow
+[2021-11-26T12:00:30.055338Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'summarizeStats' from master workflow
+[2021-11-26T12:00:30.058270Z] [mzduan] [79105_1] [TaskRunner:summarizeStats] Task initiated on local node
+[2021-11-26T12:00:30.124907Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'summarizeStats' launched from master workflow
+[2021-11-26T12:00:30.126281Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getAlignmentStats_removeTmpDir' from master workflow
+[2021-11-26T12:00:30.129257Z] [mzduan] [79105_1] [TaskRunner:getAlignmentStats_removeTmpDir] Task initiated on local node
+[2021-11-26T12:00:30.194712Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getAlignmentStats_removeTmpDir' launched from master workflow
+[2021-11-26T12:00:30.871753Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_sample000_estimateChromDepth_000_chr20' launched from master workflow
+[2021-11-26T12:00:30.873755Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_sample000_catChromDepth' from master workflow
+[2021-11-26T12:00:30.877632Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_sample000_catChromDepth] Task initiated on local node
+[2021-11-26T12:00:30.940562Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_sample000_catChromDepth' launched from master workflow
+[2021-11-26T12:00:30.941925Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_mergeChromDepth' from master workflow
+[2021-11-26T12:00:30.945058Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_mergeChromDepth] Task initiated on local node
+[2021-11-26T12:00:31.009453Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_mergeChromDepth' launched from master workflow
+[2021-11-26T12:00:31.010895Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'getChromDepth_removeTmpDir' from master workflow
+[2021-11-26T12:00:31.011919Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeGraphTmpDir' from master workflow
+[2021-11-26T12:00:31.014869Z] [mzduan] [79105_1] [TaskRunner:getChromDepth_removeTmpDir] Task initiated on local node
+[2021-11-26T12:00:31.016801Z] [mzduan] [79105_1] [TaskRunner:makeGraphTmpDir] Task initiated on local node
+[2021-11-26T12:00:31.081206Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'getChromDepth_removeTmpDir' launched from master workflow
+[2021-11-26T12:00:31.082163Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeGraphTmpDir' launched from master workflow
+[2021-11-26T12:00:31.083403Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0001' from master workflow
+[2021-11-26T12:00:31.084338Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0002' from master workflow
+[2021-11-26T12:00:31.089294Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0001] Task initiated on local node
+[2021-11-26T12:00:31.091044Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0002] Task initiated on local node
+[2021-11-26T12:00:37.216227Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0001' launched from master workflow
+[2021-11-26T12:00:37.217564Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0000' from master workflow
+[2021-11-26T12:00:37.221502Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0000] Task initiated on local node
+[2021-11-26T12:00:37.335843Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0002' launched from master workflow
+[2021-11-26T12:00:37.337090Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0005' from master workflow
+[2021-11-26T12:00:37.340997Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0005] Task initiated on local node
+[2021-11-26T12:00:42.861639Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0000' launched from master workflow
+[2021-11-26T12:00:42.863006Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0003' from master workflow
+[2021-11-26T12:00:42.866323Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0003] Task initiated on local node
+[2021-11-26T12:00:43.639908Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0005' launched from master workflow
+[2021-11-26T12:00:43.640875Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeLocusGraph_chromId_000_chr20_0004' from master workflow
+[2021-11-26T12:00:43.643784Z] [mzduan] [79105_1] [TaskRunner:makeLocusGraph_chromId_000_chr20_0004] Task initiated on local node
+[2021-11-26T12:00:48.964048Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0003' launched from master workflow
+[2021-11-26T12:00:50.044971Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeLocusGraph_chromId_000_chr20_0004' launched from master workflow
+[2021-11-26T12:00:50.046306Z] [mzduan] [79105_1] [TaskManager] Launching sub-workflow task: 'mergeLocusGraphInputList' from master workflow
+[2021-11-26T12:00:50.047270Z] [mzduan] [79105_1] [TaskRunner:mergeLocusGraphInputList] Starting task specification for sub-workflow
+[2021-11-26T12:00:50.048402Z] [mzduan] [79105_1] [TaskRunner:mergeLocusGraphInputList] Finished task specification for sub-workflow
+[2021-11-26T12:00:50.049848Z] [mzduan] [79105_1] [TaskManager] Completed sub-workflow task: 'mergeLocusGraphInputList' launched from master workflow
+[2021-11-26T12:00:50.050888Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'mergeLocusGraph' from master workflow
+[2021-11-26T12:00:50.053739Z] [mzduan] [79105_1] [TaskRunner:mergeLocusGraph] Task initiated on local node
+[2021-11-26T12:00:50.119917Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'mergeLocusGraph' launched from master workflow
+[2021-11-26T12:00:50.121442Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'removeTmpDir' from master workflow
+[2021-11-26T12:00:50.123795Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'locusGraphStats' from master workflow
+[2021-11-26T12:00:50.143808Z] [mzduan] [79105_1] [TaskRunner:removeTmpDir] Task initiated on local node
+[2021-11-26T12:00:50.150476Z] [mzduan] [79105_1] [TaskRunner:locusGraphStats] Task initiated on local node
+[2021-11-26T12:00:50.205562Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'removeTmpDir' launched from master workflow
+[2021-11-26T12:00:50.206355Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'locusGraphStats' launched from master workflow
+[2021-11-26T12:00:50.207847Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'checkLocusGraph' from master workflow
+[2021-11-26T12:00:50.215559Z] [mzduan] [79105_1] [TaskRunner:checkLocusGraph] Task initiated on local node
+[2021-11-26T12:00:50.277417Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'checkLocusGraph' launched from master workflow
+[2021-11-26T12:00:50.278965Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'makeHyGenDir' from master workflow
+[2021-11-26T12:00:50.282287Z] [mzduan] [79105_1] [TaskRunner:makeHyGenDir] Task initiated on local node
+[2021-11-26T12:00:50.347231Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'makeHyGenDir' launched from master workflow
+[2021-11-26T12:00:50.348715Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'generateCandidateSV_0000' from master workflow
+[2021-11-26T12:00:50.352168Z] [mzduan] [79105_1] [TaskRunner:generateCandidateSV_0000] Task initiated on local node
+[2021-11-26T12:02:18.129627Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'generateCandidateSV_0000' launched from master workflow
+[2021-11-26T12:02:18.130964Z] [mzduan] [79105_1] [TaskManager] Launching sub-workflow task: 'sortEdgeRuntimeLogsInputList' from master workflow
+[2021-11-26T12:02:18.131742Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'fixVcfHeader_sortCandidateSV' from master workflow
+[2021-11-26T12:02:18.132744Z] [mzduan] [79105_1] [TaskRunner:sortEdgeRuntimeLogsInputList] Starting task specification for sub-workflow
+[2021-11-26T12:02:18.134734Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'fixVcfHeader_sortDiploidSV' from master workflow
+[2021-11-26T12:02:18.135798Z] [mzduan] [79105_1] [TaskRunner:sortEdgeRuntimeLogsInputList] Finished task specification for sub-workflow
+[2021-11-26T12:02:18.138069Z] [mzduan] [79105_1] [TaskManager] Completed sub-workflow task: 'sortEdgeRuntimeLogsInputList' launched from master workflow
+[2021-11-26T12:02:18.140234Z] [mzduan] [79105_1] [TaskRunner:fixVcfHeader_sortCandidateSV] Task initiated on local node
+[2021-11-26T12:02:18.156736Z] [mzduan] [79105_1] [TaskRunner:fixVcfHeader_sortDiploidSV] Task initiated on local node
+[2021-11-26T12:02:18.215706Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'fixVcfHeader_sortCandidateSV' launched from master workflow
+[2021-11-26T12:02:18.216839Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'fixVcfHeader_sortDiploidSV' launched from master workflow
+[2021-11-26T12:02:18.217901Z] [mzduan] [79105_1] [TaskManager] Launching sub-workflow task: 'sortCandidateSVInputList' from master workflow
+[2021-11-26T12:02:18.218779Z] [mzduan] [79105_1] [TaskManager] Launching sub-workflow task: 'sortDiploidSVInputList' from master workflow
+[2021-11-26T12:02:18.223800Z] [mzduan] [79105_1] [TaskRunner:sortDiploidSVInputList] Starting task specification for sub-workflow
+[2021-11-26T12:02:18.225236Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'sortEdgeRuntimeLogs' from master workflow
+[2021-11-26T12:02:18.227235Z] [mzduan] [79105_1] [TaskRunner:sortDiploidSVInputList] Finished task specification for sub-workflow
+[2021-11-26T12:02:18.230970Z] [mzduan] [79105_1] [TaskRunner:sortCandidateSVInputList] Starting task specification for sub-workflow
+[2021-11-26T12:02:18.231997Z] [mzduan] [79105_1] [TaskRunner:sortCandidateSVInputList] Finished task specification for sub-workflow
+[2021-11-26T12:02:18.232746Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'fixVcfHeader_sortSomaticSV' from master workflow
+[2021-11-26T12:02:18.233451Z] [mzduan] [79105_1] [TaskRunner:sortEdgeRuntimeLogs] Task initiated on local node
+[2021-11-26T12:02:18.239389Z] [mzduan] [79105_1] [TaskManager] Completed sub-workflow task: 'sortCandidateSVInputList' launched from master workflow
+[2021-11-26T12:02:18.240127Z] [mzduan] [79105_1] [TaskManager] Completed sub-workflow task: 'sortDiploidSVInputList' launched from master workflow
+[2021-11-26T12:02:18.243350Z] [mzduan] [79105_1] [TaskRunner:fixVcfHeader_sortSomaticSV] Task initiated on local node
+[2021-11-26T12:02:18.309265Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'fixVcfHeader_sortSomaticSV' launched from master workflow
+[2021-11-26T12:02:18.310093Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'sortEdgeRuntimeLogs' launched from master workflow
+[2021-11-26T12:02:18.311130Z] [mzduan] [79105_1] [TaskManager] Launching sub-workflow task: 'sortSomaticSVInputList' from master workflow
+[2021-11-26T12:02:18.312010Z] [mzduan] [79105_1] [TaskRunner:sortSomaticSVInputList] Starting task specification for sub-workflow
+[2021-11-26T12:02:18.313209Z] [mzduan] [79105_1] [TaskRunner:sortSomaticSVInputList] Finished task specification for sub-workflow
+[2021-11-26T12:02:18.314051Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'sort_sortCandidateSV' from master workflow
+[2021-11-26T12:02:18.315045Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'sort_sortDiploidSV' from master workflow
+[2021-11-26T12:02:18.318601Z] [mzduan] [79105_1] [TaskManager] Completed sub-workflow task: 'sortSomaticSVInputList' launched from master workflow
+[2021-11-26T12:02:18.321113Z] [mzduan] [79105_1] [TaskRunner:sort_sortCandidateSV] Task initiated on local node
+[2021-11-26T12:02:18.325935Z] [mzduan] [79105_1] [TaskRunner:sort_sortDiploidSV] Task initiated on local node
+[2021-11-26T12:02:18.436888Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'sort_sortDiploidSV' launched from master workflow
+[2021-11-26T12:02:18.437681Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'sort_sortCandidateSV' launched from master workflow
+[2021-11-26T12:02:18.438699Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'tabix_sortDiploidSV' from master workflow
+[2021-11-26T12:02:18.439637Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'extractSmallIndels' from master workflow
+[2021-11-26T12:02:18.443157Z] [mzduan] [79105_1] [TaskRunner:tabix_sortDiploidSV] Task initiated on local node
+[2021-11-26T12:02:18.446079Z] [mzduan] [79105_1] [TaskRunner:extractSmallIndels] Task initiated on local node
+[2021-11-26T12:02:18.509688Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'tabix_sortDiploidSV' launched from master workflow
+[2021-11-26T12:02:18.510552Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'extractSmallIndels' launched from master workflow
+[2021-11-26T12:02:18.511633Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'sort_sortSomaticSV' from master workflow
+[2021-11-26T12:02:18.512643Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'extractSmallIndels_tabix' from master workflow
+[2021-11-26T12:02:18.516114Z] [mzduan] [79105_1] [TaskRunner:sort_sortSomaticSV] Task initiated on local node
+[2021-11-26T12:02:18.520036Z] [mzduan] [79105_1] [TaskRunner:extractSmallIndels_tabix] Task initiated on local node
+[2021-11-26T12:02:18.581375Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'extractSmallIndels_tabix' launched from master workflow
+[2021-11-26T12:02:18.582246Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'tabix_sortCandidateSV' from master workflow
+[2021-11-26T12:02:18.586817Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'sort_sortSomaticSV' launched from master workflow
+[2021-11-26T12:02:18.587733Z] [mzduan] [79105_1] [TaskManager] Launching command task: 'tabix_sortSomaticSV' from master workflow
+[2021-11-26T12:02:18.588333Z] [mzduan] [79105_1] [TaskRunner:tabix_sortCandidateSV] Task initiated on local node
+[2021-11-26T12:02:18.598794Z] [mzduan] [79105_1] [TaskRunner:tabix_sortSomaticSV] Task initiated on local node
+[2021-11-26T12:02:18.661311Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'tabix_sortSomaticSV' launched from master workflow
+[2021-11-26T12:02:18.662088Z] [mzduan] [79105_1] [TaskManager] Completed command task: 'tabix_sortCandidateSV' launched from master workflow
+[2021-11-26T12:02:29.531901Z] [mzduan] [79105_1] [WorkflowRunner] Manta workflow successfully completed.
+[2021-11-26T12:02:29.531901Z] [mzduan] [79105_1] [WorkflowRunner] 
+[2021-11-26T12:02:29.531901Z] [mzduan] [79105_1] [WorkflowRunner] 	workflow version: 1.6.0
+[2021-11-26T12:02:29.534372Z] [mzduan] [79105_1] [WorkflowRunner] 
+[2021-11-26T12:02:29.536636Z] [mzduan] [79105_1] [WorkflowRunner] Workflow successfully completed all tasks
+[2021-11-26T12:02:29.538639Z] [mzduan] [79105_1] [WorkflowRunner] Elapsed time for full workflow: 123 sec

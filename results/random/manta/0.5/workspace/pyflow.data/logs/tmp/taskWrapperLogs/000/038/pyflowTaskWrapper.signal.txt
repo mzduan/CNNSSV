@@ -1,0 +1,4 @@
+[2021-11-26T11:59:36.117955Z] [mzduan] [78605_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] wrapperStart
+[2021-11-26T11:59:36.126908Z] [mzduan] [78605_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskStart
+[2021-11-26T11:59:36.160198Z] [mzduan] [78605_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:59:36.161570Z] [mzduan] [78605_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskElapsedSec 0

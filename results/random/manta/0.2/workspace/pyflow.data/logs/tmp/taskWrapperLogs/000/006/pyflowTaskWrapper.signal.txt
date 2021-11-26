@@ -1,0 +1,4 @@
+[2021-11-26T11:54:03.915432Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] [wrapperSignal] wrapperStart
+[2021-11-26T11:54:03.929262Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] [wrapperSignal] taskStart
+[2021-11-26T11:54:03.931908Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:54:03.934170Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] [wrapperSignal] taskElapsedSec 0

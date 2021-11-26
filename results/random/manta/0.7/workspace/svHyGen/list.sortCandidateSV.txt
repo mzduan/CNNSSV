@@ -1,0 +1,1 @@
+/home/duan/Desktop/NGS_results/manta/0.7/workspace/svHyGen/candidateSV.0000.vcf

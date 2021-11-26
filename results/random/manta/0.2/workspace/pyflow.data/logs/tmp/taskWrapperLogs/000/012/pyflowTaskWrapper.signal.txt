@@ -1,0 +1,4 @@
+[2021-11-26T11:54:11.519212Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] wrapperStart
+[2021-11-26T11:54:11.531351Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskStart
+[2021-11-26T11:54:11.533930Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:54:11.535795Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskElapsedSec 0

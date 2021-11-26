@@ -1,0 +1,4 @@
+[2021-11-26T11:59:35.904820Z] [mzduan] [78605_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] [wrapperSignal] wrapperStart
+[2021-11-26T11:59:35.914232Z] [mzduan] [78605_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] [wrapperSignal] taskStart
+[2021-11-26T11:59:35.936680Z] [mzduan] [78605_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:59:35.938056Z] [mzduan] [78605_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] [wrapperSignal] taskElapsedSec 0

@@ -1,0 +1,4 @@
+[2021-11-26T11:55:53.471323Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] wrapperStart
+[2021-11-26T11:55:53.480996Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskStart
+[2021-11-26T11:55:53.496223Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:55:53.497819Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskElapsedSec 0

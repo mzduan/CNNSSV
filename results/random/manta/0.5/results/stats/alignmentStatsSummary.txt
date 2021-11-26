@@ -1,0 +1,36 @@
+group:	/home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam
+fragment length observations:	499751
+fragment length quantiles:
+0.01	382
+0.05	417
+0.1	436
+0.25	466
+0.5	500
+0.75	533
+0.9	564
+0.95	582
+0.99	615
+Total sampled reads:	1045711
+Total sampled paired reads:	1045711
+Total sampled unpaired reads:	0
+Total sampled paired reads with low MAPQ:	1408
+Total sampled high-confidence read pairs passing all filters:	500033
+
+group:	/home/duan/Desktop/bioinfomatic/NGS/0.5sim.srt.bam
+fragment length observations:	399804
+fragment length quantiles:
+0.01	383
+0.05	417
+0.1	436
+0.25	466
+0.5	500
+0.75	534
+0.9	564
+0.95	582
+0.99	615
+Total sampled reads:	841485
+Total sampled paired reads:	841485
+Total sampled unpaired reads:	0
+Total sampled paired reads with low MAPQ:	897
+Total sampled high-confidence read pairs passing all filters:	400025
+

@@ -1,0 +1,4 @@
+[2021-11-26T11:58:11.784349Z] [mzduan] [78605_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] wrapperStart
+[2021-11-26T11:58:11.791173Z] [mzduan] [78605_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskStart
+[2021-11-26T11:58:11.800883Z] [mzduan] [78605_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:58:11.802324Z] [mzduan] [78605_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskElapsedSec 0

@@ -1,0 +1,77 @@
+[2021-11-26T11:54:03.919039Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_makeTmpDir] Task: 'getAlignmentStats_makeTmpDir' exit code: '0'
+[2021-11-26T11:54:03.920332Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_makeTmpDir] Task: 'getAlignmentStats_makeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:03.932877Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] Task: 'getChromDepth_makeTmpDir' exit code: '0'
+[2021-11-26T11:54:03.935671Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_makeTmpDir] Task: 'getChromDepth_makeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:03.978231Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_makeTmpDir] Task: 'getChromDepth_sample000_makeTmpDir' exit code: '0'
+[2021-11-26T11:54:03.979471Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_makeTmpDir] Task: 'getChromDepth_sample000_makeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:05.736812Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] Task: 'getAlignmentStats_generateStats_000' exit code: '0'
+[2021-11-26T11:54:05.737926Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] Task: 'getAlignmentStats_generateStats_000' complete. elapsedSec: 1 elapsedCoreSec: 1
+[2021-11-26T11:54:06.146622Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_001] Task: 'getAlignmentStats_generateStats_001' exit code: '0'
+[2021-11-26T11:54:06.147670Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_001] Task: 'getAlignmentStats_generateStats_001' complete. elapsedSec: 2 elapsedCoreSec: 2
+[2021-11-26T11:54:06.421583Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] Task: 'getAlignmentStats_mergeStats' exit code: '0'
+[2021-11-26T11:54:06.424159Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] Task: 'getAlignmentStats_mergeStats' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:06.503900Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] Task: 'getAlignmentStats_removeTmpDir' exit code: '0'
+[2021-11-26T11:54:06.505168Z] [mzduan] [78343_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] Task: 'getAlignmentStats_removeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:06.766627Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] Task: 'summarizeStats' exit code: '0'
+[2021-11-26T11:54:06.768703Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] Task: 'summarizeStats' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:11.162630Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_000_chr20] Task: 'getChromDepth_sample000_estimateChromDepth_000_chr20' exit code: '0'
+[2021-11-26T11:54:11.163919Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_000_chr20] Task: 'getChromDepth_sample000_estimateChromDepth_000_chr20' complete. elapsedSec: 5 elapsedCoreSec: 5
+[2021-11-26T11:54:11.313400Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_catChromDepth] Task: 'getChromDepth_sample000_catChromDepth' exit code: '0'
+[2021-11-26T11:54:11.314689Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_sample000_catChromDepth] Task: 'getChromDepth_sample000_catChromDepth' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:11.417338Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] Task: 'getChromDepth_mergeChromDepth' exit code: '0'
+[2021-11-26T11:54:11.418908Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_mergeChromDepth] Task: 'getChromDepth_mergeChromDepth' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:11.524834Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] Task: 'getChromDepth_removeTmpDir' exit code: '0'
+[2021-11-26T11:54:11.526331Z] [mzduan] [78343_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] Task: 'getChromDepth_removeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:11.534858Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] Task: 'makeGraphTmpDir' exit code: '0'
+[2021-11-26T11:54:11.536588Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeGraphTmpDir] Task: 'makeGraphTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:17.528443Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0002] Task: 'makeLocusGraph_chromId_000_chr20_0002' exit code: '0'
+[2021-11-26T11:54:17.529603Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0002] Task: 'makeLocusGraph_chromId_000_chr20_0002' complete. elapsedSec: 5 elapsedCoreSec: 5
+[2021-11-26T11:54:17.540277Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0003] Task: 'makeLocusGraph_chromId_000_chr20_0003' exit code: '0'
+[2021-11-26T11:54:17.541494Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0003] Task: 'makeLocusGraph_chromId_000_chr20_0003' complete. elapsedSec: 5 elapsedCoreSec: 5
+[2021-11-26T11:54:24.899611Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0005] Task: 'makeLocusGraph_chromId_000_chr20_0005' exit code: '0'
+[2021-11-26T11:54:24.900772Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0005] Task: 'makeLocusGraph_chromId_000_chr20_0005' complete. elapsedSec: 7 elapsedCoreSec: 7
+[2021-11-26T11:54:25.026691Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0004] Task: 'makeLocusGraph_chromId_000_chr20_0004' exit code: '0'
+[2021-11-26T11:54:25.027986Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0004] Task: 'makeLocusGraph_chromId_000_chr20_0004' complete. elapsedSec: 7 elapsedCoreSec: 7
+[2021-11-26T11:54:30.204960Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0000] Task: 'makeLocusGraph_chromId_000_chr20_0000' exit code: '0'
+[2021-11-26T11:54:30.205926Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0000] Task: 'makeLocusGraph_chromId_000_chr20_0000' complete. elapsedSec: 5 elapsedCoreSec: 5
+[2021-11-26T11:54:30.435889Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0001] Task: 'makeLocusGraph_chromId_000_chr20_0001' exit code: '0'
+[2021-11-26T11:54:30.437179Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeLocusGraph_chromId_000_chr20_0001] Task: 'makeLocusGraph_chromId_000_chr20_0001' complete. elapsedSec: 5 elapsedCoreSec: 5
+[2021-11-26T11:54:30.649486Z] [mzduan] [78343_1] [pyflowTaskWrapper:mergeLocusGraph] Task: 'mergeLocusGraph' exit code: '0'
+[2021-11-26T11:54:30.653632Z] [mzduan] [78343_1] [pyflowTaskWrapper:mergeLocusGraph] Task: 'mergeLocusGraph' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:30.756382Z] [mzduan] [78343_1] [pyflowTaskWrapper:removeTmpDir] Task: 'removeTmpDir' exit code: '0'
+[2021-11-26T11:54:30.758047Z] [mzduan] [78343_1] [pyflowTaskWrapper:removeTmpDir] Task: 'removeTmpDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:30.865585Z] [mzduan] [78343_1] [pyflowTaskWrapper:checkLocusGraph] Task: 'checkLocusGraph' exit code: '0'
+[2021-11-26T11:54:30.867917Z] [mzduan] [78343_1] [pyflowTaskWrapper:checkLocusGraph] Task: 'checkLocusGraph' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:30.972142Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] Task: 'makeHyGenDir' exit code: '0'
+[2021-11-26T11:54:30.974090Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] Task: 'makeHyGenDir' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:54:31.021729Z] [mzduan] [78343_1] [pyflowTaskWrapper:locusGraphStats] Task: 'locusGraphStats' exit code: '0'
+[2021-11-26T11:54:31.023729Z] [mzduan] [78343_1] [pyflowTaskWrapper:locusGraphStats] Task: 'locusGraphStats' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.208695Z] [mzduan] [78343_1] [pyflowTaskWrapper:generateCandidateSV_0000] Task: 'generateCandidateSV_0000' exit code: '0'
+[2021-11-26T11:55:53.210344Z] [mzduan] [78343_1] [pyflowTaskWrapper:generateCandidateSV_0000] Task: 'generateCandidateSV_0000' complete. elapsedSec: 82 elapsedCoreSec: 164
+[2021-11-26T11:55:53.314818Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] Task: 'fixVcfHeader_sortSomaticSV' exit code: '0'
+[2021-11-26T11:55:53.315589Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] Task: 'fixVcfHeader_sortCandidateSV' exit code: '0'
+[2021-11-26T11:55:53.316339Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortSomaticSV] Task: 'fixVcfHeader_sortSomaticSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.317017Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] Task: 'fixVcfHeader_sortCandidateSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.497100Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] Task: 'fixVcfHeader_sortDiploidSV' exit code: '0'
+[2021-11-26T11:55:53.498510Z] [mzduan] [78343_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] Task: 'fixVcfHeader_sortDiploidSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.502835Z] [mzduan] [78343_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] Task: 'sortEdgeRuntimeLogs' exit code: '0'
+[2021-11-26T11:55:53.504751Z] [mzduan] [78343_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] Task: 'sortEdgeRuntimeLogs' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.664716Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortSomaticSV] Task: 'sort_sortSomaticSV' exit code: '0'
+[2021-11-26T11:55:53.668126Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortSomaticSV] Task: 'sort_sortSomaticSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.692303Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortCandidateSV] Task: 'sort_sortCandidateSV' exit code: '0'
+[2021-11-26T11:55:53.694853Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortCandidateSV] Task: 'sort_sortCandidateSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.772084Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortSomaticSV] Task: 'tabix_sortSomaticSV' exit code: '0'
+[2021-11-26T11:55:53.773544Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortSomaticSV] Task: 'tabix_sortSomaticSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.826238Z] [mzduan] [78343_1] [sort_sortDiploidSV] Processed 381 sites in the vcf.
+[2021-11-26T11:55:53.826808Z] [mzduan] [78343_1] [sort_sortDiploidSV] Filtered 50 sites due to ploidy.
+[2021-11-26T11:55:53.827301Z] [mzduan] [78343_1] [sort_sortDiploidSV] Filtered sites: {'chr20': {(62402328, 63771049): True, (59848619, 61274314): True, (46294865, 47666119): True, (46463414, 48516571): True, (61659507, 63027889): True, (62544512, 63912859): True, (61985548, 63354194): True, (59904499, 61329442): True, (62918547, 64286569): True, (59904499, 61329283): True, (59951074, 61375577): True, (61894029, 63262675): True, (59677463, 61102348): True, (56672079, 58097166): True, (46294866, 47666292): True, (34152263, 35564372): True, (56672078, 58097020): True, (59677463, 61102405): True, (62728400, 64096773): True, (60523612, 61948254): True, (59848586, 61274576): True, (61659401, 63028297): True, (62123594, 63492636): True, (62248943, 63617588): True, (62544347, 63913290): True, (61734782, 63103583): True, (60630320, 62055335): True, (35024846, 36396366): True, (62709532, 64078177): True, (58889664, 60314472): True, (59906705, 61331439): True, (60523611, 61948353): True, (62081825, 63450768): True, (61660681, 63028924): True, (61190145, 62592936): True, (62273252, 63641897): True, (59950991, 61376090): True, (62273252, 63642022): True, (62402247, 63770813): True, (57405569, 58830220): True, (59906615, 61331850): True, (60398334, 61823481): True, (34152263, 35564493): True, (62709532, 64078281): True, (62081997, 63450332): True, (62248944, 63617697): True, (61985548, 63354500): True, (61660681, 63029234): True, (61734845, 63103162): True, (61190146, 62593082): True}}
+[2021-11-26T11:55:53.842126Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortDiploidSV] Task: 'sort_sortDiploidSV' exit code: '0'
+[2021-11-26T11:55:53.843663Z] [mzduan] [78343_1] [pyflowTaskWrapper:sort_sortDiploidSV] Task: 'sort_sortDiploidSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.908047Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortCandidateSV] Task: 'tabix_sortCandidateSV' exit code: '0'
+[2021-11-26T11:55:53.908462Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels] Task: 'extractSmallIndels' exit code: '0'
+[2021-11-26T11:55:53.909699Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortCandidateSV] Task: 'tabix_sortCandidateSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.910365Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels] Task: 'extractSmallIndels' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.985565Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortDiploidSV] Task: 'tabix_sortDiploidSV' exit code: '0'
+[2021-11-26T11:55:53.986576Z] [mzduan] [78343_1] [pyflowTaskWrapper:tabix_sortDiploidSV] Task: 'tabix_sortDiploidSV' complete. elapsedSec: 0 elapsedCoreSec: 0
+[2021-11-26T11:55:53.992385Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] Task: 'extractSmallIndels_tabix' exit code: '0'
+[2021-11-26T11:55:53.993793Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] Task: 'extractSmallIndels_tabix' complete. elapsedSec: 0 elapsedCoreSec: 0

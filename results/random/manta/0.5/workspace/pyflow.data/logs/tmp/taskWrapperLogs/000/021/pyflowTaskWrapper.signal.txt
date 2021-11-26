@@ -1,0 +1,4 @@
+[2021-11-26T11:58:11.920080Z] [mzduan] [78605_1] [pyflowTaskWrapper:checkLocusGraph] [wrapperSignal] wrapperStart
+[2021-11-26T11:58:11.926008Z] [mzduan] [78605_1] [pyflowTaskWrapper:checkLocusGraph] [wrapperSignal] taskStart
+[2021-11-26T11:58:11.931405Z] [mzduan] [78605_1] [pyflowTaskWrapper:checkLocusGraph] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:58:11.933058Z] [mzduan] [78605_1] [pyflowTaskWrapper:checkLocusGraph] [wrapperSignal] taskElapsedSec 0

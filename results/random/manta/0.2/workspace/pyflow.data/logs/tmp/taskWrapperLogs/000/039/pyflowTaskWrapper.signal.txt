@@ -1,0 +1,4 @@
+[2021-11-26T11:55:53.976265Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] wrapperStart
+[2021-11-26T11:55:53.984196Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskStart
+[2021-11-26T11:55:53.991595Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:55:53.993095Z] [mzduan] [78343_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskElapsedSec 0

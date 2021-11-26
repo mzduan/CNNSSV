@@ -1,0 +1,4 @@
+[2021-11-26T12:02:18.249483Z] [mzduan] [79105_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] [wrapperSignal] wrapperStart
+[2021-11-26T12:02:18.260890Z] [mzduan] [79105_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] [wrapperSignal] taskStart
+[2021-11-26T12:02:18.276870Z] [mzduan] [79105_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] [wrapperSignal] taskExitCode 0
+[2021-11-26T12:02:18.279088Z] [mzduan] [79105_1] [pyflowTaskWrapper:sortEdgeRuntimeLogs] [wrapperSignal] taskElapsedSec 0

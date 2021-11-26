@@ -1,0 +1,4 @@
+[2021-11-26T12:00:31.031589Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] [wrapperSignal] wrapperStart
+[2021-11-26T12:00:31.041982Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] [wrapperSignal] taskStart
+[2021-11-26T12:00:31.044501Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T12:00:31.045749Z] [mzduan] [79105_1] [pyflowTaskWrapper:getChromDepth_removeTmpDir] [wrapperSignal] taskElapsedSec 0

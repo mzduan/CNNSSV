@@ -1,0 +1,4 @@
+[2021-11-26T11:57:48.644925Z] [mzduan] [78605_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] wrapperStart
+[2021-11-26T11:57:48.651697Z] [mzduan] [78605_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskStart
+[2021-11-26T11:57:48.660689Z] [mzduan] [78605_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:57:48.663046Z] [mzduan] [78605_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskElapsedSec 0

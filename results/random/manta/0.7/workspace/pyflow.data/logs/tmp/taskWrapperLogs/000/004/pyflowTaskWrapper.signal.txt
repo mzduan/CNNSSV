@@ -1,0 +1,4 @@
+[2021-11-26T12:00:30.149401Z] [mzduan] [79105_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] wrapperStart
+[2021-11-26T12:00:30.158092Z] [mzduan] [79105_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskStart
+[2021-11-26T12:00:30.161720Z] [mzduan] [79105_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T12:00:30.163154Z] [mzduan] [79105_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskElapsedSec 0

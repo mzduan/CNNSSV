@@ -1,0 +1,106 @@
+GraphBuildTime	0.0100h wall, 0.0079h user + 0.0010h system = 0.0089h CPU (89.43%)
+GraphMergeTime	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (0.00%)
+disjointSubgraphs	774
+nodes	1378
+directedEdges	2264
+selfEdges	1006
+totalGraphEvidence	129007
+totalCleaned	174965
+highestSearchCount	52
+isMaxSearchCount	0
+highestSearchDensity	0.0395437
+isMaxSearchDensity	0
+
+[Sample0]
+Source	/home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam
+MinMapqFiltered	275643	0.0321
+NotFiltered	8319200	0.9679
+NotFilteredAndIgnored	8274101	0.9627
+NotFilteredAndAnomalousPair	8672	0.0010
+NotFilteredAndAnomalousPairRemotes	6419	0.0007
+NotFilteredAndSplitRead	4874	0.0006
+NotFilteredAndSplitReadInAnomalousPair	1239	0.0001
+NotFilteredAndSplitReadSupplementarySegments	3262	N/A
+NotFilteredAndLargeIndel	433	0.0001
+NotFilteredAndSemiAligned	34066	0.0040
+EvidenceType_pair	0	0.0000
+EvidenceType_local_pair	8977	0.1790
+EvidenceType_cigar	457	0.0091
+EvidenceType_softclip	0	0.0000
+EvidenceType_semialign	34578	0.6895
+EvidenceType_shadow	0	0.0000
+EvidenceType_split_align	6138	0.1224
+EvidenceType_unknown	0	0.0000
+ClosePairs	1332
+
+[Sample1]
+Source	/home/duan/Desktop/bioinfomatic/NGS/0.5sim.srt.bam
+MinMapqFiltered	275750	0.0321
+NotFiltered	8324873	0.9679
+NotFilteredAndIgnored	8277370	0.9624
+NotFilteredAndAnomalousPair	9996	0.0012
+NotFilteredAndAnomalousPairRemotes	7365	0.0009
+NotFilteredAndSplitRead	5716	0.0007
+NotFilteredAndSplitReadInAnomalousPair	1534	0.0002
+NotFilteredAndSplitReadSupplementarySegments	3802	N/A
+NotFilteredAndLargeIndel	468	0.0001
+NotFilteredAndSemiAligned	34704	0.0040
+EvidenceType_pair	0	0.0000
+EvidenceType_local_pair	10417	0.1954
+EvidenceType_cigar	501	0.0094
+EvidenceType_softclip	0	0.0000
+EvidenceType_semialign	35278	0.6618
+EvidenceType_shadow	0	0.0000
+EvidenceType_split_align	7108	0.1333
+EvidenceType_unknown	0	0.0000
+ClosePairs	1611
+
+NodeRegionSizequantile:
+0.25	50
+0.5	354
+0.75	639
+0.9	847
+0.95	955
+0.99	1300
+NodeEdgeCount:
+0	0
+1	863
+2	346
+3	99
+4	28
+5	15
+6	6
+7	6
+8	7
+9+	8
+NodeObservationCount:
+0	221
+1	0
+2	0
+3	0
+4	0
+5	0
+6	0
+7	0
+8	0
+9	310
+10	1
+11	0
+12	74
+13	2
+14	0
+15	23
+16	1
+17	0
+18	24
+19	0
+20	0
+21	18
+22	2
+23	0
+24	25
+25	1
+26	1
+27	8
+28	0
+29+	667

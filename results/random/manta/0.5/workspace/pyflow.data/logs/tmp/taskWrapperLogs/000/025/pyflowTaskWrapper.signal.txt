@@ -1,0 +1,4 @@
+[2021-11-26T11:58:12.060598Z] [mzduan] [78605_1] [pyflowTaskWrapper:generateCandidateSV_0000] [wrapperSignal] wrapperStart
+[2021-11-26T11:58:12.066620Z] [mzduan] [78605_1] [pyflowTaskWrapper:generateCandidateSV_0000] [wrapperSignal] taskStart
+[2021-11-26T11:59:35.683270Z] [mzduan] [78605_1] [pyflowTaskWrapper:generateCandidateSV_0000] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:59:35.684612Z] [mzduan] [78605_1] [pyflowTaskWrapper:generateCandidateSV_0000] [wrapperSignal] taskElapsedSec 83

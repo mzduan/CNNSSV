@@ -1,0 +1,4 @@
+[2021-11-26T11:54:06.561513Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] wrapperStart
+[2021-11-26T11:54:06.569837Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskStart
+[2021-11-26T11:54:06.765129Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:54:06.767683Z] [mzduan] [78343_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskElapsedSec 0

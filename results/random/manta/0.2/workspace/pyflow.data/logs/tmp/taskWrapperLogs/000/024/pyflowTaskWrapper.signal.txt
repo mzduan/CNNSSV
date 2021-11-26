@@ -1,0 +1,4 @@
+[2021-11-26T11:54:30.959459Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] [wrapperSignal] wrapperStart
+[2021-11-26T11:54:30.967567Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] [wrapperSignal] taskStart
+[2021-11-26T11:54:30.971047Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] [wrapperSignal] taskExitCode 0
+[2021-11-26T11:54:30.973107Z] [mzduan] [78343_1] [pyflowTaskWrapper:makeHyGenDir] [wrapperSignal] taskElapsedSec 0

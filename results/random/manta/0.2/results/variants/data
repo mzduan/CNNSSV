@@ -1,0 +1,48 @@
+##fileformat=VCFv4.1
+##fileDate=20211126
+##source=GenerateSVCandidates 1.6.0
+##reference=file:///home/duan/Desktop/bioinfomatic/fa/chr20.fa
+##contig=<ID=chr20,length=64444167>
+##INFO=<ID=IMPRECISE,Number=0,Type=Flag,Description="Imprecise structural variation">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVLEN,Number=.,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=CIPOS,Number=2,Type=Integer,Description="Confidence interval around POS">
+##INFO=<ID=CIEND,Number=2,Type=Integer,Description="Confidence interval around END">
+##INFO=<ID=CIGAR,Number=A,Type=String,Description="CIGAR alignment for each alternate indel allele">
+##INFO=<ID=MATEID,Number=.,Type=String,Description="ID of mate breakend">
+##INFO=<ID=EVENT,Number=1,Type=String,Description="ID of event associated to breakend">
+##INFO=<ID=HOMLEN,Number=.,Type=Integer,Description="Length of base pair identical homology at event breakpoints">
+##INFO=<ID=HOMSEQ,Number=.,Type=String,Description="Sequence of base pair identical homology at event breakpoints">
+##INFO=<ID=SVINSLEN,Number=.,Type=Integer,Description="Length of insertion">
+##INFO=<ID=SVINSSEQ,Number=.,Type=String,Description="Sequence of insertion">
+##INFO=<ID=LEFT_SVINSSEQ,Number=.,Type=String,Description="Known left side of insertion for an insertion of unknown length">
+##INFO=<ID=RIGHT_SVINSSEQ,Number=.,Type=String,Description="Known right side of insertion for an insertion of unknown length">
+##INFO=<ID=BND_DEPTH,Number=1,Type=Integer,Description="Read depth at local translocation breakend">
+##INFO=<ID=MATE_BND_DEPTH,Number=1,Type=Integer,Description="Read depth at remote translocation mate breakend">
+##INFO=<ID=SOMATIC,Number=0,Type=Flag,Description="Somatic mutation">
+##INFO=<ID=SOMATICSCORE,Number=1,Type=Integer,Description="Somatic variant quality score">
+##INFO=<ID=JUNCTION_SOMATICSCORE,Number=1,Type=Integer,Description="If the SV junctino is part of an EVENT (ie. a multi-adjacency variant), this field provides the SOMATICSCORE value for the adjacency in question only">
+##FORMAT=<ID=PR,Number=.,Type=Integer,Description="Spanning paired-read support for the ref and alt alleles in the order listed">
+##FORMAT=<ID=SR,Number=.,Type=Integer,Description="Split reads for the ref and alt alleles in the order listed, for reads where P(allele|read)>0.999">
+##FILTER=<ID=MaxDepth,Description="Normal sample site depth is greater than 3x the median chromosome depth near one or both variant breakends">
+##FILTER=<ID=MinSomaticScore,Description="Somatic score is less than 30">
+##FILTER=<ID=MaxMQ0Frac,Description="For a small variant (<1000 bases) in the normal sample, the fraction of reads with MAPQ0 around either breakend exceeds 0.4">
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=INS,Description="Insertion">
+##ALT=<ID=DUP:TANDEM,Description="Tandem Duplication">
+##cmdline=configManta.py --normalBam /home/duan/Desktop/bioinfomatic/NGS/normal.sim.srt.bam --tumorBam /home/duan/Desktop/bioinfomatic/NGS/0.2sim.srt.bam --referenceFasta /home/duan/Desktop/bioinfomatic/fa/chr20.fa --runDir /home/duan/Desktop/NGS_results/manta/0.2
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SAMPLE1	SAMPLE2
+chr20	366004	MantaDEL:12:0:1:0:0:0	C	<DEL>	.	PASS	END=379882;SVTYPE=DEL;SVLEN=-13878;CIPOS=0,2;CIEND=0,2;HOMLEN=2;HOMSEQ=CA;SOMATIC;SOMATICSCORE=60	PR:SR	36,0:30,0	24,7:21,6
+chr20	1130732	MantaDUP:TANDEM:23:0:2:0:0:0	C	<DUP:TANDEM>	.	PASS	END=1150210;SVTYPE=DUP;SVLEN=19478;IMPRECISE;CIPOS=-286,286;CIEND=-198,198;SOMATIC;SOMATICSCORE=49	PR	47,0	42,7
+chr20	16168199	MantaDUP:TANDEM:221:0:1:0:1:0	C	<DUP:TANDEM>	.	PASS	END=16169700;SVTYPE=DUP;SVLEN=1501;SOMATIC;SOMATICSCORE=40	PR:SR	33,0:27,0	35,6:30,5
+chr20	22062798	MantaDUP:TANDEM:298:0:1:0:0:0	G	<DUP:TANDEM>	.	PASS	END=22064699;SVTYPE=DUP;SVLEN=1901;CIPOS=0,1;CIEND=0,1;HOMLEN=1;HOMSEQ=A;SOMATIC;SOMATICSCORE=41	PR:SR	31,0:37,0	30,6:37,6
+chr20	22452537	MantaDUP:TANDEM:20:11:12:1:0:0	C	<DUP:TANDEM>	.	PASS	END=22472300;SVTYPE=DUP;SVLEN=19763;IMPRECISE;CIPOS=-364,365;CIEND=-229,230;SOMATIC;SOMATICSCORE=34	PR	20,0	31,7
+chr20	25862399	MantaDUP:TANDEM:351:0:1:0:0:0	C	<DUP:TANDEM>	.	MinSomaticScore	END=25869000;SVTYPE=DUP;SVLEN=6601;SOMATIC;SOMATICSCORE=28	PR:SR	29,0:32,0	41,2:38,4
+chr20	26106017	MantaDUP:TANDEM:350:0:1:0:0:0	A	<DUP:TANDEM>	.	PASS	END=26112220;SVTYPE=DUP;SVLEN=6203;IMPRECISE;CIPOS=-315,316;CIEND=-278,278;SOMATIC;SOMATICSCORE=41	PR	32,0	37,8
+chr20	26199801	MantaDUP:TANDEM:366:0:1:0:0:0	A	<DUP:TANDEM>	.	PASS	END=26214101;SVTYPE=DUP;SVLEN=14300;SVINSLEN=1;SVINSSEQ=C;SOMATIC;SOMATICSCORE=46	PR:SR	34,0:36,0	22,4:31,3
+chr20	29113701	MantaDUP:TANDEM:362:0:1:0:0:0	A	<DUP:TANDEM>	.	MinSomaticScore	END=47019853;SVTYPE=DUP;SVLEN=17906152;IMPRECISE;CIPOS=-164,165;CIEND=-183,183;SOMATIC;SOMATICSCORE=13	PR	24,0	20,5
+chr20	29551699	MantaDUP:TANDEM:372:1:3:0:0:0	C	<DUP:TANDEM>	.	PASS	END=29568000;SVTYPE=DUP;SVLEN=16301;SOMATIC;SOMATICSCORE=62	PR:SR	32,0:25,0	24,8:22,10
+chr20	29623799	MantaDUP:TANDEM:245:11:16:0:0:0	C	<DUP:TANDEM>	.	PASS	END=29638700;SVTYPE=DUP;SVLEN=14901;SOMATIC;SOMATICSCORE=61	PR:SR	13,0:44,0	13,8:29,4
+chr20	52454375	MantaDEL:399:11:12:0:5:0	G	<DEL>	.	PASS	END=53837750;SVTYPE=DEL;SVLEN=-1383375;SOMATIC;SOMATICSCORE=32	PR:SR	25,0:34,0	33,3:26,5
+chr20	54101699	MantaDUP:TANDEM:622:0:1:0:0:0	C	<DUP:TANDEM>	.	PASS	END=54103200;SVTYPE=DUP;SVLEN=1501;CIPOS=0,1;CIEND=0,1;HOMLEN=1;HOMSEQ=A;SOMATIC;SOMATICSCORE=41	PR:SR	35,0:26,0	29,6:39,5
