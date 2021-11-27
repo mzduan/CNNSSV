@@ -1,7 +1,7 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/home/duan/Desktop/getBreakpoint/results/random/nanomonsv/0.7.tumor.nanomonsv.result.bed'
+    predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/0.7.tumor.nanomonsv.result.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/home/duan/Desktop/getBreakpoint/groundtruth/random_sv/chr20_somatic.bed','r') as fin:
+    with open('/home/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:

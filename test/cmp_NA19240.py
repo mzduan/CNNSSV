@@ -13,9 +13,9 @@ def parseArgs(argv):
 	parser = argparse.ArgumentParser(prog="NA19240_eval", description=USAGE, formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("base", type=str, help="Base vcf file of NA19240.")
 	# parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
-	parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
+	# parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
 	# parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
-	# parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
+	parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
 	# parser.add_argument("pbsv", type=str, help="PBSV vcf file of NA19240.")
 	# parser.add_argument("svim", type=str, help="SVIM vcf file of NA19240.")
 	parser.add_argument('-b', '--bias', help = "Bias of overlaping.[%(default)s]", default = 0.7, type = float)
@@ -105,35 +105,35 @@ def load_nanomonsv(nanomonsv_path):
 		chr=infos[0]
 		pos=int(infos[1])
 		ALT=infos[4][1:4]
-
-		#提取出变异的长度
-		sups = infos[7]
-		sv_len_pos = sups.find(';SVLEN')
-		sv_len_pair = ""
-		for k in range(sv_len_pos + 1, len(sups)):
-			if sups[k] != ';' and sups[k]!=' ':
-				sv_len_pair = sv_len_pair + sups[k]
-			else:
-				break
-		sv_len = abs(int(sv_len_pair.split('=')[1]))
-		# 提取出变异的终点
-		sups = infos[7]
-		sv_end_pos = sups.find('END')
-		sv_end_pair = ""
-		for k in range(sv_end_pos + 1, len(sups)):
-			if sups[k] != ';' and sups[k]!=' ':
-				sv_end_pair = sv_end_pair + sups[k]
-			else:
-				break
-		sv_end = abs(int(sv_end_pair.split('=')[1]))
-
-
+		if ALT=='DEL' or ALT=='INV' or ALT=='INS' or ALT=='DUP':
+			#提取出变异的长度
+			sups = infos[7]
+			sv_len_pos = sups.find(';SVLEN')
+			sv_len_pair = ""
+			for k in range(sv_len_pos + 1, len(sups)):
+				if sups[k] != ';' and sups[k]!=' ':
+					sv_len_pair = sv_len_pair + sups[k]
+				else:
+					break
+			sv_len = abs(int(sv_len_pair.split('=')[1]))
+			# 提取出变异的终点
+			sups = infos[7]
+			sv_end_pos = sups.find('END')
+			sv_end_pair = ""
+			for k in range(sv_end_pos + 1, len(sups)):
+				if sups[k] != ';' and sups[k]!=' ':
+					sv_end_pair = sv_end_pair + sups[k]
+				else:
+					break
+			sv_end = abs(int(sv_end_pair.split('=')[1]))
 
 
-		if chr not in nanomonsv_call[ALT]:
-			nanomonsv_call[ALT][chr]=list()
-		if sv_len>=50 and sv_len<=100000:
-			nanomonsv_call[ALT][chr].append([pos,sv_len,sv_end,0])
+
+
+			if chr not in nanomonsv_call[ALT]:
+				nanomonsv_call[ALT][chr]=list()
+			if sv_len>=50 and sv_len<=100000:
+				nanomonsv_call[ALT][chr].append([pos,sv_len,sv_end,0])
 
 	return nanomonsv_call
 def load_cuteSV(cuteSV_path):
@@ -356,9 +356,9 @@ def main_ctrl(args):
 	# pass
 	base_call = load_base(args.base)
 
-	# nanomonsv_call=load_nanomonsv(args.nanomonsv)
+	nanomonsv_call=load_nanomonsv(args.nanomonsv)
 	# cuteSV_call = load_cuteSV(args.cuteSV)
-	CNNSSV_call = load_CNNSSV(args.CNNSSV)
+	# CNNSSV_call = load_CNNSSV(args.CNNSSV)
 	# sniffles_call = load_sniffles(args.sniffles)
 	# pbsv_call = load_pbsv(args.pbsv)
 	# svim_call = load_svim(args.svim)
@@ -371,8 +371,8 @@ def main_ctrl(args):
 	# cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
 	# cmp_callsets(base_call, pbsv_call, 3, args.bias, args.offect)
 	# cmp_callsets(base_call, svim_call, 4, args.bias, args.offect)
-	cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
-	# cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
+	# cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
+	cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
 
 	
 
