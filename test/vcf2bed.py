@@ -1,8 +1,8 @@
 import re
 if __name__ == '__main__':
 
-    somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/mixed/nanomonsv/0.7.tumor.nanomonsv.result.vcf', 'r')
-    somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/mixed/nanomonsv/0.7.tumor.nanomonsv.result.bed', 'w')
+    somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/0.7.tumor.nanomonsv.result.vcf', 'r')
+    somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/0.7.tumor.nanomonsv.result.bed', 'w')
 
     while True:
         l=somatic_vcf.readline()
