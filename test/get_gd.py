@@ -14,8 +14,8 @@ def getKV(str):
 
 if __name__ == '__main__':
 
-    NA19239_vcf=open('/home/duan/Desktop/somaticSV/groundtruth/NA19239.chr20.vcf','r')
-    NA19240_vcf = open('/home/duan/Desktop/somaticSV/groundtruth/NA19240.chr20.vcf', 'r')
+    NA19239_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.vcf','r')
+    NA19240_vcf = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.vcf', 'r')
 
     NA19239_readlines=list()
     NA19240_readlines=list()
@@ -35,9 +35,8 @@ if __name__ == '__main__':
             break
 
 
-    NA19240_somatic=open('/home/duan/Desktop/somaticSV/groundtruth/NA19240.chr20.somatic.vcf', 'w')
+    NA19240_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.vcf', 'w')
 
-    used_pair=dict()
     for i in NA19240_readlines:
         i_infos=re.split('\s+',i)
 
@@ -51,6 +50,8 @@ if __name__ == '__main__':
         i_sv_len=i_kv['SVLEN']
         i_sv_len=abs(int(i_sv_len))
 
+        # if i_sv_len < 50 or i_sv_len > 100000:
+        #     continue
         i_sv_end=i_sv_start+i_sv_len
 
 
@@ -69,22 +70,16 @@ if __name__ == '__main__':
             j_sv_len = j_kv['SVLEN']
             j_sv_len = abs(int(j_sv_len))
 
+            # if j_sv_len < 50 or j_sv_len > 100000:
+            #     continue
+
             j_sv_end = j_sv_start+j_sv_len
 
             if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<=100 and abs(i_sv_end-j_sv_end) <=100 :
                 find_flag=True
-                if j in used_pair:
-                    used_pair[j].append(i)
-                else:
-                    used_pair[j]=[i]
-                # if abs(i_sv_len-j_sv_len)>100:
-                #     print(i_sv_type,i_sv_start,i_sv_end,i_sv_len,j_sv_start,j_sv_end,j_sv_len)
         if not find_flag:
             NA19240_somatic.write(i)
 
     NA19239_vcf.close()
     NA19240_vcf.close()
     NA19240_somatic.close()
-    for k in used_pair:
-        if len(used_pair[k])>1:
-            print(k,used_pair[k])

@@ -35,6 +35,32 @@ def pase_base_info(seq):
 			info[i.split('=')[0]] = i.split('=')[1][0:3]
 	return info
 
+def load_base_bed(base_path):
+	base_call=dict()
+	file=open(base_path,'r')
+	for line in file:
+		seq = line.strip('\n').split("\t")
+
+		chr=seq[0]
+		pos=seq[1]
+		ALT=seq[3]
+		end=seq[2]
+		sv_len=seq[4]
+		if ALT not in ["INS", "INV", "DEL", "DUP"]:
+			continue
+		if ALT not in base_call:
+			base_call[ALT] = dict()
+		if chr not in base_call[ALT]:
+			base_call[ALT][chr] = list()
+		if ALT == "INV":
+			base_call[ALT][chr].append([pos, end - pos + 1, end, 0])
+		else:
+			if sv_len >= 50 and sv_len <= 100000:
+				base_call[ALT][chr].append([pos, sv_len, end, 0])
+	file.close()
+	return base_call
+
+
 
 def load_base(base_path):
 	base_call = dict()
@@ -351,6 +377,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 
 	# tp.close()
 	# fp.close()
+	# kv.close()
 
 def main_ctrl(args):
 	# pass
