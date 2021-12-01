@@ -668,28 +668,28 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
 
-    # fin = open('/home/duan/Desktop/getBreakpoint/results/mixed/CNN/11_9/0.7.mixed.CNNSSV.chr20.somatic.bed', 'r')
-    # del_pos_set=set()
-    # ins_pos_set = set()
-    # inv_pos_set = set()
-    # dup_pos_set = set()
-    # while True:
-    #     l=fin.readline()
-    #     if l:
-    #         splits = re.split('\s+', l)
-    #         sv_start = int(splits[1])
-    #         sv_type=splits[3]
-    #         if sv_type=='DEL':
-    #             del_pos_set.add(sv_start)
-    #         elif sv_type=='INS':
-    #             ins_pos_set.add(sv_start)
-    #         elif sv_type=='DUP':
-    #             dup_pos_set.add(sv_start)
-    #         elif sv_type=='INV':
-    #             inv_pos_set.add(sv_start)
-    #     else:
-    #         break
-    # fin.close()
+    fin = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV.fnc', 'r')
+    del_pos_set=set()
+    ins_pos_set = set()
+    inv_pos_set = set()
+    dup_pos_set = set()
+    while True:
+        l=fin.readline()
+        if l:
+            splits = re.split('\s+', l)
+            sv_start = int(splits[1])
+            sv_type=splits[3]
+            if sv_type=='DEL':
+                del_pos_set.add(sv_start)
+            elif sv_type=='INS':
+                ins_pos_set.add(sv_start)
+            elif sv_type=='DUP':
+                dup_pos_set.add(sv_start)
+            elif sv_type=='INV':
+                inv_pos_set.add(sv_start)
+        else:
+            break
+    fin.close()
 
 
 
@@ -699,28 +699,28 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0] in del_pos_set:
-            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cins:
-        chro=key
-        for bk in cins[chro]:
-            # if bk[0] in ins_pos_set:
-            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cinv:
-        chro=key
-        for bk in cinv[chro]:
-            # if bk[0] in inv_pos_set:
-            #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cdup:
-        chro=key
-        for bk in cdup[chro]:
-            # if bk[0] in dup_pos_set:
-            #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
-    # pool.shutdown()
-    pool.close()
-    pool.join()
+            if bk[0] in del_pos_set:
+                generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            # pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cins:
+    #     chro=key
+    #     for bk in cins[chro]:
+    #         # if bk[0] in ins_pos_set:
+    #         #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cinv:
+    #     chro=key
+    #     for bk in cinv[chro]:
+    #         # if bk[0] in inv_pos_set:
+    #         #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cdup:
+    #     chro=key
+    #     for bk in cdup[chro]:
+    #         # if bk[0] in dup_pos_set:
+    #         #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+    # # pool.shutdown()
+    # pool.close()
+    # pool.join()

@@ -35,7 +35,7 @@ if __name__ == '__main__':
             break
 
 
-    NA19240_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.vcf', 'w')
+    NA19240_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic2.vcf', 'w')
 
     for i in NA19240_readlines:
         i_infos=re.split('\s+',i)
