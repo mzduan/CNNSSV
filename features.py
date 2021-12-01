@@ -694,7 +694,7 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
 
 
     ref_dict = reference.initial_fa(ref)
-    pool = multiprocessing.Pool(processes=int(thread_num))
+    # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
