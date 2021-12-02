@@ -49,15 +49,20 @@ def predict(model_path,features_path,out_path):
         file_name=file_name[0]
         output = cnn.forward(x,sup_x)
         # print(output)
+        splits = re.split('_', file_name)
+        support_counts = int(splits[4])
+        chro = splits[0]
+        sv_type = splits[1]
+        start = int(splits[2])
+        end = start + int(splits[3])
         if torch.argmax(output)==1:
-            splits=re.split('_',file_name)
-            chro=splits[0]
-            sv_type = splits[1]
-            start=int(splits[2])
-            end=start+int(splits[3])
             if sv_type=='INS':
                 end=start+1
             fout.write(chro+'\t'+str(start)+'\t'+str(end)+'\t'+sv_type+'\t'+str(splits[3])+'\n')
         else:
-            print("not a somatic sv")
+            if support_counts>=2:
+                if sv_type == 'INS':
+                    end = start + 1
+                fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
+        print("not a somatic sv")
     fout.close()

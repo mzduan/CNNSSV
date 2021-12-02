@@ -224,10 +224,12 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
     sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
                              len(germline_support_reads),len(germline_ref_reads)])
-    sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
+    sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
     os.mkdir(sv_str)
     # np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
     # np.save(sv_str + '/normal_sup_feature',normal_kmer_vector)
+    # print(tumor_kmer_vector)
+    # print(normal_kmer_vector)
     np.save(sv_str + '/sup_feat', sup_features)
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
     #调整insertion位置，否则会导致reference 被多次添加gap
@@ -609,7 +611,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                           somatic_direction_list,germline_direction_list,
                           somatic_depth_list,germline_depth_list,)
 
-        sv_str=output_dir + '/' + chro + '_' + sv_type + '_' + str(bk[0]) + '_' + str(bk[1])
+        sv_str=output_dir + '/' + chro + '_' + sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
         #画两张图，somatic一张germline一张，然后resize成一样的大小
         dim1=50
         dim2=bk2_in_revised-bk1_in_revised+600

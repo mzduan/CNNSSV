@@ -32,7 +32,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     ref_bk2=bk[0]+bk[1]
     if sv_type=="INS":
         ref_bk2=ref_bk1+1
-    kmer_len=31
+    kmer_len=100
     #先找出跨过 tumor sv断点的 kmer
     tumor_sv_kmer=dict()
     for i in range(len(bk[2])):
@@ -87,14 +87,14 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
 
             somatic_kmer[k[0]]=[0,0]
             count=count+1
-            if count==62:
+            if count==2*kmer_len:
                 break
 
     elif sv_type=='DEL' or sv_type=='DUP':
         for k in sorted_tumor_sv_kmer:
             somatic_kmer[k[0]] = [0, 0]
             count = count + 1
-            if count == 31:
+            if count == kmer_len:
                 break
 
     #计算somatic_kmers 是否跨过了normal样本中的变异
@@ -240,6 +240,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer in somatic_kmer.keys():
+                    print(mkmer)
                     somatic_kmer[mkmer][1]=somatic_kmer[mkmer][1]+1
     normal_bam.close()
 
@@ -269,8 +270,8 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
         tumor_vector.append(somatic_kmer[k][0])
         normal_vector.append(somatic_kmer[k][1])
         # print(k,somatic_kmer[k][0],somatic_kmer[k][1])
-    if len(somatic_kmer)<62:
-        for i in range(62-len(somatic_kmer)):
+    if len(somatic_kmer)<2*kmer_len:
+        for i in range(2*kmer_len-len(somatic_kmer)):
             tumor_vector.append(0)
             normal_vector.append(0)
 
