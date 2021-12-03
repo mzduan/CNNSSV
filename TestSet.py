@@ -10,7 +10,7 @@ class TestSet(data.Dataset):
         self.file_names=list()
         for f in os.listdir(feat_path):
             splits=f.split('_')
-            if len(splits)==4:
+            if len(splits)==5:
                 absolute_path=feat_path+'/'+f
                 sub_feature = np.zeros((6, 50, 500))
                 for image in os.listdir(absolute_path):
