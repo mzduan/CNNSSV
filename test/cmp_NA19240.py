@@ -304,7 +304,7 @@ def load_svim(base_path):
 
 def cmp_callsets(base, call, flag, Bias, Offect):
 
-	fp=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV.somatic7.fp',"w")
+	# fp=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV.somatic7.fp',"w")
 
 	for svtype in base:
 		if svtype not in call:
@@ -363,8 +363,8 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 					tp_call += 1
 					# print(i)
 					# tp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
-				else:
-					fp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
+				# else:
+				# 	fp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
 
 	# fout.close()
 
@@ -375,10 +375,12 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	logging.info("Recall: %.2f"%(100.0*tp_base/total_base))
 	logging.info("F-measure: %.2f"%(200.0*tp_base*tp_call/(total_base*tp_call+tp_base*total_call)))
 
+	print(tp_base)
+	print(total_base)
 	# print(tp_base)
 	# print(total_base)
 	# tb.close()
-	fp.close()
+	# fp.close()
 	# kv.close()
 
 def main_ctrl(args):
