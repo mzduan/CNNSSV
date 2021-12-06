@@ -14,11 +14,18 @@ def getKV(str):
 
 if __name__ == '__main__':
 
-    NA19239_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.vcf','r')
-    NA19240_vcf = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.vcf', 'r')
+    NA19238_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19238.chr20.vcf','r')
+    NA19239_vcf = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.vcf', 'r')
 
+    NA19238_readlines=list()
     NA19239_readlines=list()
-    NA19240_readlines=list()
+
+    while True:
+        l=NA19238_vcf.readline()
+        if l:
+            NA19238_readlines.append(l)
+        else:
+            break
 
     while True:
         l=NA19239_vcf.readline()
@@ -27,17 +34,10 @@ if __name__ == '__main__':
         else:
             break
 
-    while True:
-        l=NA19240_vcf.readline()
-        if l:
-            NA19240_readlines.append(l)
-        else:
-            break
 
+    NA19239_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.vcf', 'w')
 
-    NA19240_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic2.vcf', 'w')
-
-    for i in NA19240_readlines:
+    for i in NA19239_readlines:
         i_infos=re.split('\s+',i)
 
         i_sv_type=i_infos[4][1:4]
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 
         find_flag=False
-        for j in NA19239_readlines:
+        for j in NA19238_readlines:
             j_infos = re.split('\s+', j)
 
             j_sv_type = j_infos[4][1:4]
@@ -78,8 +78,8 @@ if __name__ == '__main__':
             if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<=100 and abs(i_sv_end-j_sv_end) <=100 :
                 find_flag=True
         if not find_flag:
-            NA19240_somatic.write(i)
+            NA19239_somatic.write(i)
 
+    NA19238_vcf.close()
     NA19239_vcf.close()
-    NA19240_vcf.close()
-    NA19240_somatic.close()
+    NA19239_somatic.close()

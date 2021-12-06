@@ -59,10 +59,10 @@ def predict(model_path,features_path,out_path):
             if sv_type=='INS':
                 end=start+1
             fout.write(chro+'\t'+str(start)+'\t'+str(end)+'\t'+sv_type+'\t'+str(splits[3])+'\n')
-        else:
-            if support_counts>=3:
-                if sv_type == 'INS':
-                    end = start + 1
-                fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
+        # else:
+        #     if support_counts>=3:
+        #         if sv_type == 'INS':
+        #             end = start + 1
+        #         fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
         print("not a somatic sv")
     fout.close()
