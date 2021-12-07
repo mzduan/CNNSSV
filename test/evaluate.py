@@ -1,11 +1,11 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.bed'
+    predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic7.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
-    fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
-    # fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic2.fp.bed'
+    # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
+    fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic7.fp.bed'
 
     predict=list()
     with open(predict_bed,'r') as fin:
@@ -83,25 +83,25 @@ if __name__ == '__main__':
         # if find_flag==False:
         #     print(g)
 
-    print("FN:")
-    fn=0
-    with open(fn_name,'w') as fout:
-        for q in groundtruth:
-            if q not in true_g:
-                # print(q)
-                fout.write('chr20'+'\t'+str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\n')
-                fn=fn+1
-        print(fn)
+    # print("FN:")
+    # fn=0
+    # with open(fn_name,'w') as fout:
+    #     for q in groundtruth:
+    #         if q not in true_g:
+    #             # print(q)
+    #             fout.write('chr20'+'\t'+str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\n')
+    #             fn=fn+1
+    #     print(fn)
 
-    # print("FP:")
-    # fp=0
-    # with open(fp_name, 'w') as fout:
-    #     for p in predict:
-    #         if p not in true_p:
-    #             # print(p)
-    #             fout.write('chr20' + '\t' + str(p[0]) + '\t' + str(p[1]) + '\t' + str(p[2]) + '\n')
-    #             fp=fp+1
-    # print(fp)
+    print("FP:")
+    fp=0
+    with open(fp_name, 'w') as fout:
+        for p in predict:
+            if p not in true_p:
+                # print(p)
+                fout.write('chr20' + '\t' + str(p[0]) + '\t' + str(p[1]) + '\t' + str(p[2]) + '\n')
+                fp=fp+1
+    print(fp)
 
 
     # for q in groundtruth:

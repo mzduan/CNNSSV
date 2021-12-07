@@ -1,73 +1,29 @@
-import re
+import pysam
+import cigar
 if __name__ == '__main__':
-    tumor_kv=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.tumor7.kv','r')
-    lost_tp=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic7.lost_tp.txt','r')
-    gd=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.vcf','r')
+    bam=pysam.AlignmentFile('/home/duan/Desktop/somaticSV/bam/CCS/0.7/somatic_bam_chr20/sim.srt.bam','r')
+    for aln in bam:
+        # if aln.has_tag("SA"):
+        if aln.query_name=='C2_H1_48011':
+            # print(aln.query_name,aln.reference_start,aln.cigarstring)
+            sa_tag = aln.get_tag("SA").split(";")
+            print(sa_tag)
+            MD_tag=aln.get_tag("MD").split(";")
+            print(MD_tag)
+            # for sup_aln in sa_tag:
+            #     fields = sup_aln.split(",")
+            #     if len(fields) != 6:
+            #         continue
+            #     local_chr = fields[0]
+            #     local_start = int(fields[1]) - 1
+            #     local_cigar = fields[3]
+            #     local_strand = fields[2]
+            #     local_mapq = int(fields[4])
+            #     print(aln.query_name,local_start)
+            #     if local_strand=='-':
+            #         c = list(cigar.Cigar(local_cigar).items())
+            #         print(local_cigar,"  ",c)
+            #     else:
+            #         print(local_cigar)
 
-    fout=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.version2.vcf','w')
-
-    gd_dict=dict()
-    while True:
-        l=gd.readline()
-        if l:
-            splits=re.split('\s+',l)
-
-            sv_start=int(splits[1])
-            gd_dict[sv_start]=l
-        else:
-            break
-    gd.close()
-
-    kv_dict=dict()
-    while True:
-        l1=tumor_kv.readline()
-        if l1:
-            l2=tumor_kv.readline()
-            kv_dict[l2]=l1
-        else:
-            break
-    tumor_kv.close()
-
-    while True:
-        l=lost_tp.readline()
-        if l:
-            tb=kv_dict[l]
-            splits=re.split('\s+',tb)
-            tb_pos=int(splits[1])
-            if tb_pos in gd_dict.keys():
-                gd_dict.pop(tb_pos)
-        else:
-            break
-    lost_tp.close()
-
-    for k in gd_dict.keys():
-        fout.write(gd_dict[k])
-
-    fout.close()
-
-
-    # f1 = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.tumor7.tp', 'r')
-    # f2 = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic7.tp', 'r')
-    # f3 = open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic7.lost_tp.txt', 'w')
-    #
-    # f1_set=set()
-    # f2_set=set()
-    # while True:
-    #     l=f1.readline()
-    #     if l:
-    #         f1_set.add(l)
-    #     else:
-    #         break
-    # while True:
-    #     l=f2.readline()
-    #     if l:
-    #         f2_set.add(l)
-    #     else:
-    #         break
-    # for l in f1_set:
-    #     if l not in f2_set:
-    #         f3.write(l)
-    #
-    # f1.close()
-    # f2.close()
-    # f3.close()
+    bam.close()

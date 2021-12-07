@@ -304,7 +304,7 @@ def load_svim(base_path):
 
 def cmp_callsets(base, call, flag, Bias, Offect):
 
-	# fp=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV.somatic7.fp',"w")
+	tb=open('/home/duan/Desktop/getBreakpoint/results/test/CNN_sup/mixed/0.7.mixed.CNNSSV.chr20.somatic.tb',"w")
 
 	for svtype in base:
 		if svtype not in call:
@@ -337,7 +337,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 			for i in base[svtype][chr]:
 				total_base += 1
 				if i[3] == flag:
-					# tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
+					tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
 					tp_base += 1
 				# else:
 				# 	print(flag, svtype, chr, i[0], i[1], i[2])
@@ -379,7 +379,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	print(total_base)
 	# print(tp_base)
 	# print(total_base)
-	# tb.close()
+	tb.close()
 	# fp.close()
 	# kv.close()
 

@@ -15,7 +15,7 @@ def get_reverse_comp(s):
         elif s[i]=='G':
             ret=ret+'C'
     return ret
-def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro,bk):
+def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk):
 
 
     ref_bk1=bk[0]
@@ -58,7 +58,9 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     pos = list()
     radios=list()
 
-
+    # somatic_counts=list()
+    # uncertain_list=list()
+    # uncertain_dict=dict()
     name2seq=dict()
     for aln in somatic_support_reads:
         if aln.query_name in name2seq.keys():
@@ -72,11 +74,11 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
 
     for i in range(len(bk[2])):
         pos.append(list())
+        # uncertain_list.append(list())
         read_name = bk[2][i]
         read_sv_bk1=bk[3][i]
         read_sv_bk2=bk[4][i]
         query_sequence=name2seq[read_name]
-
         if sv_type=="INS":
             read_sv_bk1 = bk[4][i]
             read_sv_bk2 = bk[5][i]
@@ -97,7 +99,11 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     somatic_count_sum = somatic_count_sum + 1
                     somatic_count = somatic_count + 1
                 # else:
+                #     uncertain_list[-1].append(mkmer)
+                #     uncertain_dict[mkmer] = [0, 0]
+                # else:
                 #     print("in ",j)
+            # somatic_counts.append(somatic_count)
             radio=somatic_count/k
         #对于insertion和inversion来说，最多会产生64个somatic k-mer
         elif sv_type=='INS' or sv_type=='INV':
@@ -117,6 +123,9 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     somatic_count_sum = somatic_count_sum + 1
                     somatic_count = somatic_count + 1
                 # else:
+                    # uncertain_list[-1].append(mkmer)
+                    # uncertain_dict[mkmer]=[0,0]
+                # else:
                 #     print("in")
             # print("right")
             for j in range(read_sv_bk2-k,read_sv_bk2):
@@ -133,9 +142,88 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
                     somatic_count_sum = somatic_count_sum + 1
                     somatic_count = somatic_count + 1
                 # else:
+                #     uncertain_list[-1].append(mkmer)
+                #     uncertain_dict[mkmer] = [0, 0]
+                # else:
                 #     print("in")
+            # somatic_counts.append(somatic_count)
             radio = somatic_count / (2*k)
         radios.append(radio)
+
+    #对于uncertain的 kmer,计算其在normal和tumor中出现的次数
+    # normal_coverage_sum = 0
+    # normal_sample_count = 0
+    # normal_bam = pysam.AlignmentFile(normal_bam_file, 'r')
+    # depths=normal_bam.count_coverage(chro, ref_bk1-1000, ref_bk2+1000)
+    # lens = len(depths[0])
+    # for i in range(0,lens,50):
+    #     normal_coverage_sum=normal_coverage_sum+depths[0][i]+depths[1][i]+depths[2][i]+depths[3][i]
+    #     normal_sample_count+=1
+    # normal_mean_coverage=normal_coverage_sum/normal_sample_count
+    #
+    # normal_region_reads = normal_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    # for aln in normal_region_reads:
+    #     if aln.is_unmapped or aln.mapping_quality < 20:
+    #         continue
+    #     else:
+    #         seq = aln.query_sequence
+    #         for i in range(0, len(seq) - k + 1):
+    #             kmer = seq[i:i + k]
+    #             rkmer = get_reverse_comp(kmer)
+    #             mkmer = rkmer if rkmer < kmer else kmer
+    #             if mkmer in uncertain_dict.keys():
+    #                 uncertain_dict[mkmer][1]=uncertain_dict[mkmer][1]+1
+    # normal_bam.close()
+    #
+    # tumor_coverage_sum = 0
+    # tumor_sample_count = 0
+    # tumor_bam = pysam.AlignmentFile(tumor_bam_file, 'r')
+    #
+    # depths = tumor_bam.count_coverage(chro, ref_bk1 - 1000, ref_bk2 + 1000)
+    # lens = len(depths[0])
+    # for i in range(0, lens, 50):
+    #     tumor_coverage_sum = tumor_coverage_sum + depths[0][i] + depths[1][i] + depths[2][i] + depths[3][i]
+    #     tumor_sample_count += 1
+    # tumor_mean_coverage = tumor_coverage_sum / tumor_sample_count
+    #
+    # tumor_region_reads = tumor_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    # for aln in tumor_region_reads:
+    #     if aln.is_unmapped or aln.mapping_quality < 20:
+    #         continue
+    #     else:
+    #         seq = aln.query_sequence
+    #         for i in range(0, len(seq) - k + 1):
+    #             kmer = seq[i:i + k]
+    #             rkmer = get_reverse_comp(kmer)
+    #             mkmer = rkmer if rkmer < kmer else kmer
+    #             if mkmer in uncertain_dict.keys():
+    #                 uncertain_dict[mkmer][0]=uncertain_dict[mkmer][0]+1
+    # tumor_bam.close()
+    #
+    #
+    # for i in range(len(uncertain_list)):
+    #     l=uncertain_list[i]
+    #     if len(l)>=1:
+    #         for kmer in l:
+    #
+    #             if uncertain_dict[kmer][0]/tumor_mean_coverage > uncertain_dict[kmer][1]/normal_mean_coverage:
+    #                 print(uncertain_dict[kmer][0],tumor_mean_coverage,uncertain_dict[kmer][1],normal_mean_coverage)
+    #                 somatic_counts[i]+=1
+    #                 if kmer in somatic_kmer_set:
+    #                     somatic_kmer_set[kmer] += 1
+    #                 else:
+    #                     somatic_kmer_set[kmer] =1
+    #                 somatic_count_sum+=1
+    # radios=list()
+    # for i in range(len(somatic_counts)):
+    #     if sv_type=='INS' or sv_type=='INV':
+    #         radios.append(somatic_counts[i]/(2*k))
+    #     else:
+    #         radios.append(somatic_counts[i]/k)
+
+
+
+
     clusters=list()
     sum_cluster=0
     max_cluster_size=0
@@ -173,6 +261,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,normal_bam_file,ref_dict,chro
     # 平均每个reads包含的somatic kmer的数量,
     # 平均每个reads上clusters的数量,
     # 最大的cluster的大小
+    # 断点附近的凌乱程度（新增）
     return len(somatic_kmer_set),medium/len(bk[2]),np.mean(radios),somatic_count_sum/len(bk[2]),sum_cluster/len(bk[2]),max_cluster_size
 
 

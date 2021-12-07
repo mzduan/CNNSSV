@@ -174,10 +174,10 @@ def get_ref_reads(sv_type,chro,bk,bam_file,sv_reads):
 def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
 
 #  bk的格式：
-#       del: pos,len,[readname_list],[read_start_list],[read_end_list]
-#       ins: pos,len,[readname_list],ins_seq,[read_start_list],[read_end_list]
-#       inv: pos,len,[read_name_list],[read_start_list],[read_end_list]
-#       dup: pos,len,[read_name_list],[read_start_list],[read_end_list]
+# DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+# INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+# INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
+# DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
 
     bk1=bk[0]
     bk2=bk[0]+bk[1]
@@ -216,14 +216,14 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # tumor_kmer_vector, normal_kmer_vector = get_somatic_kmer(sv_type, somatic_support_reads,somatic_bam_file,germline_bam_file, ref_dict, chro, bk)
 
     type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
-                                                         germline_bam_file, ref_dict, chro, bk)
+                                                         somatic_bam_file,germline_bam_file, ref_dict, chro, bk)
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
     # somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
     # germline_rc=len(germline_support_reads)+len(germline_support_reads)
     # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
     sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-                             len(germline_support_reads),len(germline_ref_reads)])
+                             len(germline_support_reads),len(germline_ref_reads),bk[-2],bk[-1]])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
     os.mkdir(sv_str)
     # np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
@@ -231,7 +231,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # print(tumor_kmer_vector)
     # print(normal_kmer_vector)
     np.save(sv_str + '/sup_feat', sup_features)
-    print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
+    print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus,bk[-2],bk[-1])
     #调整insertion位置，否则会导致reference 被多次添加gap
     if sv_type=='INS':
         if len(somatic_support_reads)!=0 or len(germline_support_reads)!=0:
@@ -530,146 +530,146 @@ def transfer(s_seq_list,g_seq_list,s_direction_list,g_direction_list,s_depth_lis
 def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
 
     print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
-    try:
+    # try:
          #获取修正过的 reference
-        revised_region_reference_seq, revised2ref, \
-        region_start,region_end,bk1_in_revised, bk2_in_revised,\
-        somatic_support_reads,germline_support_reads,\
-        somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
-        #
-        #
-        # print("somatic sv reads")
-        # for aln in somatic_support_reads:
-        #     print(aln.query_name)
-        # print("somatic ref reads")
-        # for aln in somatic_ref_reads:
-        #     print(aln.query_name)
-        # print("germline sv reads")
-        # for aln in germline_support_reads:
-        #     print(aln.query_name)
-        # print("germline ref reads")
-        # for aln in germline_ref_reads:
-        #     print(aln.query_name)
+    revised_region_reference_seq, revised2ref, \
+    region_start,region_end,bk1_in_revised, bk2_in_revised,\
+    somatic_support_reads,germline_support_reads,\
+    somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
+    #
+    #
+    # print("somatic sv reads")
+    # for aln in somatic_support_reads:
+    #     print(aln.query_name)
+    # print("somatic ref reads")
+    # for aln in somatic_ref_reads:
+    #     print(aln.query_name)
+    # print("germline sv reads")
+    # for aln in germline_support_reads:
+    #     print(aln.query_name)
+    # print("germline ref reads")
+    # for aln in germline_ref_reads:
+    #     print(aln.query_name)
 
 
-        if len(somatic_support_reads)==0:
-            print("Error!",bk)
-            return
+    if len(somatic_support_reads)==0:
+        print("Error!",bk)
+        return
 
-        #获取somatic features
-        somatic_seq_list,somatic_direction_list,\
-        somatic_depth_list,\
-        somatic_name_list,s_sv_support_reads,s_ref_support_reads=get_revised_reads(somatic_support_reads,
-                                                                                   somatic_ref_reads,
-                                                                                   revised_region_reference_seq,
-                                                                                   revised2ref,bk1_in_revised,bk2_in_revised)
-        # for i in range(len(somatic_seq_list)):
-        #     if i >=3:
-        #         print(somatic_name_list[i-3])
-        #     print(somatic_seq_list[i])
+    #获取somatic features
+    somatic_seq_list,somatic_direction_list,\
+    somatic_depth_list,\
+    somatic_name_list,s_sv_support_reads,s_ref_support_reads=get_revised_reads(somatic_support_reads,
+                                                                               somatic_ref_reads,
+                                                                               revised_region_reference_seq,
+                                                                               revised2ref,bk1_in_revised,bk2_in_revised)
+    # for i in range(len(somatic_seq_list)):
+    #     if i >=3:
+    #         print(somatic_name_list[i-3])
+    #     print(somatic_seq_list[i])
 
-        somatic_seq_list,somatic_direction_list,\
-        somatic_depth_list=merge_same_read(somatic_seq_list,somatic_direction_list,
-                                                                 somatic_depth_list,
-                                                                 somatic_name_list)
-
-
-        #获取germline features
-        germline_seq_list,germline_direction_list,\
-        germline_depth_list,\
-        germline_name_list,g_sv_support_reads,g_ref_support_reads= get_revised_reads(germline_support_reads,
-                                                                                     germline_ref_reads,
-                                                                                     revised_region_reference_seq,
-                                                                                     revised2ref,bk1_in_revised,bk2_in_revised)
-
-        # for i in range(len(germline_seq_list)):
-        #     if i >=3:
-        #         print(germline_name_list[i-3])
-        #     print(germline_seq_list[i])
-
-        germline_seq_list,germline_direction_list,\
-        germline_depth_list= merge_same_read(germline_seq_list,germline_direction_list,
-                                                                germline_depth_list,
-                                                                germline_name_list)
-        # for i in range(len(germline_depth_list)):
-        #     if i >=3:
-        #         print(germline_name_list[i-3])
-        #     print(germline_seq_list[i])
-
-        # left_extend=bk1_in_revised-300 if bk1_in_revised-300>=0 else 0
-        # right_extend=bk2_in_revised+300
-        # for i in range(0,len(somatic_seq_list)):
-        #     somatic_seq_list[i]=somatic_seq_list[i][left_extend:right_extend]
-        #     somatic_direction_list[i]=somatic_direction_list[i][left_extend:right_extend]
-        #     somatic_depth_list[i]=somatic_depth_list[i][left_extend:right_extend]
-        #
-        # for i in range(len(germline_seq_list)):
-        #     germline_seq_list[i]=germline_seq_list[i][left_extend:right_extend]
-        #     germline_direction_list[i]=germline_direction_list[i][left_extend:right_extend]
-        #     germline_depth_list[i]=germline_depth_list[i][left_extend:right_extend]
-        features=transfer(somatic_seq_list,germline_seq_list,
-                          somatic_direction_list,germline_direction_list,
-                          somatic_depth_list,germline_depth_list,)
-
-        sv_str=output_dir + '/' + chro + '_' + sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
-        #画两张图，somatic一张germline一张，然后resize成一样的大小
-        dim1=50
-        dim2=bk2_in_revised-bk1_in_revised+600
-        dim2=min(dim2,len(somatic_seq_list[0]))
-        somatic_base_channel = features[0]
-        somatic_dir_channel = features[2]
-        somatic_dep_channel = features[4]
-        somatic_img = Image.new("RGB", (dim2, dim1))  #宽、高
-        for i in range(dim1):
-            for j in range(dim2):
-                rcolor=somatic_base_channel[i][j]
-                gcolor=somatic_dir_channel[i][j]
-                bcolor = somatic_dep_channel[i][j]
-                somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
-        somatic_img=np.array(somatic_img)
-        transformed=transform.resize(somatic_img,(50,500))
-        transformed=transformed*255
-        # transformed=transformed.astype(np.float64)
-        transformed = transformed.astype(np.uint8)
-        transformed=Image.fromarray(transformed)
-        transformed.save(sv_str+'/tumor.png')
-        # np.save(sv_str+'/tumor',transformed)
+    somatic_seq_list,somatic_direction_list,\
+    somatic_depth_list=merge_same_read(somatic_seq_list,somatic_direction_list,
+                                                             somatic_depth_list,
+                                                             somatic_name_list)
 
 
-        germline_base_channel = features[1]
-        germline_dir_channel = features[3]
-        germline_dep_channel = features[5]
-        germline_img = Image.new("RGB", (dim2, dim1))
-        for i in range(dim1):
-            for j in range(dim2):
-                rcolor=germline_base_channel[i][j]
-                gcolor=germline_dir_channel[i][j]
-                bcolor = germline_dep_channel[i][j]
-                germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
-        germline_img=np.array(germline_img)
-        transformed=transform.resize(germline_img,(50,500))
-        transformed=transformed*255
-        # transformed=transformed.astype(np.float64)
-        transformed = transformed.astype(np.uint8)
-        transformed=Image.fromarray(transformed)
-        # np.save(sv_str+'/normal',transformed)
-        transformed.save(sv_str+'/normal.png')
-    except Exception as exp:
-        msg="Error in\t"+somatic_bam_file+"\t"+sv_type+"\t"+str(bk[0])+"\t"+str(bk[1])
-        print(msg)
-        print(exp)
+    #获取germline features
+    germline_seq_list,germline_direction_list,\
+    germline_depth_list,\
+    germline_name_list,g_sv_support_reads,g_ref_support_reads= get_revised_reads(germline_support_reads,
+                                                                                 germline_ref_reads,
+                                                                                 revised_region_reference_seq,
+                                                                                 revised2ref,bk1_in_revised,bk2_in_revised)
+
+    # for i in range(len(germline_seq_list)):
+    #     if i >=3:
+    #         print(germline_name_list[i-3])
+    #     print(germline_seq_list[i])
+
+    germline_seq_list,germline_direction_list,\
+    germline_depth_list= merge_same_read(germline_seq_list,germline_direction_list,
+                                                            germline_depth_list,
+                                                            germline_name_list)
+    # for i in range(len(germline_depth_list)):
+    #     if i >=3:
+    #         print(germline_name_list[i-3])
+    #     print(germline_seq_list[i])
+
+    # left_extend=bk1_in_revised-300 if bk1_in_revised-300>=0 else 0
+    # right_extend=bk2_in_revised+300
+    # for i in range(0,len(somatic_seq_list)):
+    #     somatic_seq_list[i]=somatic_seq_list[i][left_extend:right_extend]
+    #     somatic_direction_list[i]=somatic_direction_list[i][left_extend:right_extend]
+    #     somatic_depth_list[i]=somatic_depth_list[i][left_extend:right_extend]
+    #
+    # for i in range(len(germline_seq_list)):
+    #     germline_seq_list[i]=germline_seq_list[i][left_extend:right_extend]
+    #     germline_direction_list[i]=germline_direction_list[i][left_extend:right_extend]
+    #     germline_depth_list[i]=germline_depth_list[i][left_extend:right_extend]
+    features=transfer(somatic_seq_list,germline_seq_list,
+                      somatic_direction_list,germline_direction_list,
+                      somatic_depth_list,germline_depth_list,)
+
+    sv_str=output_dir + '/' + chro + '_' + sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
+    #画两张图，somatic一张germline一张，然后resize成一样的大小
+    dim1=50
+    dim2=bk2_in_revised-bk1_in_revised+600
+    dim2=min(dim2,len(somatic_seq_list[0]))
+    somatic_base_channel = features[0]
+    somatic_dir_channel = features[2]
+    somatic_dep_channel = features[4]
+    somatic_img = Image.new("RGB", (dim2, dim1))  #宽、高
+    for i in range(dim1):
+        for j in range(dim2):
+            rcolor=somatic_base_channel[i][j]
+            gcolor=somatic_dir_channel[i][j]
+            bcolor = somatic_dep_channel[i][j]
+            somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
+    somatic_img=np.array(somatic_img)
+    transformed=transform.resize(somatic_img,(50,500))
+    transformed=transformed*255
+    # transformed=transformed.astype(np.float64)
+    transformed = transformed.astype(np.uint8)
+    transformed=Image.fromarray(transformed)
+    transformed.save(sv_str+'/tumor.png')
+    # np.save(sv_str+'/tumor',transformed)
+
+
+    germline_base_channel = features[1]
+    germline_dir_channel = features[3]
+    germline_dep_channel = features[5]
+    germline_img = Image.new("RGB", (dim2, dim1))
+    for i in range(dim1):
+        for j in range(dim2):
+            rcolor=germline_base_channel[i][j]
+            gcolor=germline_dir_channel[i][j]
+            bcolor = germline_dep_channel[i][j]
+            germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
+    germline_img=np.array(germline_img)
+    transformed=transform.resize(germline_img,(50,500))
+    transformed=transformed*255
+    # transformed=transformed.astype(np.float64)
+    transformed = transformed.astype(np.uint8)
+    transformed=Image.fromarray(transformed)
+    # np.save(sv_str+'/normal',transformed)
+    transformed.save(sv_str+'/normal.png')
+    # except Exception as exp:
+    #     msg="Error in\t"+somatic_bam_file+"\t"+sv_type+"\t"+str(bk[0])+"\t"+str(bk[1])
+    #     print(msg)
+    #     print(exp)
 
 
 
 import re
 def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
 
-    # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]]
-    # INS:   [[pos,len,[readf_name_list],insert_seq,[read_start_list],[read_end_list]]
-    # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
-    # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list]]
+    # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+    # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+    # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
+    # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
 
-    # fin = open('/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic2.fp.bed', 'r')
+    # fin = open('/home/duan/Desktop/getBreakpoint/results/NA19239_NA19240_mixed/cutesv/CNNSSV.fnc', 'r')
     # del_pos_set=set()
     # ins_pos_set = set()
     # inv_pos_set = set()
@@ -695,33 +695,33 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
 
 
     ref_dict = reference.initial_fa(ref)
-    pool = multiprocessing.Pool(processes=int(thread_num))
+    # pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0]==28716552:
-            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cins:
-        chro=key
-        for bk in cins[chro]:
-            # if bk[0]==25351822:
-            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cinv:
-        chro=key
-        for bk in cinv[chro]:
-            # if bk[0] in inv_pos_set:
-            #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    for key in cdup:
-        chro=key
-        for bk in cdup[chro]:
-            # if bk[0] == 10327076:
-            #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
-    pool.shutdown()
-    pool.close()
-    pool.join()
+            if bk[0] ==25432270:
+                generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cins:
+    #     chro=key
+    #     for bk in cins[chro]:
+    #         # if bk[0]==25351822:
+    #         #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cinv:
+    #     chro=key
+    #     for bk in cinv[chro]:
+    #         # if bk[0] in inv_pos_set:
+    #         #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    # for key in cdup:
+    #     chro=key
+    #     for bk in cdup[chro]:
+    #         # if bk[0] == 10327076:
+    #         #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+    # pool.shutdown()
+    # pool.close()
+    # pool.join()

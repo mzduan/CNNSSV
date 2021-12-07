@@ -45,6 +45,136 @@ def local_combine(sigs, candidate_ins_del, svtype, merge_threshold):
 
 
 
+def get_left_confusion(aln,i):
+    # 计算断点左端的混乱度,1000个base的比对情况
+    left = i - 1
+    left_INS_count = 0
+    left_Match_count = 0
+    left_DEL_count = 0
+    left_SUM_len = 0
+    while left >= 0:
+        left_t = aln.cigartuples[left]
+        left_SUM_len += left_t[1]
+        if left_SUM_len >= 1000:
+            cigar_len = left_t[1] - (left_SUM_len - 1000)
+        else:
+            cigar_len = left_t[1]
+
+        if left_t[0] == 0:
+            left_Match_count = left_Match_count + cigar_len
+        elif left_t[0] == 1:
+            if cigar_len <= 20:
+                left_INS_count = left_INS_count + cigar_len
+        elif left_t[0] == 2:
+            if cigar_len <= 20:
+                left_DEL_count = left_DEL_count + cigar_len
+        if left_SUM_len >= 1000:
+            break
+        left = left - 1
+    left_confusion = (left_INS_count + left_DEL_count) / (left_SUM_len)
+    return left_confusion
+
+
+def get_right_confusion(aln,i):
+    right = i + 1
+    right_INS_count = 0
+    right_Match_count = 0
+    right_DEL_count = 0
+    right_SUM_len = 0
+    while right < len(aln.cigartuples):
+        right_t = aln.cigartuples[right]
+        right_SUM_len += right_t[1]
+        if right_SUM_len >= 1000:
+            cigar_len = right_t[1] - (right_SUM_len - 1000)
+        else:
+            cigar_len = right_t[1]
+
+        if right_t[0] == 0:
+            right_Match_count = right_Match_count + cigar_len
+        elif right_t[0] == 1:
+            if cigar_len <= 20:
+                right_INS_count = right_INS_count + cigar_len
+        elif right_t[0] == 2:
+            if cigar_len <= 20:
+                right_DEL_count = right_DEL_count + cigar_len
+        if right_SUM_len >= 1000:
+            break
+        right = right + 1
+    # if aln.query_name=='C2_H1_32808':
+    #     print(right_DEL_count,right_INS_count)
+    right_confusion = (right_INS_count + right_DEL_count) / (right_SUM_len)
+    return right_confusion
+
+
+def get_left_confusion_splits(ele):
+    #将string转化为tuple
+    tuples=list(cigar.Cigar(ele[-1]).items())
+    # 计算断点左端的混乱度,1000个base的比对情况
+    if tuples[-1][1]!='S':
+        return 0
+
+    left = len(tuples)-2
+    left_INS_count = 0
+    left_Match_count = 0
+    left_DEL_count = 0
+    left_SUM_len = 0
+    while left >= 0:
+        left_t = tuples[left]
+        left_SUM_len += left_t[0]
+        if left_SUM_len >= 1000:
+            cigar_len = left_t[0] - (left_SUM_len - 1000)
+        else:
+            cigar_len = left_t[0]
+
+        if left_t[1] == 'M':
+            left_Match_count = left_Match_count + cigar_len
+        elif left_t[1] == 'I':
+            if cigar_len <= 20:
+                left_INS_count = left_INS_count + cigar_len
+        elif left_t[1] == 'D':
+            if cigar_len <= 20:
+                left_DEL_count = left_DEL_count + cigar_len
+        if left_SUM_len >= 1000:
+            break
+        left = left - 1
+    left_confusion = (left_INS_count + left_DEL_count) / (left_Match_count+left_INS_count + left_DEL_count)
+    return left_confusion
+
+
+
+def get_right_confusion_splits(ele):
+    # 将string转化为tuple
+    tuples = list(cigar.Cigar(ele[-1]).items())
+    # 计算断点左端的混乱度,1000个base的比对情况
+    if tuples[0][1] != 'S':
+        return 0
+
+    right = 1
+    right_INS_count = 0
+    right_Match_count = 0
+    right_DEL_count = 0
+    right_SUM_len = 0
+    while right <len(tuples):
+        right_t = tuples[right]
+        right_SUM_len += right_t[0]
+        if right_SUM_len >= 1000:
+            cigar_len = right_t[0] - (right_SUM_len - 1000)
+        else:
+            cigar_len = right_t[0]
+
+        if right_t[1] == 'M':
+            right_Match_count = right_Match_count + cigar_len
+        elif right_t[1] == 'I':
+            if cigar_len <= 20:
+                right_INS_count = right_INS_count + cigar_len
+        elif right_t[1] == 'D':
+            if cigar_len <= 20:
+                right_DEL_count = right_DEL_count + cigar_len
+        if right_SUM_len >= 1000:
+            break
+        right= right + 1
+    right_confusion = (right_INS_count + right_DEL_count) / (right_Match_count + right_INS_count + right_DEL_count)
+    return right_confusion
 
 
 def analysis_alignment(aln,min_sv_len):
@@ -54,7 +184,7 @@ def analysis_alignment(aln,min_sv_len):
 
 
     candidate_ins_del=list()
-    aln_breakpoints = list()
+    aln_breakpoints  = list()
     #把同一个alignments中相邻的ins和del聚类合并成一个，并调整CIGAR！
     Combine_sig_in_same_read_ins=list()
     Combine_sig_in_same_read_del=list()
@@ -70,7 +200,8 @@ def analysis_alignment(aln,min_sv_len):
     if aln.cigar[-1][0] == 4:
         softclip_right = aln.cigartuples[-1][1]
 
-    for t in aln.cigartuples:
+    for i in range(len(aln.cigartuples)):
+        t=aln.cigartuples[i]
         flag=t[0]
         counts=t[1]
         if flag==0:
@@ -85,14 +216,23 @@ def analysis_alignment(aln,min_sv_len):
                 if aln.is_reverse:
                     insert_start=aln.query_length-(query_pos+counts)
                     insert_end=aln.query_length-query_pos
-                aln_breakpoints.append([chro,'INS',ref_pos,counts,aln.query_name,aln.query_sequence[query_pos:query_pos+counts],insert_start,insert_end])
+
+                left_confu=get_left_confusion(aln,i)
+                right_confu=get_right_confusion(aln,i)
+                aln_breakpoints.append([chro,'INS',ref_pos,counts,aln.query_name,aln.query_sequence[query_pos:query_pos+counts],insert_start,insert_end,left_confu,right_confu])
             query_pos=query_pos+counts
         elif flag==2:
             if counts>=min_sv_len:
                 del_pos=query_pos
                 if aln.is_reverse:
                     del_pos=aln.query_length-query_pos
-                aln_breakpoints.append([chro,'DEL',ref_pos, counts,aln.query_name,del_pos,del_pos])
+
+
+                left_confu=get_left_confusion(aln,i)
+                right_confu=get_right_confusion(aln,i)
+                # if ref_pos==25432270:
+                #     print(left_confu,right_confu)
+                aln_breakpoints.append([chro,'DEL',ref_pos, counts,aln.query_name,del_pos,del_pos,left_confu,right_confu])
                 # Combine_sig_in_same_read_del.append([ref_pos, counts,'DEL'])
             ref_pos=ref_pos+counts
 
@@ -198,9 +338,9 @@ def retrieve_supp(aln):
 
     #如果比对到了正链
     if not aln.is_reverse:
-        primary_info = [softclip_left, aln.query_length - softclip_right, pos_start,pos_end, aln.reference_name, '+']
+        primary_info = [softclip_left, aln.query_length - softclip_right, pos_start,pos_end, aln.reference_name, '+',aln.cigarstring]
     else:
-        primary_info = [softclip_right, aln.query_length - softclip_left, pos_start,pos_end, aln.reference_name, '-']
+        primary_info = [softclip_right, aln.query_length - softclip_left, pos_start,pos_end, aln.reference_name, '-',cigar.Cigar(aln.cigarstring)._reverse_cigar()]
 
 
     split_reads=list()
@@ -226,14 +366,11 @@ def retrieve_supp(aln):
             #     print(local_start,local_set[2])
             if local_strand == '+':
                 split_reads.append([local_set[0], aln.query_length - local_set[1], local_start,
-                                   local_start + local_set[2], local_chr, local_strand])
+                                   local_start + local_set[2], local_chr, local_strand,local_cigar])
             else:
                 split_reads.append([local_set[1], aln.query_length - local_set[0], local_start,
-                                       local_start + local_set[2], local_chr, local_strand])
+                                       local_start + local_set[2], local_chr, local_strand,cigar.Cigar(local_cigar)._reverse_cigar()])
 
-    # if aln.query_name=='C2_H1_16638':
-    #     for sr in split_reads:
-    #         print(sr)
 
     return split_reads
 
@@ -243,25 +380,29 @@ def analysis_inv(ele_1, ele_2, read_name, sv_list, SV_size):
         # +-
         if ele_1[3] - ele_2[3] >= SV_size:
             if ele_2[0] + 0.5 * (ele_1[3] - ele_2[3]) >= ele_1[1]:
-                sv_list.append([chro,"INV","++",ele_2[3],ele_1[3],read_name,ele_1[0],ele_2[0]])  #测的负链
+                left_confu=get_right_confusion_splits(ele_2)
+                sv_list.append([chro,"INV","++",ele_2[3],ele_1[3],read_name,ele_1[0],ele_2[0],left_confu,left_confu])  #测的负链
 
         if ele_2[3] - ele_1[3] >= SV_size:
             if ele_2[0] + 0.5 * (ele_2[3] - ele_1[3]) >= ele_1[1]:
-                sv_list.append([chro,"INV","++", ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1]])  #测的正链
+                left_confu=get_left_confusion_splits(ele_1)
+                sv_list.append([chro,"INV","++", ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1],left_confu,left_confu])  #测的正链
     else:
         # -+
         if ele_2[2] - ele_1[2] >= SV_size:
             if ele_2[0] + 0.5 * (ele_2[2] - ele_1[2]) >= ele_1[1]:
-                sv_list.append([chro,"INV","--", ele_1[2],ele_2[2],read_name,ele_1[0],ele_2[0]])  #测的正链
+                right_confu = get_right_confusion_splits(ele_2)
+                sv_list.append([chro,"INV","--", ele_1[2],ele_2[2],read_name,ele_1[0],ele_2[0],right_confu,right_confu])  #测的正链
 
         if ele_1[2] - ele_2[2] >= SV_size:
+            right_confu=get_left_confusion_splits(ele_1)
             if ele_2[0] + 0.5 * (ele_1[2] - ele_2[2]) >= ele_1[1]:
-                sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1]])  #测的负链
+                sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1],right_confu,right_confu])  #测的负链
 
 def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
     '''
-    read_start	read_end	ref_start	ref_end	chr	strand
-    #0			#1			#2			#3		#4	#5
+    read_start	read_end	ref_start	ref_end	chr	strand  cigar
+    #0			#1			#2			#3		#4	#5  #6
     '''
 
     trigger_INS_TRA=0
@@ -290,14 +431,18 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                     if ele_2[5] == '-':
                         # +-+
                         if ele_2[0] + 0.5 * (ele_3[2] - ele_1[3]) >= ele_1[1] and ele_3[0] + 0.5 * (ele_3[2] - ele_1[3]) >= ele_2[1]:
-                            sv_list.append([chro,"INV","++",ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1]])
-                            sv_list.append([chro,"INV","--",ele_2[2],ele_3[2],read_name,ele_2[0],ele_3[0]])
+                            left_confu=get_left_confusion_splits(ele_1)
+                            right_confu=get_right_confusion_splits(ele_3)
+                            sv_list.append([chro,"INV","++",ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1],left_confu,right_confu])
+                            sv_list.append([chro,"INV","--",ele_2[2],ele_3[2],read_name,ele_2[0],ele_3[0],left_confu,right_confu])
                     else:
                         # -+-
                         if ele_1[1] <= ele_2[0] + 0.5 * (ele_1[2] - ele_3[3]) and ele_3[0] + 0.5 * (ele_1[2] - ele_3[3]) >= ele_2[1]:
                             # No overlaps in split reads
-                            sv_list.append([chro,"INV","++",ele_3[3],ele_2[3],read_name,ele_2[0],ele_3[0]])
-                            sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1]])
+                            left_confu = get_right_confusion_splits(ele_3)
+                            right_confu = get_left_confusion_splits(ele_1)
+                            sv_list.append([chro,"INV","++",ele_3[3],ele_2[3],read_name,ele_2[0],ele_3[0],left_confu,right_confu])
+                            sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1],left_confu,right_confu])
 
                 if ele_1[5] != ele_3[5]:
                     if ele_2[5] == ele_1[5]:
@@ -325,8 +470,8 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
             if ele_1[5] == ele_2[5]:
                 # dup & ins & del
                 if ele_1[5] == '-':
-                    ele_1 = [read_len - sp_list[a + 1][1], read_len - sp_list[a + 1][0]] + sp_list[a + 1][2:]
-                    ele_2 = [read_len - sp_list[a][1], read_len - sp_list[a][0]] + sp_list[a][2:]
+                    ele_1 = [read_len - sp_list[a + 1][1], read_len - sp_list[a + 1][0]] + sp_list[a + 1][2:-1]+[cigar.Cigar(sp_list[a + 1][-1])._reverse_cigar()]
+                    ele_2 = [read_len - sp_list[a][1], read_len - sp_list[a][0]] + sp_list[a][2:-1]+[cigar.Cigar(sp_list[a][-1])._reverse_cigar()]
                     # 没有必要反转序列
                     # query = query[::-1]
 
@@ -338,8 +483,9 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                     dup_read_pos = int((ele_2[0] + ele_1[1]) / 2)
                     if ele_1[5] == '-':
                         dup_read_pos = read_len - dup_read_pos
-
-                    sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos])
+                    left_confu=get_left_confusion_splits(ele_1)
+                    right_confu=get_right_confusion_splits(ele_2)
+                    sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos,left_confu,right_confu])
                 if ele_1[3] - ele_2[2] < SV_size:
                     if ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1] >= SV_size:
                         if ele_2[2] - ele_1[3] <= 100 and ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1] <= 10000:
@@ -350,13 +496,15 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                                 ins_read_pos1=read_len-ele_2[0]
                                 ins_read_pos2=read_len-ele_1[1]
 
+                            left_confu=get_left_confusion_splits(ele_1)
+                            right_confu=get_right_confusion_splits(ele_2)
                             #int((ele_2[2] + ele_1[3]) / 2)
                             sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),
                                                                ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1],
                                                                read_name,
                                                                str(query[
                                                                    ele_1[1] + int((ele_2[2] - ele_1[3]) / 2):
-                                                                   ele_2[0] - int((ele_2[2] - ele_1[3]) / 2)]),ins_read_pos1,ins_read_pos2])
+                                                                   ele_2[0] - int((ele_2[2] - ele_1[3]) / 2)]),ins_read_pos1,ins_read_pos2,left_confu,right_confu])
                     if ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3] >= SV_size:
                         if ele_2[0] - ele_1[1] <= 100 and ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3] <= 10000:
 
@@ -364,7 +512,9 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                             if ele_1[5]=='-':
                                 del_read_pos=read_len-del_read_pos
 
-                            sv_list.append([chro,"DEL",ele_1[3],ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3],read_name,del_read_pos,del_read_pos])
+                            left_confu=get_left_confusion_splits(ele_1)
+                            right_confu=get_right_confusion_splits(ele_2)
+                            sv_list.append([chro,"DEL",ele_1[3],ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3],read_name,del_read_pos,del_read_pos,left_confu,right_confu])
         else:
             trigger_INS_TRA = 1
 
@@ -377,8 +527,8 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
                     ele_1 = sp_list[0]
                     ele_2 = sp_list[-1]
                 else:
-                    ele_1 = [read_len - sp_list[-1][1], read_len - sp_list[-1][0]] + sp_list[-1][2:]
-                    ele_2 = [read_len - sp_list[0][1], read_len - sp_list[0][0]] + sp_list[0][2:]
+                    ele_1 = [read_len - sp_list[-1][1], read_len - sp_list[-1][0]] + sp_list[-1][2:-1]+[cigar.Cigar(sp_list[-1][-1])._reverse_cigar()]
+                    ele_2 = [read_len - sp_list[0][1], read_len - sp_list[0][0]] + sp_list[0][2:-1]+[cigar.Cigar(sp_list[0][-1])._reverse_cigar()]
                     query = query[::-1]
 
                 # if read_name=='m64039_190922_223056/97387167/ccs':
@@ -397,20 +547,25 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size):
 
                     # if read_name=='m54336U_190829_230546/120719613/ccs':
                     #     print(ele_2[2],ele_1[3])
+                    left_confu = get_left_confusion_splits(ele_1)
+                    right_confu = get_right_confusion_splits(ele_2)
                     sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),dis_read - dis_ref,read_name,
-                                    str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2])
+                                    str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2,left_confu,right_confu])
 
                 if dis_ref <= -SV_size:
                     dup_read_pos = ele_2[0] #dup前面还有别的变异，这种情况对右断点进行校验
                     if ele_1[5] == '-':
                         dup_read_pos = read_len - dup_read_pos
-                    sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos])
+
+                    left_confu = get_left_confusion_splits(ele_1)
+                    right_confu = get_right_confusion_splits(ele_2)
+                    sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos,left_confu,right_confu])
     return sv_list
 
 def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
-    #输入： pos, len, read_id,read_start,read_end
-    #输出： pos,len,read_name_list,read_start_list,read_end_list,ref_start_list,len_list
+    #输入： pos, len, read_id,read_start,read_end,left_confu,right_confu
+    #输出： pos,len,read_name_list,read_start_list,read_end_list,ref_start_list,len_list,mean_left_confu,mean_right_confu
 
     # 根据read_id去重，只保留len最大的记录
     dedup_reads = dict()
@@ -434,7 +589,8 @@ def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
     refined=list()
 
     refined.append([[sorted_dedup_reads[0][0]], [sorted_dedup_reads[0][1]], [],
-                           [sorted_dedup_reads[0][2]],[sorted_dedup_reads[0][3]],[sorted_dedup_reads[0][4]]])
+                           [sorted_dedup_reads[0][2]],[sorted_dedup_reads[0][3]],[sorted_dedup_reads[0][4]],
+                    [sorted_dedup_reads[0][5]],[sorted_dedup_reads[0][6]]])
 
     for i in sorted_dedup_reads[1:]:
 
@@ -442,13 +598,15 @@ def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         if i[1] - last_len > distance_threhold:
             #计算上一个变异的support reads数
             refined[-1][2].append(len(refined[-1][0]))
-            refined.append([[], [], [], [],[],[]])
+            refined.append([[], [], [], [],[],[],[],[]])
 
         refined[-1][0].append(i[0])
         refined[-1][1].append(i[1])
         refined[-1][3].append(i[2])
         refined[-1][4].append(i[3])
         refined[-1][5].append(i[4])
+        refined[-1][6].append(i[5])
+        refined[-1][7].append(i[6])
         last_len = i[1]
     refined[-1][2].append(len(refined[-1][0]))
 
@@ -459,14 +617,20 @@ def refine_DEL(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         if cluster[2][0]>=min_read_count:
             sv_start=np.mean(cluster[0])
             sv_len=np.mean(cluster[1])
-
+            mean_left_confu=np.mean(cluster[6])
+            mean_right_confu=np.mean(cluster[7])
+            # if int(sv_start)==180027:
+            #     print(cluster[0])
+            #     print(cluster[6])
+            #     print(cluster[7])
             if min_sv_len<=sv_len<=max_sv_len:
             #平均位置，平均长度，支持该变异的reads_name
-                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4],cluster[5],cluster[0],cluster[1]])
+                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4],cluster[5],cluster[0],cluster[1],
+                                     mean_left_confu,mean_right_confu])
 
 def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
 
-    # del: chro,del,start,len,read_name,read_start,read_end
+    # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
 
     max_cluster_bias=200
     read_count=min_support
@@ -482,6 +646,8 @@ def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
         read_id = sv[4]
         read_start=sv[5]
         read_end=sv[6]
+        left_confu=sv[7]
+        right_confu=sv[8]
         #新的变异
         if pos - tmp_del_cluster[-1][0] > max_cluster_bias:
 
@@ -491,9 +657,9 @@ def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
                     refine_DEL(tmp_del_cluster,read_count,refined,min_sv_len,max_sv_len)
 
             tmp_del_cluster = []
-            tmp_del_cluster.append([pos, indel_len, read_id,read_start,read_end])
+            tmp_del_cluster.append([pos, indel_len, read_id,read_start,read_end,left_confu,right_confu])
         else:
-            tmp_del_cluster.append([pos, indel_len, read_id,read_start,read_end])
+            tmp_del_cluster.append([pos, indel_len, read_id,read_start,read_end,left_confu,right_confu])
 
     if len(tmp_del_cluster) >= read_count:
         refine_DEL(tmp_del_cluster, read_count, refined,min_sv_len,max_sv_len)
@@ -502,8 +668,8 @@ def cluster_DEL(sv_list,min_support,min_sv_len,max_sv_len):
 
 def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
-    #输入：pos, len, read_id,ins_seq,read_start,read_end
-    #输出：pos,len,read_name_list,ins_seq,read_start_list,read_end_list,ref_start_list,len_list
+    #输入：pos, len, read_id,ins_seq,read_start,read_end,left_confu,right_confu
+    #输出：pos,len,read_name_list,ins_seq,read_start_list,read_end_list,ref_start_list,len_list,mean_left_confu,mean_right_confu
     # 根据read_id去重，只保留len最大的记录
     dedup_reads = dict()
     for sv in tmp_cluster:
@@ -525,7 +691,8 @@ def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
     refined=list()
     refined.append([[sorted_dedup_reads[0][0]], [sorted_dedup_reads[0][1]], [],
-                           [sorted_dedup_reads[0][2]],[sorted_dedup_reads[0][3]],[sorted_dedup_reads[0][4]],[sorted_dedup_reads[0][5]]])
+                           [sorted_dedup_reads[0][2]],[sorted_dedup_reads[0][3]],[sorted_dedup_reads[0][4]],[sorted_dedup_reads[0][5]],
+                    [sorted_dedup_reads[0][6]],[sorted_dedup_reads[0][7]]])
 
     for i in sorted_dedup_reads[1:]:
 
@@ -533,7 +700,7 @@ def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         if i[1] - last_len > distance_threhold:
             #计算上一个变异的support reads数
             refined[-1][2].append(len(refined[-1][0]))
-            refined.append([[], [], [], [],[],[],[]])
+            refined.append([[], [], [], [],[],[],[],[],[]])
 
         refined[-1][0].append(i[0])
         refined[-1][1].append(i[1])
@@ -541,6 +708,8 @@ def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         refined[-1][4].append(i[3])
         refined[-1][5].append(i[4])
         refined[-1][6].append(i[5])
+        refined[-1][7].append(i[6])
+        refined[-1][8].append(i[7])
         last_len = i[1]
     refined[-1][2].append(len(refined[-1][0]))
 
@@ -552,13 +721,16 @@ def refine_INS(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
             sv_start=np.mean(cluster[0])
             sv_len=np.mean(cluster[1])
 
+            mean_left_confu=np.mean(cluster[7])
+            mean_right_confu=np.mean(cluster[8])
             #平均位置，平均长度，支持该变异的reads_name,插入的序列
             if min_sv_len<=sv_len<=max_sv_len:
-                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4][0],cluster[5],cluster[6],cluster[0],cluster[1]])
+                candidate_sv.append([int(sv_start),int(sv_len),cluster[3],cluster[4][0],cluster[5],cluster[6],cluster[0],cluster[1],
+                                     mean_left_confu,mean_right_confu])
             # print(candidate_sv[-1])
 
 def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
-    # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end
+    # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confu,right_confu
 
     max_cluster_bias = 100
     read_count = min_support
@@ -575,6 +747,8 @@ def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
         read_start=sv[6]
         read_end=sv[7]
 
+        left_confu=sv[8]
+        right_confu=sv[9]
         # 新的变异
         if pos - tmp_ins_cluster[-1][0] > max_cluster_bias:
 
@@ -584,9 +758,9 @@ def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
                     refine_INS(tmp_ins_cluster, read_count, refined,min_sv_len,max_sv_len)
 
             tmp_ins_cluster = []
-            tmp_ins_cluster.append([pos, indel_len, read_id,ins_seq,read_start,read_end])
+            tmp_ins_cluster.append([pos, indel_len, read_id,ins_seq,read_start,read_end,left_confu,right_confu])
         else:
-            tmp_ins_cluster.append([pos, indel_len, read_id,ins_seq,read_start,read_end])
+            tmp_ins_cluster.append([pos, indel_len, read_id,ins_seq,read_start,read_end,left_confu,right_confu])
 
     if len(tmp_ins_cluster) >= read_count:
         refine_INS(tmp_ins_cluster, read_count, refined,min_sv_len,max_sv_len)
@@ -595,8 +769,8 @@ def cluster_INS(sv_list,min_support,min_sv_len,max_sv_len):
 
 def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
-    # 输入： start, end, read_name,read_start,read_end
-    # 输出： start,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list
+    # 输入： start, end, read_name,read_start,read_end,left_confu,right_confu
+    # 输出： start,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list,mean_left_confu,mean_right_confu
 
 
 
@@ -617,6 +791,8 @@ def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
     support_read = list(i[2] for i in tmp_cluster)
     read_start_list=list(i[3] for i in tmp_cluster)
     read_end_list = list(i[4] for i in tmp_cluster)
+    left_confu_list = list(i[5] for i in tmp_cluster)
+    right_confu_list = list(i[6] for i in tmp_cluster)
     if len(support_read) < min_read_count:
         return
     low_b = int(len(tmp_cluster) * 0.4)
@@ -631,11 +807,15 @@ def refine_DUP(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         breakpoint_1 = int(sum(breakpoint_1) / len(tmp_cluster[low_b:up_b]))
         breakpoint_2 = int(sum(breakpoint_2) / len(tmp_cluster[low_b:up_b]))
 
+    mean_left_confu=np.mean(left_confu_list)
+    mean_right_confu=np.mean(right_confu_list)
+
     if min_sv_len<=breakpoint_2-breakpoint_1<=max_sv_len:
-        candidate_sv.append([breakpoint_1,breakpoint_2-breakpoint_1,support_read,read_start_list,read_end_list,ref_start_list,ref_end_list])
+        candidate_sv.append([breakpoint_1,breakpoint_2-breakpoint_1,support_read,read_start_list,read_end_list,ref_start_list,ref_end_list,
+                             mean_left_confu,mean_right_confu])
 
 def cluster_DUP(sv_list,min_support,min_sv_len,max_sv_len):
-    # dup: chro, dup, start, end, read_name,read_start,read_end
+    # dup: chro, dup, start, end, read_name,read_start,read_end,left_confu,right_confu
 
     max_cluster_bias=500
     read_count=min_support
@@ -650,15 +830,17 @@ def cluster_DUP(sv_list,min_support,min_sv_len,max_sv_len):
         read_name=sv[4]
         read_start=sv[5]
         read_end=sv[6]
+        left_confu=sv[7]
+        right_confu=sv[8]
         if pos1 - tmp_dup_cluster[-1][0] > max_cluster_bias or pos2 - tmp_dup_cluster[-1][1] > max_cluster_bias:
             if len(tmp_dup_cluster) >= read_count:
                 if tmp_dup_cluster[-1][0]!=0 and tmp_dup_cluster[-1][1]!=0:
                     refine_DUP(tmp_dup_cluster, read_count, refined,min_sv_len,max_sv_len)
 
             tmp_dup_cluster = []
-            tmp_dup_cluster.append([pos1, pos2, read_name,read_start,read_end])
+            tmp_dup_cluster.append([pos1, pos2, read_name,read_start,read_end,left_confu,right_confu])
         else:
-            tmp_dup_cluster.append([pos1, pos2, read_name,read_start,read_end])
+            tmp_dup_cluster.append([pos1, pos2, read_name,read_start,read_end,left_confu,right_confu])
 
     if len(tmp_dup_cluster) >= read_count:
         refine_DUP(tmp_dup_cluster,read_count,refined,min_sv_len,max_sv_len)
@@ -667,10 +849,10 @@ def cluster_DUP(sv_list,min_support,min_sv_len,max_sv_len):
 
 def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
 
-    #返回值：bk,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list
+    #返回值：bk,len,read_name_list,read_start_list,read_end_list,ref_start_list,ref_end_list,mean_left_confu,mean_right_confu
 
 
-    #输入：pos1,pos2,read_name,read_start,read_end
+    #输入：pos1,pos2,read_name,read_start,read_end,left_confu,right_confu
 
     max_cluster_bias=500
     read_id = [i[2] for i in tmp_cluster]
@@ -685,6 +867,8 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
     temp_sum_b2 = last_bp
     temp_count = 1
 
+    left_confu_sum=inv_cluster_b2[0][5]
+    right_confu_sum = inv_cluster_b2[0][6]
     # max_sum = 0
     temp_id = dict()
     temp_id[inv_cluster_b2[0][2]] = [inv_cluster_b2[0][3],inv_cluster_b2[0][4]]
@@ -698,6 +882,9 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
                 breakpoint_2 = round(temp_sum_b2 / temp_count)
                 inv_len = breakpoint_2 - breakpoint_1
 
+                mean_left_confu=round(left_confu_sum)/temp_count
+                mean_right_confu=round(right_confu_sum)/temp_count
+
                 max_count_id = len(temp_id)
                 read_start_list=list(temp_id[key][0] for key in temp_id.keys())
                 read_end_list=list(temp_id[key][1] for key in temp_id.keys())
@@ -705,13 +892,16 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
                 ref_start_list=list(ref_pos_recorder[key][0] for key in ref_pos_recorder.keys())
                 ref_end_list = list(ref_pos_recorder[key][1] for key in ref_pos_recorder.keys())
                 if inv_len >= min_sv_len and inv_len<=max_sv_len and max_count_id>=min_read_count:
-                    candidate_sv.append([breakpoint_1,inv_len,list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list])
+                    candidate_sv.append([breakpoint_1,inv_len,list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list,
+                                         mean_left_confu,mean_right_confu])
             temp_id = dict()
             temp_count = 1
             temp_sum_b1 = i[0]
             temp_sum_b2 = i[1]
             temp_id[i[2]] = [i[3],i[4]]
             ref_pos_recorder[i[2]]=[i[0],i[1]]
+            left_confu_sum=i[5]
+            right_confu_sum=i[6]
         else:
             temp_count += 1
             temp_id[i[2]] = [i[3], i[4]]
@@ -722,10 +912,17 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
             #     temp_id[i[2]] += 1
             temp_sum_b1 += i[0]
             temp_sum_b2 += i[1]
+            left_confu_sum+=i[5]
+            right_confu_sum+=i[6]
         last_bp = i[1]
     if temp_count >= min_read_count:
         breakpoint_1 = round(temp_sum_b1 / temp_count)
         breakpoint_2 = round(temp_sum_b2 / temp_count)
+
+        mean_left_confu = round(left_confu_sum) / temp_count
+        mean_right_confu = round(right_confu_sum) / temp_count
+
+
         inv_len = breakpoint_2 - breakpoint_1
         read_start_list = list(temp_id[key][0] for key in temp_id.keys())
         read_end_list = list(temp_id[key][1] for key in temp_id.keys())
@@ -733,11 +930,12 @@ def refine_INV(tmp_cluster,min_read_count,candidate_sv,min_sv_len,max_sv_len):
         ref_start_list = list(ref_pos_recorder[key][0] for key in ref_pos_recorder.keys())
         ref_end_list = list(ref_pos_recorder[key][1] for key in ref_pos_recorder.keys())
         if inv_len >= min_sv_len and inv_len<=max_sv_len and max_count_id>=min_read_count:
-            candidate_sv.append([breakpoint_1, inv_len, list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list])
+            candidate_sv.append([breakpoint_1, inv_len, list(temp_id.keys()),read_start_list,read_end_list,ref_start_list,ref_end_list
+                                 ,mean_left_confu,mean_right_confu])
 
 def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 
-    #inv: chro, inv, direction, start, end, read_name,read_start,read_end
+    #inv: chro, inv, direction, start, end, read_name,read_start,read_end,left_confu,right_confu
 
     max_cluster_bias = 500
     read_count = min_support
@@ -753,7 +951,8 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
         read_name=sv[5]
         read_start=sv[6]
         read_end=sv[7]
-
+        left_confu=sv[8]
+        right_confu=sv[9]
         # 新的变异
         if pos1 - tmp_inv_cluster[-1][0] > max_cluster_bias or pos2 - tmp_inv_cluster[-1][1] > max_cluster_bias:
 
@@ -763,9 +962,9 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
                     refine_INV(tmp_inv_cluster, read_count, refined,min_sv_len,max_sv_len)
 
             tmp_inv_cluster = []
-            tmp_inv_cluster.append([pos1, pos2,read_name,read_start,read_end])
+            tmp_inv_cluster.append([pos1, pos2,read_name,read_start,read_end,left_confu,right_confu])
         else:
-            tmp_inv_cluster.append([pos1, pos2,read_name,read_start,read_end])
+            tmp_inv_cluster.append([pos1, pos2,read_name,read_start,read_end,left_confu,right_confu])
 
     if len(tmp_inv_cluster) >= read_count:
         refine_INV(tmp_inv_cluster, read_count, refined,min_sv_len,max_sv_len)
@@ -803,10 +1002,10 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
 
     bam.close()
-    # del: chro,del,start,len,read_name,read_start,read_end
-    # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end
-    # inv: chro,inv,direction,start,end,read_name,read_start,read_end
-    # dup: chro,dup,start,end,read_name,read_start,read_end
+    # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
+    # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
+    # inv: chro,inv,direction,start,end,read_name,read_start,read_end,left_confusion,right_confusion
+    # dup: chro,dup,start,end,read_name,read_start,read_end,left_confusion,right_confusion
 
 
 
