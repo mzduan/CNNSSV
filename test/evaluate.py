@@ -1,11 +1,11 @@
 import re
 if __name__ == '__main__':
 
-    predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/0.7.tumor.nanomonsv.result.bed'
+    predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.bed'
     # predict_bed='/Users/duan/Desktop/results/somaticSV/callset/mix/0.2/sniffles.somatic.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
-    # fn_name='/Users/duan/Desktop/results/somaticSV/callset/CCS/0.2/chr20/nanomonsv.fn.txt'
-    # fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_14_with_no_sup/chr20_0.7_simulate_somatic.fp'
+    fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
+    # fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic2.fp.bed'
 
     predict=list()
     with open(predict_bed,'r') as fin:
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
+    with open('/home/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:
@@ -69,29 +69,29 @@ if __name__ == '__main__':
     for p in predict:
         for g in groundtruth:
             if p[2]==g[2]:
-                if abs(int(p[0])-int(g[0]))<=50 and abs(int(p[1])-int(g[1]))<=50:
+                if abs(int(p[0])-int(g[0]))<=200 and abs(int(p[1])-int(g[1]))<=200:
                     true_p.add(p)
                 #     break
     for g in groundtruth:
         find_flag = False
         for p in predict:
             if g[2]==p[2]:
-                if abs(int(g[0])-int(p[0]))<=50 and abs(int(g[1])-int(p[1]))<=50:
+                if abs(int(g[0])-int(p[0]))<=200 and abs(int(g[1])-int(p[1]))<=200:
                     true_g.add(g)
                     find_flag=True
                     break
         # if find_flag==False:
         #     print(g)
 
-    # print("FN:")
-    # fn=0
-    # with open(fn_name,'w') as fout:
-    #     for q in groundtruth:
-    #         if q not in true_g:
-    #             # print(q)
-    #             fout.write('chr20'+'\t'+str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\n')
-                # fn=fn+1
-        # print(fn)
+    print("FN:")
+    fn=0
+    with open(fn_name,'w') as fout:
+        for q in groundtruth:
+            if q not in true_g:
+                # print(q)
+                fout.write('chr20'+'\t'+str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\n')
+                fn=fn+1
+        print(fn)
 
     # print("FP:")
     # fp=0
