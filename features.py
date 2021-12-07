@@ -695,33 +695,33 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
 
 
     ref_dict = reference.initial_fa(ref)
-    # pool = multiprocessing.Pool(processes=int(thread_num))
+    pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            if bk[0]==28716552:
-                generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cins:
-    #     chro=key
-    #     for bk in cins[chro]:
-    #         if bk[0]==25351822:
-    #             generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cinv:
-    #     chro=key
-    #     for bk in cinv[chro]:
-    #         # if bk[0] in inv_pos_set:
-    #         #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cdup:
-    #     chro=key
-    #     for bk in cdup[chro]:
-    #         if bk[0] == 10327076:
-    #             generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+            # if bk[0]==28716552:
+            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cins:
+        chro=key
+        for bk in cins[chro]:
+            # if bk[0]==25351822:
+            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cinv:
+        chro=key
+        for bk in cinv[chro]:
+            # if bk[0] in inv_pos_set:
+            #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cdup:
+        chro=key
+        for bk in cdup[chro]:
+            # if bk[0] == 10327076:
+            #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            # pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
-    # pool.shutdown()
-    # pool.close()
-    # pool.join()
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+    pool.shutdown()
+    pool.close()
+    pool.join()
