@@ -14,6 +14,8 @@ def get_reverse_comp(s):
             ret=ret+'G'
         elif s[i]=='G':
             ret=ret+'C'
+        else:
+            ret=ret+'N'
     return ret
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk):
 

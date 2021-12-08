@@ -6,6 +6,7 @@ from test import predict
 import sys
 import os
 import time
+import reference
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--tumor", help="tumor bam", type=str,required=True)
@@ -28,7 +29,9 @@ if __name__ == '__main__':
         os.mkdir(args.wkdir)
     print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
     print("Find Candidate SVs")
-    cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual)
+
+    ref_dict = reference.initial_fa(args.ref)
+    cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual,ref_dict=ref_dict)
 
     # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
     # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
@@ -53,9 +56,9 @@ if __name__ == '__main__':
             for bk in cdup[chro]:
                 fout.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[0] + bk[1]) + '\t' + 'DUP\t'+str(bk[1])+'\n')
     print("Generate Features for Cancidate SVs")
-    run(cdel,cins,cinv,cdup,args.ref,args.tumor,args.normal,args.wkdir,int(args.t))
-    print("Predict...")
-    predict(args.model,args.wkdir,args.output)
-    print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
+    run(cdel,cins,cinv,cdup,ref_dict,args.tumor,args.normal,args.wkdir,int(args.t))
+    # print("Predict...")
+    # predict(args.model,args.wkdir,args.output)
+    # print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
     #
 

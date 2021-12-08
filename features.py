@@ -58,7 +58,7 @@ def is_normal(aln):
     return True
 
 
-def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos):
+def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos,ref_dict):
     read_names = list()
     support_reads=list()
     start=bk[0]
@@ -76,7 +76,7 @@ def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos):
             name2ref_pos[name] = ref_pos
 
     else:
-        cdel,cins,cinv,cdup=get_breakpoints(bam_file,1,chro=chro,start=start-50,end=end+50)
+        cdel,cins,cinv,cdup=get_breakpoints(bam_file,1,chro=chro,start=start-50,end=end+50,ref_dict=ref_dict)
         if sv_type=="DEL":
             if chro in cdel.keys():
                 for b in cdel[chro]:
@@ -186,9 +186,9 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     name2ref_pos=dict()
     #找出支持reference以及支持sv的alignments'
-    somatic_support_reads=get_support_reads(sv_type,chro,bk,somatic_bam_file,"tumor",name2ref_pos)
+    somatic_support_reads=get_support_reads(sv_type,chro,bk,somatic_bam_file,"tumor",name2ref_pos,ref_dict)
     somatic_ref_reads=get_ref_reads(sv_type,chro,bk,somatic_bam_file,somatic_support_reads)
-    germline_support_reads=get_support_reads(sv_type,chro,bk,germline_bam_file,"normal",name2ref_pos)
+    germline_support_reads=get_support_reads(sv_type,chro,bk,germline_bam_file,"normal",name2ref_pos,ref_dict)
     germline_ref_reads=get_ref_reads(sv_type,chro,bk,germline_bam_file,germline_support_reads)
 
 
@@ -222,8 +222,8 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # germline_rc=len(germline_support_reads)+len(germline_support_reads)
     # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
-    sup_features = np.array([type_counts, medium, mean_region_counts, mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-                             len(germline_support_reads),len(germline_ref_reads),bk[-2],bk[-1]])
+    sup_features = np.array([type_counts, medium, mean_region_counts, bk[-2],bk[-1],mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
+                             len(germline_support_reads),len(germline_ref_reads)])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
     os.mkdir(sv_str)
     # np.save(sv_str + '/tumor_sup_feature',tumor_kmer_vector)
@@ -231,7 +231,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # print(tumor_kmer_vector)
     # print(normal_kmer_vector)
     np.save(sv_str + '/sup_feat', sup_features)
-    print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus,bk[-2],bk[-1])
+    # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus,bk[-2],bk[-1])
     #调整insertion位置，否则会导致reference 被多次添加gap
     if sv_type=='INS':
         if len(somatic_support_reads)!=0 or len(germline_support_reads)!=0:
@@ -662,7 +662,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
 
 
 import re
-def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
+def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
 
     # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
     # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
@@ -692,36 +692,33 @@ def run(cdel,cins,cinv,cdup,ref,tumor,normal,wkdir,thread_num):
     #         break
     # fin.close()
 
-
-
-    ref_dict = reference.initial_fa(ref)
-    # pool = multiprocessing.Pool(processes=int(thread_num))
+    pool = multiprocessing.Pool(processes=int(thread_num))
     # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            if bk[0] ==25432270:
-                generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cins:
-    #     chro=key
-    #     for bk in cins[chro]:
-    #         # if bk[0]==25351822:
-    #         #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cinv:
-    #     chro=key
-    #     for bk in cinv[chro]:
-    #         # if bk[0] in inv_pos_set:
-    #         #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
-    # for key in cdup:
-    #     chro=key
-    #     for bk in cdup[chro]:
-    #         # if bk[0] == 10327076:
-    #         #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-    #         pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            # if bk[0] in del_pos_set:
+            #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cins:
+        chro=key
+        for bk in cins[chro]:
+            # if bk[0]==25351822:
+            #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cinv:
+        chro=key
+        for bk in cinv[chro]:
+            # if bk[0] in inv_pos_set:
+            #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+    for key in cdup:
+        chro=key
+        for bk in cdup[chro]:
+            # if bk[0] == 10327076:
+            #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+            # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
     # pool.shutdown()
-    # pool.close()
-    # pool.join()
+    pool.close()
+    pool.join()
