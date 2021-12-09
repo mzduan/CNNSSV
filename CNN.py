@@ -46,7 +46,7 @@ class CNN(nn.Module):
 
         #处理vector的fc
         self.fc2=nn.Sequential(
-            nn.Linear(in_features=10, out_features=4),
+            nn.Linear(in_features=12, out_features=4),
             nn.ReLU()
         )
 
