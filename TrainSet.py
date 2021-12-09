@@ -13,6 +13,7 @@ class TrainSet(data.Dataset):
                 if c==20:
                     continue
                 current_feat_path = ccs_feat_path + '/' + p + '/chr' + str(c)
+                print("load features "+current_feat_path+" germline")
                 germline_path=current_feat_path+'/germline'
                 for f in os.listdir(germline_path):
                     if f[0] != '.':
@@ -40,6 +41,7 @@ class TrainSet(data.Dataset):
                         self.features.append(sub_feature)
                         self.labels.append(0)
                 somatic_path=current_feat_path+'/somatic'
+                print("load features " + current_feat_path + " somatic")
                 for f in os.listdir(somatic_path):
                     if f[0] != '.':
                         absolute_path = somatic_path + '/' + f
