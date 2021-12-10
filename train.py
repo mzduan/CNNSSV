@@ -30,27 +30,27 @@ if __name__ == '__main__':
 
 
     train_set=TrainSet.TrainSet(ccs_feat_path)
-    # train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
-    # # 开始训练
-    # for epoch in range(epoches):
-    #     print("进行第{}个epoch".format(epoch))
-    #     for step, (batch_x,batch_sup_x,batch_y) in enumerate(train_loader):
-    #         if cuda_gpu:
-    #             batch_x=batch_x.cuda()
-    #             batch_sup_x = batch_sup_x.cuda()
-    #             batch_y = batch_y.cuda()
-    #         output = cnn(batch_x,batch_sup_x)
-    #         loss = loss_function(output, batch_y)
-    #
-    #         writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
-    #
-    #         optimizer.zero_grad()
-    #         loss.backward()
-    #         optimizer.step()
-    #         # 为了实时显示准确率
-    #         if step % 100 == 0:
-    #             print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy())
-    #
-    # cnn=cnn.cpu()
-    # torch.save(cnn.state_dict(),model_output)
+    train_loader=DataLoader(train_set,batch_size=4,shuffle=True)
+    # 开始训练
+    for epoch in range(epoches):
+        print("进行第{}个epoch".format(epoch))
+        for step, (batch_x,batch_sup_x,batch_y) in enumerate(train_loader):
+            if cuda_gpu:
+                batch_x=batch_x.cuda()
+                batch_sup_x = batch_sup_x.cuda()
+                batch_y = batch_y.cuda()
+            output = cnn(batch_x,batch_sup_x)
+            loss = loss_function(output, batch_y)
+
+            writer.add_scalar("Train Loss", loss.data.item(), epoch * len(train_set) + step)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            # 为了实时显示准确率
+            if step % 100 == 0:
+                print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.cpu().numpy())
+
+    cnn=cnn.cpu()
+    torch.save(cnn.state_dict(),model_output)
 
