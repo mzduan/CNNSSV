@@ -38,12 +38,14 @@ class TestSet(data.Dataset):
                             sub_feature[0] = tumor[:, :, 0]
                             sub_feature[1] = tumor[:, :, 1]
                             sub_feature[2] = tumor[:, :, 2]
+                            t_flag=True
                         except:
                             print("Error in load " + absolute_path + '/' + image)
                     elif image[0] == 's':
                         try:
                             sup_feat = np.load(absolute_path + '/' + image)
                             self.sup_features.append(sup_feat)
+                            sup_flag=True
                         except:
                             print("Error in load " + absolute_path + '/' + image)
 
