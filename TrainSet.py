@@ -8,11 +8,11 @@ class TrainSet(data.Dataset):
         self.sup_features=list()
         self.features=list()
         self.labels = list()
-        for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
-        # for p in ["bam_0.5"]:
+        # for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
+        for p in ["bam_0.7"]:
             for c in range(1, 23, 1):
 
-                if p == "bam_0.7" and c==22:
+                if c!=22:
                     continue
                 current_feat_path = ccs_feat_path + '/' + p + '/chr' + str(c)
                 print("load features "+current_feat_path+" germline")
