@@ -9,7 +9,7 @@ class TrainSet(data.Dataset):
         self.features=list()
         self.labels = list()
         # for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
-        for p in ["bam_0.7"]:
+        for p in ["bam_0.5"]:
             for c in range(1, 23, 1):
 
                 if c!=22:
