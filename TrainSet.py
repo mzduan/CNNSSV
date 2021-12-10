@@ -8,9 +8,11 @@ class TrainSet(data.Dataset):
         self.sup_features=list()
         self.features=list()
         self.labels = list()
-        for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
+        # for p in ["bam_0.2", "bam_0.5", "bam_0.7"]:
+        for p in ["bam_0.7"]:
             for c in range(1, 23, 1):
-                if c==20:
+
+                if c!=22:
                     continue
                 current_feat_path = ccs_feat_path + '/' + p + '/chr' + str(c)
                 print("load features "+current_feat_path+" germline")
@@ -22,6 +24,7 @@ class TrainSet(data.Dataset):
 
                         for image in os.listdir(absolute_path):
                             if image[0]=='n':
+                                print(absolute_path+'/'+image)
                                 normal=Image.open(absolute_path+'/'+image)
                                 normal=np.array(normal)
                                 # normal = np.load(absolute_path + '/' + image)
@@ -29,6 +32,7 @@ class TrainSet(data.Dataset):
                                 sub_feature[4]=normal[:,:,1]
                                 sub_feature[5]=normal[:,:,2]
                             elif image[0]=='t':
+                                print(absolute_path + '/' + image)
                                 tumor=Image.open(absolute_path+'/'+image)
                                 tumor = np.array(tumor)
                                 # tumor = np.load(absolute_path + '/' + image)
@@ -36,6 +40,7 @@ class TrainSet(data.Dataset):
                                 sub_feature[1]=tumor[:,:,1]
                                 sub_feature[2]=tumor[:,:,2]
                             elif image[0]=='s':
+                                print(absolute_path + '/' + image)
                                 sup_feat=np.load(absolute_path+'/'+image)
                                 self.sup_features.append(sup_feat)
                         self.features.append(sub_feature)
@@ -48,6 +53,7 @@ class TrainSet(data.Dataset):
                         sub_feature=np.zeros((6, 50, 500))
                         for image in os.listdir(absolute_path):
                             if image[0]=='n':
+                                print(absolute_path + '/' + image)
                                 normal=Image.open(absolute_path+'/'+image)
                                 normal=np.array(normal)
                                 # normal = np.load(absolute_path + '/' + image)
@@ -55,6 +61,7 @@ class TrainSet(data.Dataset):
                                 sub_feature[4]=normal[:,:,1]
                                 sub_feature[5]=normal[:,:,2]
                             elif image[0]=='t':
+                                print(absolute_path + '/' + image)
                                 tumor=Image.open(absolute_path+'/'+image)
                                 tumor = np.array(tumor)
                                 # tumor = np.load(absolute_path + '/' + image)
@@ -62,6 +69,7 @@ class TrainSet(data.Dataset):
                                 sub_feature[1]=tumor[:,:,1]
                                 sub_feature[2]=tumor[:,:,2]
                             elif image[0] == 's':
+                                print(absolute_path + '/' + image)
                                 sup_feat = np.load(absolute_path+'/'+image)
                                 self.sup_features.append(sup_feat)
                         self.features.append(sub_feature)
