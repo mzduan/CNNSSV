@@ -1,7 +1,14 @@
-import pysam
-from PIL import Image
-import numpy as np
+import re
 if __name__ == '__main__':
-    # normal=Image.open('/home/mzduan/somaticSV/CCS/tag_with_confusion/bam_0.7/chr22/germline/chr22_DUP_31943985_492_42/tumor.png')
-    sup_feat = np.load('/home/mzduan/somaticSV/CCS/tag_with_confusion/bam_0.7/chr22/germline/chr22_DUP_36384861_509_50/sup_feat.npy')
-    print(sup_feat)
+    somatic_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.vcf','r')
+    filter_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.filtered.vcf','w')
+
+    while True:
+        l=somatic_vcf.readline()
+        if l:
+            if 'IMPRECISE' not in l:
+                filter_vcf.write(l)
+        else:
+            break
+    somatic_vcf.close()
+    filter_vcf.close()
