@@ -12,8 +12,8 @@ USAGE="""\
 def parseArgs(argv):
 	parser = argparse.ArgumentParser(prog="NA19240_eval", description=USAGE, formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("base", type=str, help="Base vcf file of NA19240.")
-	parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
-	# parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
+	# parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
+	parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
 	# parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
 	# parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
 	# parser.add_argument("pbsv", type=str, help="PBSV vcf file of NA19240.")
@@ -304,8 +304,8 @@ def load_svim(base_path):
 
 def cmp_callsets(base, call, flag, Bias, Offect):
 
-	fn=open('/home/duan/Desktop/getBreakpoint/results/NA19239_NA19240_mixed/cutesv/cutesv.tumor7.fn',"w")
-
+	kv=open('/home/duan/Desktop/CNNSSV.somatic7.kv',"w")
+	fn=open('/home/duan/Desktop/CNNSSV.somatic7.fn',"w")
 	for svtype in base:
 		if svtype not in call:
 			continue
@@ -318,8 +318,8 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 						for j in call[svtype][chr]:
 							if i[0] - Offect <= j[0] <= i[2] + Offect or i[0] - Offect <= j[2] <= i[2] + Offect or j[0] - Offect <= i[0] <= j[2] + Offect:
 								if min(i[1], j[1])*1.0/max(i[1], j[1]) >= Bias:
-									# kv.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
-									# kv.write(chr + '\t' + str(j[0]) + '\t' + str(j[2]) + '\t' + svtype + '\t' + str(j[1]) + '\n')
+									kv.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
+									kv.write(chr + '\t' + str(j[0]) + '\t' + str(j[2]) + '\t' + svtype + '\t' + str(j[1]) + '\n')
 									i[3] = flag
 									j[3] = flag
 								else:
@@ -372,7 +372,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 
 	# fout.close()
 
-	
+
 	logging.info("Camp count: %d"%(total_call))
 	logging.info("TP-call count: %d"%(tp_call))
 	logging.info("Precision: %.2f"%(100.0*tp_call/total_call))
@@ -385,7 +385,7 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	# print(total_base)
 	# tb.close()
 	# fp.close()
-	# kv.close()
+	kv.close()
 	fn.close()
 
 def main_ctrl(args):
@@ -393,8 +393,8 @@ def main_ctrl(args):
 	base_call = load_base(args.base)
 
 	# nanomonsv_call=load_nanomonsv(args.nanomonsv)
-	cuteSV_call = load_cuteSV(args.cuteSV)
-	# CNNSSV_call = load_CNNSSV(args.CNNSSV)
+	# cuteSV_call = load_cuteSV(args.cuteSV)
+	CNNSSV_call = load_CNNSSV(args.CNNSSV)
 	# sniffles_call = load_sniffles(args.sniffles)
 	# pbsv_call = load_pbsv(args.pbsv)
 	# svim_call = load_svim(args.svim)
@@ -403,11 +403,11 @@ def main_ctrl(args):
 	# 		for i in sniffles_call[svtype][chr]:
 	# 			print(svtype, chr, i)
 
-	cmp_callsets(base_call, cuteSV_call, 1, args.bias, args.offect)
+	# cmp_callsets(base_call, cuteSV_call, 1, args.bias, args.offect)
 	# cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
 	# cmp_callsets(base_call, pbsv_call, 3, args.bias, args.offect)
 	# cmp_callsets(base_call, svim_call, 4, args.bias, args.offect)
-	# cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
+	cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
 	# cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
 
 	

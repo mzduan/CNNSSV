@@ -1,14 +1,29 @@
-import re
-if __name__ == '__main__':
-    somatic_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.vcf','r')
-    filter_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.filtered.vcf','w')
 
+if __name__ == '__main__':
+
+    # recall=51.69
+    # precision=26.51
+    #
+    # f1=2*recall*precision/(recall+precision)
+    # print(f1)
+
+    cutesv_somatic_fn=open('/home/duan/Desktop/cutesv.somatic7.fn','r')
+    CNNSSV_somatic_fn = open('/home/duan/Desktop/CNNSSV.somatic7.fn', 'r')
+
+    cutesv_somatic_set=set()
     while True:
-        l=somatic_vcf.readline()
+        l=cutesv_somatic_fn.readline()
         if l:
-            if 'IMPRECISE' not in l:
-                filter_vcf.write(l)
+            cutesv_somatic_set.add(l)
         else:
             break
-    somatic_vcf.close()
-    filter_vcf.close()
+
+    while True:
+        l=CNNSSV_somatic_fn.readline()
+        if l:
+            if l not in cutesv_somatic_set:
+                print(l)
+        else:
+            break
+    cutesv_somatic_fn.close()
+    CNNSSV_somatic_fn.close()
