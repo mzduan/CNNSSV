@@ -215,14 +215,16 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     # tumor_kmer_vector, normal_kmer_vector = get_somatic_kmer(sv_type, somatic_support_reads,somatic_bam_file,germline_bam_file, ref_dict, chro, bk)
 
-    type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
+    type_counts,medium,mean_region_counts,min_lnormal_kmer_radio,max_lnormal_kmer_radio,mean_rnormal_kmer_radio,\
+        min_rnormal_kmer_radio,max_rnormal_kmer_radio,mean_rnormal_kmer_radio,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
                                                          somatic_bam_file,germline_bam_file, ref_dict, chro, bk)
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
     # somatic_rc=len(somatic_support_reads)+len(somatic_ref_reads)
     # germline_rc=len(germline_support_reads)+len(germline_support_reads)
     # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
-    sup_features = np.array([type_counts, medium, mean_region_counts, bk[-2],bk[-1],mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
+    sup_features = np.array([type_counts, medium, mean_region_counts,min_lnormal_kmer_radio,max_lnormal_kmer_radio,mean_rnormal_kmer_radio,\
+        min_rnormal_kmer_radio,max_rnormal_kmer_radio,mean_rnormal_kmer_radio,bk[-2],bk[-1],mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
                              len(germline_support_reads),len(germline_ref_reads)])
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))
     os.mkdir(sv_str)
@@ -669,7 +671,7 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
     # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
 
-    # fin = open('/home/duan/Desktop/getBreakpoint/results/NA19239_NA19240_mixed/cutesv/CNNSSV.fnc', 'r')
+    # fin = open('/home/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/CNNSSV/CNNSSV.somatic7.fnc', 'r')
     # del_pos_set=set()
     # ins_pos_set = set()
     # inv_pos_set = set()
@@ -697,7 +699,7 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0] in del_pos_set:
+            # if bk[0] ==23054548:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
@@ -719,6 +721,6 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
             #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
-    # pool.shutdown()
+    # # pool.shutdown()
     pool.close()
     pool.join()

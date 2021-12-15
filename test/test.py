@@ -10,6 +10,7 @@ if __name__ == '__main__':
     cutesv_somatic_fn=open('/home/duan/Desktop/cutesv.somatic7.fn','r')
     CNNSSV_somatic_fn = open('/home/duan/Desktop/CNNSSV.somatic7.fn', 'r')
 
+    lost_tp=open('/home/duan/Desktop/CNNSSV.somatic7.lost.txt', 'w')
     cutesv_somatic_set=set()
     while True:
         l=cutesv_somatic_fn.readline()
@@ -22,7 +23,7 @@ if __name__ == '__main__':
         l=CNNSSV_somatic_fn.readline()
         if l:
             if l not in cutesv_somatic_set:
-                print(l)
+                lost_tp.write(l)
         else:
             break
     cutesv_somatic_fn.close()

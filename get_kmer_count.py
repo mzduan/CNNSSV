@@ -32,7 +32,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
     ref_bk2=bk[0]+bk[1]
     if sv_type=="INS":
         ref_bk2=ref_bk1+1
-    kmer_len=100
+    kmer_len=31
     #先找出跨过 tumor sv断点的 kmer
     tumor_sv_kmer=dict()
     for i in range(len(bk[2])):
@@ -240,7 +240,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,somatic_bam_file,normal_bam_f
                 rkmer = get_reverse_comp(kmer)
                 mkmer = rkmer if rkmer < kmer else kmer
                 if mkmer in somatic_kmer.keys():
-                    print(mkmer)
+                    print(kmer,rkmer,i,aln.query_name)
                     somatic_kmer[mkmer][1]=somatic_kmer[mkmer][1]+1
     normal_bam.close()
 

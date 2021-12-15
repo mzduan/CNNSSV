@@ -1,10 +1,10 @@
 import re
 if __name__ == '__main__':
-    cutesv_kv=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/cutesv.somatic7.kv','r')
-    CNNSSV_fnb=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV&cutesv.lost.tb','r')
+    cutesv_kv=open('/home/duan/Desktop/cutesv.somatic7.kv','r')
+    CNNSSV_fnb=open('/home/duan/Desktop/CNNSSV.somatic7.lost.txt','r')
     CNNSSV_candidate=open('/home/duan/Desktop/test/tumor.candidate.bed','r')
 
-    fout=open('/home/duan/Desktop/getBreakpoint/results/mixed/cutesv/CNNSSV.fnc','w')
+    fout=open('/home/duan/Desktop/CNNSSV.somatic7.fnc','w')
 
     fnb_set=set()
     while True:
