@@ -89,7 +89,7 @@ def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos,ref_dict):
                         read_sv_pos=b[5][i]
                         read_sv_len=b[6][i]
                         # print(read_sv_pos,read_sv_len)
-                        if abs(start-read_sv_pos)<=20 and abs(end-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                        if abs(start-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
                             name=b[2][i]
                             read_names.append(name)
         elif sv_type=="INS":
@@ -99,7 +99,7 @@ def get_support_reads(sv_type,chro,bk,bam_file,type,name2ref_pos,ref_dict):
                     for i in range(len(b[2])):
                         read_sv_pos=b[6][i]
                         read_sv_len=b[7][i]
-                        if abs(start-read_sv_pos)<=20 and abs(end-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
+                        if abs(start-read_sv_pos)<=20 and min(read_sv_len,bk[1])/max(read_sv_len,bk[1])>=0.9:
                             name=b[2][i]
                             read_names.append(name)
                             ref_pos=b[6][i]
@@ -699,25 +699,25 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0] ==23054548:
+            # if bk[0] ==180027:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
-            # if bk[0]==25351822:
+            # if bk[0]==12050816:
             #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cinv:
         chro=key
         for bk in cinv[chro]:
-            # if bk[0] in inv_pos_set:
+            # if bk[0] ==120114:
             #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cdup:
         chro=key
         for bk in cdup[chro]:
-            # if bk[0] == 10327076:
+            # if bk[0] == 880882:
             #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
