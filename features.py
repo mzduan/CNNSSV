@@ -628,6 +628,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 gcolor=somatic_dir_channel[i][j]
                 bcolor = somatic_dep_channel[i][j]
                 somatic_img.putpixel((j,i),(rcolor,gcolor,bcolor))
+                # somatic_img.putpixel((j, i), (0, gcolor,0))
         somatic_img=np.array(somatic_img)
         transformed=transform.resize(somatic_img,(50,500))
         transformed=transformed*255
@@ -648,6 +649,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
                 gcolor=germline_dir_channel[i][j]
                 bcolor = germline_dep_channel[i][j]
                 germline_img.putpixel((j,i),(rcolor,gcolor,bcolor))
+                # germline_img.putpixel((j, i), (0, gcolor,0))
         germline_img=np.array(germline_img)
         transformed=transform.resize(germline_img,(50,500))
         transformed=transformed*255
@@ -699,25 +701,25 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
-            # if bk[0] ==180027:
+            # if bk[0] ==12239216:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cins:
         chro=key
         for bk in cins[chro]:
-            # if bk[0]==12050816:
+            # if bk[0]==1132476:
             #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cinv:
         chro=key
         for bk in cinv[chro]:
-            # if bk[0] ==120114:
+            # if bk[0] ==477908:
             #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
     for key in cdup:
         chro=key
         for bk in cdup[chro]:
-            # if bk[0] == 880882:
+            # if bk[0] == 1626856:
             #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
