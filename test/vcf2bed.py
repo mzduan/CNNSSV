@@ -11,43 +11,46 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    somatic_vcf = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.vcf', 'r')
-    somatic_bed = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19240.chr20.somatic.bed', 'w')
+    tags=['0.2','0.4','0.5','0.6','0.7','0.8']
 
-    while True:
-        l=somatic_vcf.readline()
-        if l:
-            infos=re.split('\s+',l)
-            if infos[0][0]=='#':
-                continue
-            sv_chr=infos[0]
-            sv_start=int(infos[1])
+    for t in tags:
+        somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/simulate_chr20_20~40_0.2~0.8/cutesv/cutesv_40_somatic_'+t+'.vcf', 'r')
+        somatic_bed = open('/home/duan/Desktop/getBreakpoint/results/simulate_chr20_20~40_0.2~0.8/cutesv/cutesv_40_somatic_'+t+'.bed', 'w')
 
-            sups = infos[7]
+        while True:
+            l=somatic_vcf.readline()
+            if l:
+                infos=re.split('\s+',l)
+                if infos[0][0]=='#':
+                    continue
+                sv_chr=infos[0]
+                sv_start=int(infos[1])
 
-            #求sv_type
-            kv = getKV(sups)
+                sups = infos[7]
 
-            if 'SVLEN' not in kv.keys() or 'SVTYPE' not in kv.keys():
-                continue
-            sv_len = kv['SVLEN']
-            sv_len = abs(int(sv_len))
+                #求sv_type
+                kv = getKV(sups)
 
-            sv_type=kv['SVTYPE']
+                if 'SVLEN' not in kv.keys() or 'SVTYPE' not in kv.keys():
+                    continue
+                sv_len = kv['SVLEN']
+                sv_len = abs(int(sv_len))
 
-            if 'END' in kv.keys():
-                sv_end = int(kv['END'])
+                sv_type=kv['SVTYPE']
+
+                if 'END' in kv.keys():
+                    sv_end = int(kv['END'])
+                else:
+                    sv_end = sv_start+1
+                if sv_type=='INS':
+                    sv_end=sv_start+1
+
+
+                somatic_bed.write(sv_chr+'\t'+str(sv_start)+'\t'+str(sv_end)+'\t'+sv_type+'\t'+str(sv_len)+'\n')
+
             else:
-                sv_end = sv_start+1
-            if sv_type=='INS':
-                sv_end=sv_start+1
+                break
 
 
-            somatic_bed.write(sv_chr+'\t'+str(sv_start)+'\t'+str(sv_end)+'\t'+sv_type+'\t'+str(sv_len)+'\n')
-
-        else:
-            break
-
-
-    somatic_vcf.close()
-    somatic_bed.close()
+        somatic_vcf.close()
+        somatic_bed.close()
