@@ -11,11 +11,11 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    tags=['0.2','0.4','0.5','0.6','0.7','0.8']
+    tags=['0.3']
 
     for t in tags:
-        somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/simulate_chr20_20~40_0.2~0.8/cutesv/cutesv_40_somatic_'+t+'.vcf', 'r')
-        somatic_bed = open('/home/duan/Desktop/getBreakpoint/results/simulate_chr20_20~40_0.2~0.8/cutesv/cutesv_40_somatic_'+t+'.bed', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.vcf', 'r')
+        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()

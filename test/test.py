@@ -1,30 +1,9 @@
-
+import pysam
 if __name__ == '__main__':
 
-    # recall=51.69
-    # precision=26.51
-    #
-    # f1=2*recall*precision/(recall+precision)
-    # print(f1)
 
-    cutesv_somatic_fn=open('/home/duan/Desktop/cutesv.somatic7.fn','r')
-    CNNSSV_somatic_fn = open('/home/duan/Desktop/CNNSSV.somatic7.fn', 'r')
+    bam=pysam.AlignmentFile('/Users/duan/Downloads/COLO829_normal_chr20.bam','r')
 
-    lost_tp=open('/home/duan/Desktop/CNNSSV.somatic7.lost.txt', 'w')
-    cutesv_somatic_set=set()
-    while True:
-        l=cutesv_somatic_fn.readline()
-        if l:
-            cutesv_somatic_set.add(l)
-        else:
-            break
-
-    while True:
-        l=CNNSSV_somatic_fn.readline()
-        if l:
-            if l not in cutesv_somatic_set:
-                lost_tp.write(l)
-        else:
-            break
-    cutesv_somatic_fn.close()
-    CNNSSV_somatic_fn.close()
+    for aln in bam:
+        print(aln.reference_name,aln.reference_start,aln.reference_end,aln.query_name)
+    bam.close()

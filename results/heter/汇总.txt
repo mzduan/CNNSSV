@@ -1,0 +1,126 @@
+CNNSSV:
+
+purity: 0.2
+	Recall:	 0.792
+	Precision:	 0.9949748743718593
+	F1:	 0.8819599109131404
+
+Purity:0.3
+	Recall:	 0.89
+	Precision:	 0.9955257270693513
+	F1:	 0.9398099260823654
+purity: 0.4
+	Recall:	 0.926
+	Precision:	 0.9956989247311828
+	F1:	 0.9595854922279793
+purity: 0.5
+	Recall:	 0.938
+	Precision:	 0.9957537154989384
+	F1:	 0.9660144181256437
+purity: 0.6
+	Recall:	 0.936
+	Precision:	 0.9915254237288136
+	F1:	 0.962962962962963
+purity: 0.7
+	Recall:	 0.94
+	Precision:	 0.9936575052854123
+	F1:	 0.9660842754367933
+purity: 0.8
+	Recall:	 0.944
+	Precision:	 0.9957805907172996
+	F1:	 0.9691991786447639
+
+cutesv:
+
+purity: 0.2
+	Recall:	 0.78
+	Precision:	 0.959758551307847
+	F1:	 0.8605926028728055
+Purity:0.3
+	Recall:	 0.874
+	Precision:	 0.9550359712230215
+	F1:	 0.9127228244623106
+purity: 0.4
+	Recall:	 0.914
+	Precision:	 0.9688581314878892
+	F1:	 0.940629904474167
+purity: 0.5
+	Recall:	 0.934
+	Precision:	 0.9695431472081218
+	F1:	 0.9514397410119521
+purity: 0.6
+	Recall:	 0.932
+	Precision:	 0.9461279461279462
+	F1:	 0.9390108353471829
+purity: 0.7
+	Recall:	 0.932
+	Precision:	 0.9629629629629629
+	F1:	 0.9472285200531624
+purity: 0.8
+	Recall:	 0.938
+	Precision:	 0.9469320066334992
+	F1:	 0.9424448405527294
+
+sniffles:
+purity: 0.2
+	Recall:	 0.776
+	Precision:	 0.8603104212860311
+	F1:	 0.8159831756046267
+
+purity: 0.3
+	Recall:	 0.876
+	Precision:	 0.863905325443787
+	F1:	 0.8699106256206555
+purity: 0.4
+	Recall:	 0.91
+	Precision:	 0.8617424242424242
+	F1:	 0.8852140077821011
+purity: 0.5
+	Recall:	 0.924
+	Precision:	 0.8587360594795539
+	F1:	 0.8901734104046243
+purity: 0.6
+	Recall:	 0.922
+	Precision:	 0.8276481149012568
+	F1:	 0.8722800378429518
+purity: 0.7
+	Recall:	 0.92
+	Precision:	 0.8471454880294659
+	F1:	 0.8820709491850431
+purity: 0.8
+	Recall:	 0.926
+	Precision:	 0.8038194444444444
+	F1:	 0.8605947955390335
+
+nanomonsv:
+purity: 0.2
+	Recall:	 0.142
+	Precision:	 1.0
+	F1:	 0.2486865148861646
+purity: 0.3
+	Recall:	 0.21
+	Precision:	 1.0
+	F1:	 0.34710743801652894
+purity: 0.4
+	Recall:	 0.24
+	Precision:	 1.0
+	F1:	 0.3870967741935484
+purity: 0.5
+	Recall:	 0.27
+	Precision:	 1.0
+	F1:	 0.4251968503937008
+purity: 0.6
+	Recall:	 0.284
+	Precision:	 1.0
+	F1:	 0.44236760124610586
+purity: 0.7
+	Recall:	 0.276
+	Precision:	 1.0
+	F1:	 0.432601880877743
+purity: 0.8
+	Recall:	 0.298
+	Precision:	 0.9933333333333333
+	F1:	 0.4584615384615384
+
+
+

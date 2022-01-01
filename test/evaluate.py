@@ -1,11 +1,14 @@
 import re
 if __name__ == '__main__':
 
-    # tags=['0.2','0.4','0.5','0.6','0.7','0.8']
-    # for t in tags:
 
-    # predict_bed='/home/duan/Desktop/getBreakpoint/results/simulate_chr20_20~40_0.2~0.8/CNNSSV/chr20_40_'+t+'_somatic.bed'
-    predict_bed='/Users/duan/Desktop/getBreakpoint/chr20_0.7_simulate_somatic.bed'
+    # read_depth=['20','30','40']
+    # for rd in read_depth:
+    #     tags=['0.2','0.4','0.5','0.6','0.7','0.8']
+    #     for t in tags:
+
+    # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/'+rd+'_'+t+'.tumor.nanomonsv.result.bed'
+    predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
     # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
     # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
     # fp_name='/home/duan/Desktop/getBreakpoint/results/simulate/cutesv/cutesv.somatic7.fp.bed'
@@ -49,7 +52,7 @@ if __name__ == '__main__':
 
 
     groundtruth=list()
-    with open('/Users/duan/Desktop/getBreakpoint/groundtruth/random_sv/chr20_somatic.bed','r') as fin:
+    with open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
         while True:
             l=fin.readline()
             if l:
@@ -125,10 +128,11 @@ if __name__ == '__main__':
 
     recall=len(true_g)/len(groundtruth)
     precision=len(true_p)/len(predict)
-
-    print("Recall:\t",recall)
-    print("Precision:\t",precision)
-    print("F1:\t",2*recall*precision/(recall+precision))
+    # print("read depth:",rd)
+    # print("\tpurity:",t)
+    print("\t\tRecall:\t",recall)
+    print("\t\tPrecision:\t",precision)
+    print("\t\tF1:\t",2*recall*precision/(recall+precision))
 
 
 
