@@ -4,7 +4,6 @@ read depth: 20
 		Recall:	 0.916
 		Precision:	 0.9978213507625272
 		F1:	 0.9551616266944735
-CNNSSV
 read depth: 20
 	purity: 0.3
 		Recall:	 0.942
@@ -41,7 +40,6 @@ read depth: 20
 		Recall:	 0.91
 		Precision:	 0.952054794520548
 		F1:	 0.9305524902523358
-cutesv
 read depth: 20
 	purity: 0.3
 		Recall:	 0.936
