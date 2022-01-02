@@ -2,11 +2,11 @@ import re
 if __name__ == '__main__':
 
 
-    read_depth=['5','10','15','20','25']
+    read_depth=['10','15','20','25','30','35']
     for rd in read_depth:
 
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/normal_vary_depth/sniffles/somatic/sniffles_normal_'+rd+'_tumor_20_0.2.bed'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/cutesv/somatic/cutesv_normal_20_somatic_'+rd+'.vcf'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'

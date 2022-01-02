@@ -12,14 +12,14 @@ def getKV(str):
 if __name__ == '__main__':
 
 
-    # tags=['5','10','15','20','25']
+    tags=['10','15','20','25','30','35']
 
-    # for t in tags:
+    for t in tags:
 
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/simulate/sniffles/tumor/sniffles_20_tumor_0.2.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/sniffles/normal/sniffles_20_normal.vcf', 'r')
+        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/sniffles/sniffles_normal_20_tumor_'+t+'.vcf','r')
+        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/sniffles/sniffles_20_normal.vcf', 'r')
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/sniffles/tumor/sniffles_20_somatic_0.2.vcf', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/sniffles/sniffles_normal_20_somatic_'+t+'.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()

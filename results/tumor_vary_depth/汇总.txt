@@ -1,0 +1,29 @@
+CNNSSV purity=0.2
+read depth: 10
+		Recall:	 0.816
+		Precision:	 0.9975550122249389
+		F1:	 0.8976897689768977
+read depth: 15
+		Recall:	 0.874
+		Precision:	 0.9954441913439636
+		F1:	 0.9307774227902025
+read depth: 20
+		Recall:	 0.916
+		Precision:	 0.9978213507625272
+		F1:	 0.9551616266944735
+read depth: 25
+		Recall:	 0.932
+		Precision:	 0.9957264957264957
+		F1:	 0.962809917355372
+read depth: 30
+		Recall:	 0.934
+		Precision:	 0.9957356076759062
+		F1:	 0.9638802889576884
+read depth: 35
+		Recall:	 0.936
+		Precision:	 0.9957446808510638
+		F1:	 0.9649484536082474
+Cutest purity=0.2
+
+
+
