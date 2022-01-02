@@ -24,6 +24,83 @@ read depth: 35
 		Precision:	 0.9957446808510638
 		F1:	 0.9649484536082474
 Cutest purity=0.2
+read depth: 10
+		Recall:	 0.8
+		Precision:	 0.9437984496124031
+		F1:	 0.8659702156034674
+read depth: 15
+		Recall:	 0.87
+		Precision:	 0.963963963963964
+		F1:	 0.914574839121678
+read depth: 20
+		Recall:	 0.91
+		Precision:	 0.952054794520548
+		F1:	 0.9305524902523358
+read depth: 25
+		Recall:	 0.918
+		Precision:	 0.9573378839590444
+		F1:	 0.9372563578986449
+read depth: 30
+		Recall:	 0.932
+		Precision:	 0.9596638655462185
+		F1:	 0.945629653321961
+read depth: 35
+		Recall:	 0.94
+		Precision:	 0.9489291598023064
+		F1:	 0.944443475378953
+
+Sniffles purity=0.2:
+read depth: 10
+		Recall:	 0.798
+		Precision:	 0.8926174496644296
+		F1:	 0.8426610348468849
+read depth: 15
+		Recall:	 0.856
+		Precision:	 0.8734693877551021
+		F1:	 0.8646464646464647
+read depth: 20
+		Recall:	 0.9
+		Precision:	 0.8348794063079777
+		F1:	 0.8662175168431183
+read depth: 25
+		Recall:	 0.92
+		Precision:	 0.8502772643253235
+		F1:	 0.8837656099903939
+read depth: 30
+		Recall:	 0.922
+		Precision:	 0.8144876325088339
+		F1:	 0.8649155722326454
+read depth: 35
+		Recall:	 0.936
+		Precision:	 0.8268551236749117
+		F1:	 0.878048780487805
+
+Nanomonsv purity=0.2:
+read depth: 10
+		Recall:	 0.136
+		Precision:	 1.0
+		F1:	 0.23943661971830985
+read depth: 15
+		Recall:	 0.206
+		Precision:	 1.0
+		F1:	 0.3416252072968491
+read depth: 20
+		Recall:	 0.24
+		Precision:	 1.0
+		F1:	 0.3870967741935484
+read depth: 25
+		Recall:	 0.264
+		Precision:	 1.0
+		F1:	 0.4177215189873418
+read depth: 30
+		Recall:	 0.282
+		Precision:	 1.0
+		F1:	 0.4399375975039001
+read depth: 35
+		Recall:	 0.284
+		Precision:	 1.0
+		F1:	 0.44236760124610586
+
 
 
 

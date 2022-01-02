@@ -6,7 +6,7 @@ if __name__ == '__main__':
     for rd in read_depth:
 
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/cutesv/somatic/cutesv_normal_20_somatic_'+rd+'.vcf'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/nanomonsv/'+rd+'_tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'

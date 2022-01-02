@@ -15,8 +15,8 @@ if __name__ == '__main__':
     read_depth=['10','15','20','25','30','35']
     for rd in read_depth:
     # for t in tags:
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/sniffles/somatic/sniffles_normal_20_somatic_'+rd+'.vcf', 'r')
-        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/sniffles/somatic/sniffles_normal_20_somatic_'+rd+'.bed', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/nanomonsv/'+rd+'_tumor.nanomonsv.result.vcf', 'r')
+        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/nanomonsv/'+rd+'_tumor.nanomonsv.result.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()
