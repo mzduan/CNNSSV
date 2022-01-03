@@ -1084,37 +1084,37 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     bam=pysam.AlignmentFile(bam_file,'r')
 
-    # breakpoints=list()
-    #
-    # if chro=="" and start==-1 and end==-1:
-    #     alns=bam.fetch()
-    # else:
-    #     alns=bam.fetch(contig=chro,start=start,end=end)
-    #
-    # for aln in alns:
-    #     if aln.is_unmapped or aln.mapping_quality<min_map_qual:
-    #         continue
-    #     else:
-    #         if aln.is_supplementary:   #对于supplementary，只分析alignment
-    #             aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #             breakpoints.extend(aln_breakpoints)
-    #         else:   #对于primary，分析alignment和split
-    #
-    #             aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #             breakpoints.extend(aln_breakpoints)
-    #             if aln.has_tag("SA"):
-    #                 supps=retrieve_supp(aln)
-    #
-    #                 if aln.is_reverse:
-    #                     query=get_reverse_comp(aln.query_sequence)
-    #                 else:
-    #                     query=aln.query_sequence
-    #                 split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-    #                 if split_breakpoints:
-    #                     breakpoints.extend(split_breakpoints)
-    #
-    #
-    # bam.close()
+    breakpoints=list()
+
+    if chro=="" and start==-1 and end==-1:
+        alns=bam.fetch()
+    else:
+        alns=bam.fetch(contig=chro,start=start,end=end)
+
+    for aln in alns:
+        if aln.is_unmapped or aln.mapping_quality<min_map_qual:
+            continue
+        else:
+            if aln.is_supplementary:   #对于supplementary，只分析alignment
+                aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+                breakpoints.extend(aln_breakpoints)
+            # else:   #对于primary，分析alignment和split
+            #
+            #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+            #     breakpoints.extend(aln_breakpoints)
+            #     if aln.has_tag("SA"):
+            #         supps=retrieve_supp(aln)
+            #
+            #         if aln.is_reverse:
+            #             query=get_reverse_comp(aln.query_sequence)
+            #         else:
+            #             query=aln.query_sequence
+            #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+            #         if split_breakpoints:
+            #             breakpoints.extend(split_breakpoints)
+
+
+    bam.close()
     # # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
     # # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
     # # inv: chro,inv,direction,start,end,read_name,read_start,read_end,left_confusion,right_confusion
