@@ -1,10 +1,90 @@
 CNNSSV:
 
+read depth: 5
+		Recall:	 0.79
+		Precision:	 0.8856502242152466
+		F1:	 0.8350951374207188
+read depth: 10
+		Recall:	 0.796
+		Precision:	 0.9875930521091811
+		F1:	 0.8815060908084165
+read depth: 15
+		Recall:	 0.794
+		Precision:	 0.9949874686716792
+		F1:	 0.8832035595105673
+read depth: 20
+		Recall:	 0.792
+		Precision:	 0.9949748743718593
+		F1:	 0.8819599109131404
+read depth: 25
+		Recall:	 0.79
+		Precision:	 0.9949622166246851
+		F1:	 0.8807134894091416
 
 cutesv:
+read depth: 5
+		Recall:	 0.78
+		Precision:	 0.8457446808510638
+		F1:	 0.8115429917550059
+read depth: 10
+		Recall:	 0.78
+		Precision:	 0.9464285714285714
+		F1:	 0.85519238725693
+read depth: 15
+		Recall:	 0.78
+		Precision:	 0.9578313253012049
+		F1:	 0.8598169717138103
+read depth: 20
+		Recall:	 0.78
+		Precision:	 0.959758551307847
+		F1:	 0.8605926028728055
+read depth: 25
+		Recall:	 0.78
+		Precision:	 0.954
+		F1:	 0.8582698961937716
+
 
 sniffles:
-
+read depth: 5
+		Recall:	 0.776
+		Precision:	 0.7563352826510721
+		F1:	 0.7660414610069102
+read depth: 10
+		Recall:	 0.776
+		Precision:	 0.8326180257510729
+		F1:	 0.8033126293995859
+read depth: 15
+		Recall:	 0.776
+		Precision:	 0.8508771929824561
+		F1:	 0.8117154811715482
+read depth: 20
+		Recall:	 0.776
+		Precision:	 0.8603104212860311
+		F1:	 0.8159831756046267
+read depth: 25
+		Recall:	 0.776
+		Precision:	 0.8527472527472527
+		F1:	 0.8125654450261781
 
 nanomonsv:
+read depth: 5
+		Recall:	 0.14
+		Precision:	 0.7526881720430108
+		F1:	 0.2360876897133221
+read depth: 10
+		Recall:	 0.14
+		Precision:	 0.9722222222222222
+		F1:	 0.2447552447552448
+read depth: 15
+		Recall:	 0.142
+		Precision:	 1.0
+		F1:	 0.2486865148861646
+read depth: 20
+		Recall:	 0.142
+		Precision:	 1.0
+		F1:	 0.2486865148861646
+read depth: 25
+		Recall:	 0.136
+		Precision:	 1.0
+		F1:	 0.23943661971830985
 

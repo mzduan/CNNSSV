@@ -12,14 +12,14 @@ def getKV(str):
 if __name__ == '__main__':
 
 
-    tags=['10','15','20','25','30','35']
+    tags=['5','10','15','20','25']
     #
     for t in tags:
 
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/cutesv/cutesv_normal_20_tumor_'+t+'.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/cutesv/cutesv_20_normal.vcf', 'r')
+        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/heter_normal_vary_depth/cutesv/tumor/cutesv_tumor_20_0.2.vcf','r')
+        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_normal_vary_depth/cutesv/normal/cutesv_'+t+'_normal.vcf', 'r')
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/tumor_vary_depth/cutesv/cutesv_normal_20_somatic_'+t+'.vcf', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_normal_vary_depth/cutesv/somatic/cutesv_'+t+'_somatic.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()
