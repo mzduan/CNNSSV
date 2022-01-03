@@ -1099,6 +1099,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         else:
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            record.flush()
             if aln.is_supplementary:   #对于supplementary，只分析alignment
                 aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
                 breakpoints.extend(aln_breakpoints)
@@ -1192,6 +1193,8 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     for key in dup_breakpoints.keys():
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
+
+    record.close()
     return cdel,cins,cinv,cdup,
 
 
