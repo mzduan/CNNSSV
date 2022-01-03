@@ -1084,111 +1084,111 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     bam=pysam.AlignmentFile(bam_file,'r')
 
-    breakpoints=list()
-
-    if chro=="" and start==-1 and end==-1:
-        alns=bam.fetch()
-    else:
-        alns=bam.fetch(contig=chro,start=start,end=end)
-
-    for aln in alns:
-        if aln.is_unmapped or aln.mapping_quality<min_map_qual:
-            continue
-        else:
-            if aln.is_supplementary:   #对于supplementary，只分析alignment
-                aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-                breakpoints.extend(aln_breakpoints)
-            else:   #对于primary，分析alignment和split
-
-                aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-                breakpoints.extend(aln_breakpoints)
-                if aln.has_tag("SA"):
-                    supps=retrieve_supp(aln)
-
-                    if aln.is_reverse:
-                        query=get_reverse_comp(aln.query_sequence)
-                    else:
-                        query=aln.query_sequence
-                    split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-                    if split_breakpoints:
-                        breakpoints.extend(split_breakpoints)
-
-
-    bam.close()
-    # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
-    # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
-    # inv: chro,inv,direction,start,end,read_name,read_start,read_end,left_confusion,right_confusion
-    # dup: chro,dup,start,end,read_name,read_start,read_end,left_confusion,right_confusion
-
-
-
-
-    #将breakpoint排序再合并
-    del_breakpoints=dict()
-    ins_breakpoints=dict()
-    dup_breakpoints=dict()
-    inv_breakpoints=dict()
-
-    for bk in breakpoints:
-        if bk[1]=='INS':
-            chro=bk[0]
-            if chro in ins_breakpoints:
-                ins_breakpoints[chro].append(bk)
-            else:
-                ins_breakpoints[chro]=list()
-                ins_breakpoints[chro].append(bk)
-        elif bk[1]=='INV':
-            chro=bk[0]
-            if chro in inv_breakpoints:
-                inv_breakpoints[chro].append(bk)
-            else:
-                inv_breakpoints[chro]=list()
-                inv_breakpoints[chro].append(bk)
-        elif bk[1]=='DEL':
-            chro=bk[0]
-            if chro in del_breakpoints:
-                del_breakpoints[chro].append(bk)
-            else:
-                del_breakpoints[chro]=list()
-                del_breakpoints[chro].append(bk)
-        elif bk[1]=='DUP':
-            chro=bk[0]
-            if chro in dup_breakpoints:
-                dup_breakpoints[chro].append(bk)
-            else:
-                dup_breakpoints[chro]=list()
-                dup_breakpoints[chro].append(bk)
-    #按变异在ref上的位置排序
-
-
-    for key in del_breakpoints.keys():
-        del_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
-    for key in ins_breakpoints.keys():
-        ins_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
-    for key in dup_breakpoints.keys():
-        dup_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
-    for key in inv_breakpoints.keys():
-        inv_breakpoints[key].sort(key=lambda bk: (bk[3],bk[4]))
-
-
-    cdel=dict()
-    cins=dict()
-    cinv=dict()
-    cdup=dict()
-
-    for key in del_breakpoints.keys():
-        cdel[key]=cluster_DEL(del_breakpoints[key], min_support,min_sv_len,max_sv_len)
-        # [[pos,len,[read_name_list]],...]
-    for key in ins_breakpoints.keys():
-        cins[key]=cluster_INS(ins_breakpoints[key],min_support,min_sv_len,max_sv_len)
-        # [[pos,len,[read_name_list],insert_seq],...]
-    for key in inv_breakpoints.keys():
-        cinv[key]=cluster_INV(inv_breakpoints[key],min_support,min_sv_len,max_sv_len)
-        # [[pos,len,[read_name_list],...]
-    for key in dup_breakpoints.keys():
-        cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
-        # [[pos,len,[read_name_list],...]
-    return cdel,cins,cinv,cdup,
+    # breakpoints=list()
+    #
+    # if chro=="" and start==-1 and end==-1:
+    #     alns=bam.fetch()
+    # else:
+    #     alns=bam.fetch(contig=chro,start=start,end=end)
+    #
+    # for aln in alns:
+    #     if aln.is_unmapped or aln.mapping_quality<min_map_qual:
+    #         continue
+    #     else:
+    #         if aln.is_supplementary:   #对于supplementary，只分析alignment
+    #             aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+    #             breakpoints.extend(aln_breakpoints)
+    #         else:   #对于primary，分析alignment和split
+    #
+    #             aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+    #             breakpoints.extend(aln_breakpoints)
+    #             if aln.has_tag("SA"):
+    #                 supps=retrieve_supp(aln)
+    #
+    #                 if aln.is_reverse:
+    #                     query=get_reverse_comp(aln.query_sequence)
+    #                 else:
+    #                     query=aln.query_sequence
+    #                 split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+    #                 if split_breakpoints:
+    #                     breakpoints.extend(split_breakpoints)
+    #
+    #
+    # bam.close()
+    # # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
+    # # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
+    # # inv: chro,inv,direction,start,end,read_name,read_start,read_end,left_confusion,right_confusion
+    # # dup: chro,dup,start,end,read_name,read_start,read_end,left_confusion,right_confusion
+    #
+    #
+    #
+    #
+    # #将breakpoint排序再合并
+    # del_breakpoints=dict()
+    # ins_breakpoints=dict()
+    # dup_breakpoints=dict()
+    # inv_breakpoints=dict()
+    #
+    # for bk in breakpoints:
+    #     if bk[1]=='INS':
+    #         chro=bk[0]
+    #         if chro in ins_breakpoints:
+    #             ins_breakpoints[chro].append(bk)
+    #         else:
+    #             ins_breakpoints[chro]=list()
+    #             ins_breakpoints[chro].append(bk)
+    #     elif bk[1]=='INV':
+    #         chro=bk[0]
+    #         if chro in inv_breakpoints:
+    #             inv_breakpoints[chro].append(bk)
+    #         else:
+    #             inv_breakpoints[chro]=list()
+    #             inv_breakpoints[chro].append(bk)
+    #     elif bk[1]=='DEL':
+    #         chro=bk[0]
+    #         if chro in del_breakpoints:
+    #             del_breakpoints[chro].append(bk)
+    #         else:
+    #             del_breakpoints[chro]=list()
+    #             del_breakpoints[chro].append(bk)
+    #     elif bk[1]=='DUP':
+    #         chro=bk[0]
+    #         if chro in dup_breakpoints:
+    #             dup_breakpoints[chro].append(bk)
+    #         else:
+    #             dup_breakpoints[chro]=list()
+    #             dup_breakpoints[chro].append(bk)
+    # #按变异在ref上的位置排序
+    #
+    #
+    # for key in del_breakpoints.keys():
+    #     del_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
+    # for key in ins_breakpoints.keys():
+    #     ins_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
+    # for key in dup_breakpoints.keys():
+    #     dup_breakpoints[key].sort(key=lambda bk: (bk[2],bk[3]))
+    # for key in inv_breakpoints.keys():
+    #     inv_breakpoints[key].sort(key=lambda bk: (bk[3],bk[4]))
+    #
+    #
+    # cdel=dict()
+    # cins=dict()
+    # cinv=dict()
+    # cdup=dict()
+    #
+    # for key in del_breakpoints.keys():
+    #     cdel[key]=cluster_DEL(del_breakpoints[key], min_support,min_sv_len,max_sv_len)
+    #     # [[pos,len,[read_name_list]],...]
+    # for key in ins_breakpoints.keys():
+    #     cins[key]=cluster_INS(ins_breakpoints[key],min_support,min_sv_len,max_sv_len)
+    #     # [[pos,len,[read_name_list],insert_seq],...]
+    # for key in inv_breakpoints.keys():
+    #     cinv[key]=cluster_INV(inv_breakpoints[key],min_support,min_sv_len,max_sv_len)
+    #     # [[pos,len,[read_name_list],...]
+    # for key in dup_breakpoints.keys():
+    #     cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
+    #     # [[pos,len,[read_name_list],...]
+    # return cdel,cins,cinv,cdup,
 
 if __name__ == '__main__':
 
