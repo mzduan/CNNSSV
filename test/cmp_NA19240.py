@@ -21,10 +21,10 @@ def getKV(str):
 def parseArgs(argv):
 	parser = argparse.ArgumentParser(prog="NA19240_eval", description=USAGE, formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("base", type=str, help="Base vcf file of NA19240.")
-	# parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
+	parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
 	parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
-	# parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
-	# parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
+	parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
+	parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
 	# parser.add_argument("pbsv", type=str, help="PBSV vcf file of NA19240.")
 	# parser.add_argument("svim", type=str, help="SVIM vcf file of NA19240.")
 	parser.add_argument('-b', '--bias', help = "Bias of overlaping.[%(default)s]", default = 0.7, type = float)
@@ -406,10 +406,10 @@ def main_ctrl(args):
 	# pass
 	base_call = load_base(args.base)
 
-	# nanomonsv_call=load_nanomonsv(args.nanomonsv)
-	# cuteSV_call = load_cuteSV(args.cuteSV)
+	nanomonsv_call=load_nanomonsv(args.nanomonsv)
+	cuteSV_call = load_cuteSV(args.cuteSV)
 	CNNSSV_call = load_CNNSSV(args.CNNSSV)
-	# sniffles_call = load_sniffles(args.sniffles)
+	sniffles_call = load_sniffles(args.sniffles)
 	# pbsv_call = load_pbsv(args.pbsv)
 	# svim_call = load_svim(args.svim)
 	# for svtype in sniffles_call:
@@ -417,12 +417,12 @@ def main_ctrl(args):
 	# 		for i in sniffles_call[svtype][chr]:
 	# 			print(svtype, chr, i)
 
-	# cmp_callsets(base_call, cuteSV_call, 1, args.bias, args.offect)
-	# cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
+	cmp_callsets(base_call, cuteSV_call, 1, args.bias, args.offect)
+	cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
 	# cmp_callsets(base_call, pbsv_call, 3, args.bias, args.offect)
 	# cmp_callsets(base_call, svim_call, 4, args.bias, args.offect)
 	cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
-	# cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
+	cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
 
 	
 

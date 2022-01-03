@@ -1,0 +1,55 @@
+Cutesv
+	purity: 0.2
+		Recall:	 46.75
+		Precision:	 17.59
+		F1:	 25.57
+	purity: 0.5
+		Recall:	 52.66
+		Precision:	12.21 
+		F1:	 19.83
+	purity: 0.7
+		Recall:	 52.66
+		Precision:	10.76	
+		F1:	 17.86
+CNNSSV
+	purity: 0.2
+		Recall:	33.14
+		Precision:	38.97
+		F1:	35.82 
+	purity: 0.5
+		Recall:	35.50
+		Precision:	29.95
+		F1:	32.49
+	purity: 0.7
+		Recall:	37.28
+		Precision:	28.12
+		F1:	32.06
+
+Sniffles
+	purity: 0.2
+		Recall:	 40.24
+		Precision:	14.75
+		F1:	 21.58
+	purity: 0.5
+		Recall:	 44.97
+		Precision:	11.65
+		F1:	 18.51
+	purity: 0.7
+		Recall:	49.70
+		Precision:	12.15
+		F1:	19.52
+
+Nanomonsv
+	purity: 0.2
+		Recall:	 11.83
+		Precision:	 80.95
+		F1:	 20.65
+	purity: 0.5
+		Recall:	 16.57
+		Precision:	 63.41
+		F1:	 26.27
+	purity: 0.7
+		Recall:	 16.57
+		Precision:	 54.17
+		F1:	 25.37
+

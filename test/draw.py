@@ -424,56 +424,56 @@ if __name__ == '__main__':
 
 
     #杂合模拟数据，normal样本测序深度发生变化时precision的和F1的变化
-    plt.figure(figsize=(15,8))
-    x_read_depth = [5,10,15,20,25]
+    # plt.figure(figsize=(15,8))
+    # x_read_depth = [5,10,15,20,25]
     #
     # CNNSSV_recall = [0.816,0.874,0.916,0.932,0.934,0.936]
     # cutesv_recall = [0.8,0.87,0.91,0.918,0.932,0.94]
     # sniffles_recall = [0.798,0.856,0.9,0.92,0.922,0.936]
     # nanomonsv_recall = [0.136,0.206,0.24,0.264,0.282,0.284]
 
-    CNNSSV_precision = [0.885,0.987,0.994,0.994,0.994]
-    cutesv_precision = [0.845,0.946,0.957,0.959,0.954]
-    sniffles_precision = [0.756,0.832,0.850,0.860,0.852]
-    nanomonsv_precision = [0.752,.972,1.0,1.0,1.0]
-
+    # CNNSSV_precision = [0.885,0.987,0.994,0.994,0.994]
+    # cutesv_precision = [0.845,0.946,0.957,0.959,0.954]
+    # sniffles_precision = [0.756,0.832,0.850,0.860,0.852]
+    # nanomonsv_precision = [0.752,.972,1.0,1.0,1.0]
     #
-    CNNSSV_f1=[0.835,0.881,0.883,0.881,0.880]
-    cutesv_f1=[0.811,0.855,0.859,0.860,0.858]
-    sniffles_f1=[0.766,0.803,0.811,0.815,0.812]
-    nanomonsv_f1=[0.236,0.244,0.248,0.248,0.239]
+    # #
+    # CNNSSV_f1=[0.835,0.881,0.883,0.881,0.880]
+    # cutesv_f1=[0.811,0.855,0.859,0.860,0.858]
+    # sniffles_f1=[0.766,0.803,0.811,0.815,0.812]
+    # nanomonsv_f1=[0.236,0.244,0.248,0.248,0.239]
+    # #
+    # # plt.title(')
+    # plt.subplot(121)
+    # plt.ylim(0.5,1)
+    # plt.xlabel("Purity", fontsize=12)
+    # plt.ylabel("Precision", fontsize=12)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_precision,'o-',label='CNNSSV',color='r',)
+    # plt.plot(x_read_depth, cutesv_precision,'o-',label='cutesv',color='g')
+    # plt.plot(x_read_depth, sniffles_precision,'o-',label='sniffles',color='b')
+    # plt.plot(x_read_depth, nanomonsv_precision,'o-',label='nanomonsv',color='y')
     #
-    # plt.title(')
-    plt.subplot(121)
-    plt.ylim(0.5,1)
-    plt.xlabel("Purity", fontsize=12)
-    plt.ylabel("Precision", fontsize=12)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_precision,'o-',label='CNNSSV',color='r',)
-    plt.plot(x_read_depth, cutesv_precision,'o-',label='cutesv',color='g')
-    plt.plot(x_read_depth, sniffles_precision,'o-',label='sniffles',color='b')
-    plt.plot(x_read_depth, nanomonsv_precision,'o-',label='nanomonsv',color='y')
-
-    plt.xticks(np.arange(2,26,5))
-    plt.yticks(np.arange(0.00,1.01,0.25))
+    # plt.xticks(np.arange(2,26,5))
+    # plt.yticks(np.arange(0.00,1.01,0.25))
     # plt.legend(loc='lower right')
     # plt.savefig('/Users/duan/Desktop/recall.png')
     #
     # plt.close()
-    plt.subplot(122)
-    plt.ylim(0.5, 1)
-    plt.xlabel("read_depth", fontsize=12)
-    plt.ylabel("F1-score", fontsize=12)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
-    plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
-    plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
-    plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
-
-    plt.xticks(np.arange(5, 26, 5))
-    plt.yticks(np.arange(0.00, 1.01, 0.25))
-    plt.legend(loc='lower right', bbox_to_anchor=(1.28, 0))
-    plt.savefig('/Users/duan/Desktop/precision.png')
+    # plt.subplot(122)
+    # plt.ylim(0.5, 1)
+    # plt.xlabel("read_depth", fontsize=12)
+    # plt.ylabel("F1-score", fontsize=12)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
+    # plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
+    # plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
+    # plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
+    #
+    # plt.xticks(np.arange(5, 26, 5))
+    # plt.yticks(np.arange(0.00, 1.01, 0.25))
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.28, 0))
+    # plt.savefig('/Users/duan/Desktop/precision.png')
     # plt.close()
     # plt.subplot(133)
     # plt.ylim(0.5, 1)
@@ -493,6 +493,97 @@ if __name__ == '__main__':
     # # #
     # plt.close()
 
+
+# 绘制柱状图，
+
+
+    plt.figure(figsize=(20,10))
+    name_list = ['0.2', '0.5', '0.7']
+    # CNNSSV_recall = [0.3314,0.3550,0.3728]
+    CNNSSV_recall = [0.4619,0.3550,0.3728]
+    cutesv_recall = [0.4675,0.5266,0.5266]
+    sniffles_recall = [0.4024,0.4497,0.4970]
+    nanomonsv_recall = [0.1183,0.1657,0.1657]
+
+    # CNNSSV_precision = [0.3897,0.2995,0.2812]
+    CNNSSV_precision = [0.3314,0.3550,0.3728]
+    cutesv_precision = [0.1759,0.1221,0.1076]
+    sniffles_precision = [0.1475,0.1165,0.1215]
+    nanomonsv_precision = [0.8095,0.6341,0.5417]
+
+    CNNSSV_f1 = [0.3582,0.3249,0.3206]
+    cutesv_f1= [0.2557,0.1983,0.1786]
+    sniffles_f1 = [0.2158,0.1851,0.1952]
+    nanomonsv_f1 = [0.2065,0.2627,0.2537]
+
+    x = list(range(len(CNNSSV_recall)))
+    total_width, n = 0.8, 4
+    width = total_width / n
+    plt.subplot(131)
+    plt.ylim(0, 1)
+    plt.yticks(np.arange(0.00,1.01,0.25))
+    plt.xlabel("Purity", fontsize=12)
+    plt.ylabel("F1-score", fontsize=12)
+    plt.bar(x, CNNSSV_f1, width=width, label='CNNSSV', fc='y')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, cutesv_f1, width=width, label='cutesv', fc='r')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, nanomonsv_f1, width=width, label='nanomonsv', fc='b')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, manta_f1, width=width, label='manta', fc='c')
+    # plt.legend(loc=2, bbox_to_anchor=(1.05, 1))
+
+    plt.subplot(132)
+    plt.ylim(0, 1)
+    plt.yticks(np.arange(0.00,1.01,0.25))
+    plt.xlabel("Purity", fontsize=12)
+    plt.ylabel("Precision", fontsize=12)
+    plt.bar(x, CNNSSV_precision, width=width, label='CNNSSV', fc='y')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, cutesv_precision, width=width, label='cutesv', fc='r')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, sniffles_precision, width=width, label='sniffles', tick_label=name_list, fc='g')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, nanomonsv_precision, width=width, label='nanomonsv', fc='b')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, manta_precision, width=width, label='manta', fc='c')
+
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.35, 0))
+    plt.subplot(133)
+    plt.ylim(0, 1)
+    plt.yticks(np.arange(0.00,1.01,0.25))
+    plt.xlabel("Purity", fontsize=12)
+    plt.ylabel("Recall", fontsize=12)
+    plt.bar(x, CNNSSV_recall, width=width, label='CNNSSV', fc='y')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, cutesv_recall, width=width, label='cutesv',fc='r')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, sniffles_recall, width=width, label='sniffles', tick_label=name_list,fc='g')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, nanomonsv_recall, width=width, label='nanomonsv', fc='b')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, manta_recall, width=width, label='manta', fc='c')
+    # plt.legend(loc=2,bbox_to_anchor=(1.05,1))
+    # plt.legend(loc='lower center')
+    plt.legend(loc='lower right', bbox_to_anchor=(1.32, 0))
+
+
+    # plt.show()
+    plt.savefig('/Users/duan/Desktop/NA9238_NA19239.png')
 
 
 
