@@ -31,7 +31,7 @@ if __name__ == '__main__':
     print("Find Candidate SVs")
 
     ref_dict = reference.initial_fa(args.ref)
-    # cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual,ref_dict=ref_dict)
+    cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual,ref_dict=ref_dict)
     # # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
     # # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
     # # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
