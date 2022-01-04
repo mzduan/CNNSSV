@@ -1080,13 +1080,14 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 
     return refined
 
-def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None,wkdir=None):
+def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
 
     bam=pysam.AlignmentFile(bam_file,'r')
 
     breakpoints=list()
 
-    record=open(wkdir+'/recorder.txt','w')
+
+    # record=open(wkdir+'/recorder.txt','w')
 
     if chro=="" and start==-1 and end==-1:
         alns=bam.fetch()
@@ -1097,9 +1098,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            record.write('Query Name:\t'+aln.query_name+'\n')
-            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            record.flush()
+            # record.write('Query Name:\t'+aln.query_name+'\n')
+            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            # record.flush()
             if aln.is_supplementary:   #对于supplementary，只分析alignment
                 aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
                 breakpoints.extend(aln_breakpoints)
@@ -1194,7 +1195,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
 
-    record.close()
+    # record.close()
     return cdel,cins,cinv,cdup,
 
 
