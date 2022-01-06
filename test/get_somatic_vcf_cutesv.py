@@ -16,10 +16,10 @@ if __name__ == '__main__':
     #
     for t in tags:
 
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/cutesv/tumor/cutesv_tumor_'+t+'.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/cutesv/normal/cutesv_20_normal.vcf', 'r')
+        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/cutesv/tumor/cutesv_tumor_'+t+'.vcf','r')
+        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/cutesv/normal/cutesv_20_normal.vcf', 'r')
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/cutesv/somatic/cutesv_somatic_1'+t+'.vcf', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/cutesv/somatic/cutesv_somatic_'+t+'.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()
