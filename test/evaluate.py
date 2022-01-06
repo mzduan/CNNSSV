@@ -2,11 +2,11 @@ import re
 if __name__ == '__main__':
 
 
-    tags=['10','15','20','25','30','35']
+    tags = ['1', '2', '3', '4', '5', '6']
     for t in tags:
 
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/heter_tumor_vary_depth/nanomonsv/'+t+'_tumor.nanomonsv.result.bed'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
         recall=len(true_g)/len(groundtruth)
         precision=len(true_p)/len(predict)
-        print("read depth:",t)
+        print("support read:",t)
         # print("\tpurity:",t)
         print("\t\tRecall:\t",recall)
         print("\t\tPrecision:\t",precision)

@@ -12,11 +12,11 @@ def getKV(str):
 if __name__ == '__main__':
 
     # tags=['0.3']
-    read_depth=['10','15','20','25','30','35']
-    for t in read_depth:
+    tags=['1','2','3','4','5','6']
+    for t in tags:
     # for t in tags:
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_tumor_vary_depth/nanomonsv/'+t+'_tumor.nanomonsv.result.vcf', 'r')
-        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/heter_tumor_vary_depth/nanomonsv/'+t+'_tumor.nanomonsv.result.bed', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.vcf', 'r')
+        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()

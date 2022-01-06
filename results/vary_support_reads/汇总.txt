@@ -1,0 +1,110 @@
+CNNSSV purity=0.2
+
+support read: 1
+		Recall:	 0.91
+		Precision:	 0.9978070175438597
+		F1:	 0.9518828451882846
+support read: 2
+		Recall:	 0.842
+		Precision:	 0.9976303317535545
+		F1:	 0.913232104121475
+support read: 3
+		Recall:	 0.706
+		Precision:	 1.0
+		F1:	 0.8276670574443141
+support read: 4
+		Recall:	 0.486
+		Precision:	 1.0
+		F1:	 0.6541049798115747
+support read: 5
+		Recall:	 0.316
+		Precision:	 1.0
+		F1:	 0.4802431610942249
+support read: 6
+		Recall:	 0.19
+		Precision:	 1.0
+		F1:	 0.319327731092437
+Cutesv purity=0.2
+support read: 1
+		Recall:	 0.91
+		Precision:	 0.952054794520548
+		F1:	 0.9305524902523358
+support read: 2
+		Recall:	 0.848
+		Precision:	 0.9628942486085343
+		F1:	 0.9018023260579138
+support read: 3
+		Recall:	 0.708
+		Precision:	 0.9685393258426966
+		F1:	 0.8180253598906254
+support read: 4
+		Recall:	 0.488
+		Precision:	 0.9635761589403974
+		F1:	 0.6478821833312043
+support read: 5
+		Recall:	 0.316
+		Precision:	 0.9581151832460733
+		F1:	 0.4752543598678479
+support read: 6
+		Recall:	 0.188
+		Precision:	 0.9646017699115044
+		F1:	 0.31467092534013086
+
+Sniffles purity=0.2:
+support read: 1
+		Recall:	 0.9
+		Precision:	 0.8348794063079777
+		F1:	 0.8662175168431183
+support read: 2
+		Recall:	 0.826
+		Precision:	 0.9450800915331807
+		F1:	 0.8815368196371398
+support read: 3
+		Recall:	 0.674
+		Precision:	 0.9711815561959655
+		F1:	 0.7957497048406139
+support read: 4
+		Recall:	 0.464
+		Precision:	 0.9789029535864979
+		F1:	 0.6295793758480326
+support read: 5
+		Recall:	 0.298
+		Precision:	 0.9738562091503268
+		F1:	 0.45635528330781017
+support read: 6
+		Recall:	 0.176
+		Precision:	 0.9565217391304348
+		F1:	 0.29729729729729726
+
+Nanomonsv purity=0.2:
+support read: 1
+		Recall:	 0.24
+		Precision:	 1.0
+		F1:	 0.3870967741935484
+support read: 2
+		Recall:	 0.212
+		Precision:	 1.0
+		F1:	 0.34983498349834985
+support read: 3
+		Recall:	 0.17
+		Precision:	 1.0
+		F1:	 0.2905982905982906
+support read: 4
+		Recall:	 0.12
+		Precision:	 1.0
+		F1:	 0.21428571428571425
+support read: 5
+		Recall:	 0.08
+		Precision:	 1.0
+		F1:	 0.14814814814814814
+support read: 6
+		Recall:	 0.04
+		Precision:	 1.0
+		F1:	 0.07692307692307693
+
+Process finished with exit code 0
+
+
+
+
+
