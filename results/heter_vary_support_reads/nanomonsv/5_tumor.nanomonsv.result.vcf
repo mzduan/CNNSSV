@@ -1,0 +1,39 @@
+##fileformat=VCFv4.3
+##fileDate=20220105
+##source=nanomonsv-0.4.0
+##reference=/home/mzduan/GRCh38/chr/chr20.fa
+##contig=<ID=chr20,length=64444167>
+##FILTER=<ID=Duplicate_with_close_SV,Description="When multiple SVs that share breakpoints in close proximity are detected, all but one SVs are filtered.">
+##FILTER=<ID=Duplicate_with_insertion,Description="Breakend SVs that are inferred to be the same as any of detected insertions">
+##FILTER=<ID=Duplicate_with_close_insertion,Description="When multiple insertions in close proximity are detected, all but one insertions are filtered.">
+##FILTER=<ID=SV_with_decoy,Description="SVs involving decoy contigs">
+##FILTER=<ID=Too_small_size,Description="Insertions whose size is below the threshould (currently 100bp)">
+##FILTER=<ID=Too_low_VAF,Description="SVs whose variant allele frequencies are inferred to be low">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=SVLEN,Number=1,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=MATEID,Number=1,Type=String,Description="ID of mate breakend">
+##INFO=<ID=SVINSLEN,Number=1,Type=Integer,Description="Length of insertion">
+##INFO=<ID=SVINSSEQ,Number=1,Type=String,Description="Sequence of insertion">
+##ALT=<ID=DEL,Description="Deletion">
+##ALT=<ID=INS,Description="Insertion">
+##ALT=<ID=DUP,Description="Duplication">
+##FORMAT=<ID=TR,Number=1,Type=Integer,Description="The number of reads around the breakpoints">
+##FORMAT=<ID=VR,Number=1,Type=Integer,Description="The number of variant supporting reads determined in the validation realignment step">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	TUMOR	CONTROL
+chr20	17873890	r_4_0	A	A]chr20:17874400]	.	PASS	SVTYPE=BND;MATEID=r_4_1	TR:VR	27:6	26:0
+chr20	17874400	r_4_1	C	C]chr20:17873890]	.	PASS	SVTYPE=BND;MATEID=r_4_0	TR:VR	27:6	26:0
+chr20	17873894	r_5_0	A	[chr20:17874398[C	.	PASS	SVTYPE=BND;MATEID=r_5_1	TR:VR	27:6	26:0
+chr20	17874398	r_5_1	C	[chr20:17873894[C	.	PASS	SVTYPE=BND;MATEID=r_5_0	TR:VR	27:6	26:0
+chr20	24866372	d_1	G	<DEL>	.	PASS	END=24866873;SVTYPE=DEL;SVLEN=-501	TR:VR	23:5	21:0
+chr20	37862069	r_7_0	C	[chr20:37862571[C	.	PASS	SVTYPE=BND;MATEID=r_7_1	TR:VR	29:5	18:0
+chr20	37862571	r_7_1	C	[chr20:37862069[C	.	PASS	SVTYPE=BND;MATEID=r_7_0	TR:VR	29:5	18:0
+chr20	45430751	d_2	G	<DEL>	.	PASS	END=45431248;SVTYPE=DEL;SVLEN=-497	TR:VR	21:6	15:0
+chr20	49326121	d_3	G	<DEL>	.	PASS	END=49326615;SVTYPE=DEL;SVLEN=-494	TR:VR	14:5	20:0
+chr20	53371509	r_9_0	C	C]chr20:53371997]	.	PASS	SVTYPE=BND;MATEID=r_9_1	TR:VR	27:5	21:0
+chr20	53371997	r_9_1	T	T]chr20:53371509]	.	PASS	SVTYPE=BND;MATEID=r_9_0	TR:VR	27:5	21:0
+chr20	53371511	r_10_0	C	[chr20:53371997[T	.	PASS	SVTYPE=BND;MATEID=r_10_1	TR:VR	27:5	21:0
+chr20	53371997	r_10_1	T	[chr20:53371511[T	.	PASS	SVTYPE=BND;MATEID=r_10_0	TR:VR	27:5	21:0
+chr20	55959400	d_4	C	<DEL>	.	PASS	END=55959911;SVTYPE=DEL;SVLEN=-511	TR:VR	28:9	24:0
+chr20	62769998	d_5	A	<DEL>	.	PASS	END=62770519;SVTYPE=DEL;SVLEN=-521	TR:VR	28:5	17:0
+chr20	730666	d_0	C	<DEL>	.	PASS	END=731158;SVTYPE=DEL;SVLEN=-492	TR:VR	26:5	21:0
