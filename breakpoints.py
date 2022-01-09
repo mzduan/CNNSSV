@@ -1120,7 +1120,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     breakpoints=list()
 
 
-    record=open('/home/mzduan/somaticSV/COLO829_results/chr20/CNNSSV_record.txt','r')
+    record=open('/home/mzduan/somaticSV/COLO829_results/chr20/CNNSSV_record.txt','w')
 
     # record=open(wkdir+'/recorder.txt','w')
 
