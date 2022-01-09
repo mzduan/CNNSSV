@@ -494,7 +494,7 @@ if __name__ == '__main__':
     nanomonsv_recall = [0.24,0.212,0.17,0.12,0.08,0.04]
 
     CNNSSV_precision = [0.997,0.997,1.0,1.0,1.0,1.0]
-    cutesv_precision = [0.952,0.962,0.968,0.963,0.958,0.64]
+    cutesv_precision = [0.952,0.962,0.968,0.963,0.958,0.964]
     sniffles_precision = [0.834,0.945,0.971,0.978,0.973,0.956]
     nanomonsv_precision = [1.0,1.0,1.0,1.0,1.0,1.0]
 
@@ -542,4 +542,63 @@ if __name__ == '__main__':
     plt.savefig('/Users/duan/Desktop/tumor_support_read.png')
     plt.close()
 
+
+
+    #杂合模拟数据，support reads由1变化到6
+    # plt.figure(figsize=(18,8))
+    # x_read_depth = [1,2,3,4,5,6]
+    #
+    # CNNSSV_recall = [0.786,0.522, 0.274 ,0.132, 0.052 ,0.018]
+    # cutesv_recall = [0.78 ,0.526, 0.274, 0.132, 0.054, 0.018]
+    # sniffles_recall = [0.776 ,0.508 ,0.27 ,0.13 ,0.046 ,0.018 ]
+    # nanomonsv_recall = [0.142 ,0.132, 0.072, 0.032, 0.012, 0.002 ]
+    #
+    # CNNSSV_precision = [0.994,1.0,1.0,1.0,1.0,1.0]
+    # cutesv_precision = [0.959 ,0.963 ,0.963 ,0.936 ,0.933, 0.818]
+    # sniffles_precision = [0.860 ,0.940, 0.9507 ,0.902 ,0.821,0.642]
+    # nanomonsv_precision = [1.0,1.0,1.0,1.0,1.0,1.0]
+    #
+    # CNNSSV_f1=[0.878,0.685 ,0.4301, 0.233 ,0.098, 0.035 ]
+    # cutesv_f1=[0.860 ,0.680 ,0.426, 0.231 ,0.102 ,0.035 ]
+    # sniffles_f1=[0.815 ,0.659 ,0.420 ,0.227 ,0.087 ,0.035]
+    # nanomonsv_f1=[0.248 ,0.233, 0.134 ,0.062 ,0.023 ,0.003]
+    #
+    # plt.subplot(131)
+    # plt.ylim(0.5,1)
+    # plt.xlabel("min support read", fontsize=12)
+    # plt.ylabel("Recall", fontsize=12)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_recall,'o-',label='CNNSSV',color='r',)
+    # plt.plot(x_read_depth, cutesv_recall,'o-',label='cutesv',color='g')
+    # plt.plot(x_read_depth, sniffles_recall,'o-',label='sniffles',color='b')
+    # plt.plot(x_read_depth, nanomonsv_recall,'o-',label='nanomonsv',color='y')
+    # plt.xticks(np.arange(1,6.1,1))
+    # plt.yticks(np.arange(0.00,1.1,0.25))
+    #
+    # plt.subplot(132)
+    # plt.ylim(0.5, 1)
+    # plt.xlabel("min support read", fontsize=12)
+    # plt.ylabel("Precsion", fontsize=12)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_precision, 'o-', label='CNNSSV', color='r', )
+    # plt.plot(x_read_depth, cutesv_precision, 'o-', label='cutesv', color='g')
+    # plt.plot(x_read_depth, sniffles_precision, 'o-', label='sniffles', color='b')
+    # plt.plot(x_read_depth, nanomonsv_precision, 'o-', label='nanomonsv', color='y')
+    # plt.xticks(np.arange(1,6.1,1))
+    # plt.yticks(np.arange(0.00, 1.1, 0.25))
+    #
+    # plt.subplot(133)
+    # plt.ylim(0.5, 1)
+    # plt.xlabel("min support read", fontsize=12)
+    # plt.ylabel("F1-score", fontsize=12)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
+    # plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
+    # plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
+    # plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
+    # plt.xticks(np.arange(1,6.1,1))
+    # plt.yticks(np.arange(0.00, 1.1, 0.25))
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.35, 0))
+    # plt.savefig('/Users/duan/Desktop/heter_tumor_support_read.png')
+    # plt.close()
 

@@ -14,8 +14,8 @@ def getKV(str):
 
 if __name__ == '__main__':
 
-    NA19238_vcf=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19238.chr20.vcf','r')
-    NA19239_vcf = open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.vcf', 'r')
+    NA19238_vcf=open('/Users/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19238.vcf','r')
+    NA19239_vcf = open('/Users/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.vcf', 'r')
 
     NA19238_readlines=list()
     NA19239_readlines=list()
@@ -35,7 +35,7 @@ if __name__ == '__main__':
             break
 
 
-    NA19239_somatic=open('/home/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.vcf', 'w')
+    NA19239_somatic=open('/Users/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.somatic.vcf','w')
 
     for i in NA19239_readlines:
         i_infos=re.split('\s+',i)
@@ -76,7 +76,8 @@ if __name__ == '__main__':
             j_sv_end = j_sv_start+j_sv_len
 
             if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<=100 and abs(i_sv_end-j_sv_end) <=100 :
-                find_flag=True
+                if i_sv_type=='DEL' or i_sv_type=='INS' or i_sv_type=='DUP' or i_sv_type=='INV':
+                    find_flag=True
         if not find_flag:
             NA19239_somatic.write(i)
 

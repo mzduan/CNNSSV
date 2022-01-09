@@ -15,8 +15,8 @@ if __name__ == '__main__':
     tags=['1','2','3','4','5','6']
     for t in tags:
     # for t in tags:
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.vcf', 'r')
-        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.bed', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/sniffles/somatic/sniffles_somatic_'+t+'.vcf', 'r')
+        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/sniffles/somatic/sniffles_somatic_'+t+'.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()

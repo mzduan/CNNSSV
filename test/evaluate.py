@@ -6,7 +6,7 @@ if __name__ == '__main__':
     for t in tags:
 
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.bed'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/nanomonsv/'+t+'_tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
