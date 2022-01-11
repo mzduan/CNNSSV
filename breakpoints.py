@@ -1230,7 +1230,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
 
-    record.close()
+    # record.close()
     return cdel,cins,cinv,cdup,
 
 
