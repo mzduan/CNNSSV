@@ -225,14 +225,14 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
     # germline_rc=len(germline_support_reads)+len(germline_support_reads)
     # r1=len(somatic_support_reads)/somatic_rc if somatic_rc>0 else 0
     # r2=len(germline_support_reads)/germline_rc if germline_rc>0 else 0
-    # sup_features = np.array([type_counts, medium, mean_region_counts,min_lnormal_kmer_radio,max_lnormal_kmer_radio,mean_rnormal_kmer_radio,\
-    #     min_rnormal_kmer_radio,max_rnormal_kmer_radio,mean_rnormal_kmer_radio,bk[-2],bk[-1],mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
-    #                          len(germline_support_reads),len(germline_ref_reads)])
+    sup_features = np.array([type_counts, medium, mean_region_counts,min_lnormal_kmer_radio,max_lnormal_kmer_radio,mean_rnormal_kmer_radio,\
+        min_rnormal_kmer_radio,max_rnormal_kmer_radio,mean_rnormal_kmer_radio,bk[-2],bk[-1],mean_read_counts, mean_clus, max_clus,len(somatic_support_reads),len(somatic_ref_reads),
+                             len(germline_support_reads),len(germline_ref_reads)])
 
 
-    sup_features = np.array([type_counts, medium, mean_region_counts,mean_read_counts,
-                             mean_clus, max_clus, len(somatic_support_reads), len(somatic_ref_reads),
-                             len(germline_support_reads), len(germline_ref_reads)])
+    # sup_features = np.array([type_counts, medium, mean_region_counts,mean_read_counts,
+    #                          mean_clus, max_clus, len(somatic_support_reads), len(somatic_ref_reads),
+    #                          len(germline_support_reads), len(germline_ref_reads)])
 
 
     sv_str = output_dir + '/' + chro +'_'+sv_type + '_' + str(bk[0]) + '_' + str(bk[1])+'_'+str(len(somatic_support_reads))

@@ -5,10 +5,10 @@ import statsmodels.api as sm
 if __name__ == '__main__':
 
     #画一下deletion长度的分布
-    del_fin=open('/Users/duan/Downloads/文档/论文/somatic_SV/cuteSV/cuteSV-master/simulation/sim_del.bed','r')
-    ins_fin=open('/Users/duan/Downloads/文档/论文/somatic_SV/cuteSV/cuteSV-master/simulation/sim_ins.bed','r')
-    inv_fin=open('/Users/duan/Downloads/文档/论文/somatic_SV/cuteSV/cuteSV-master/simulation/sim_inv.bed','r')
-    dup_fin=open('/Users/duan/Downloads/文档/论文/somatic_SV/cuteSV/cuteSV-master/simulation/sim_dup.bed','r')
+    del_fin=open('/Users/duan/Desktop/getBreakpoint/groundtruth/random_sv/chr20_sim_tumor_del.bed','r')
+    ins_fin=open('/Users/duan/Desktop/getBreakpoint/groundtruth/random_sv/chr20_sim_tumor_ins.bed','r')
+    # inv_fin=open('/Users/duan/Downloads/文档/论文/somatic_SV/cuteSV/cuteSV-master/simulation/sim_inv.bed','r')
+    dup_fin=open('/Users/duan/Desktop/getBreakpoint/groundtruth/random_sv/chr20_sim_tumor_dup.bed','r')
     # len_dict=dict()
     del_len_list=list()
     while True:
@@ -53,47 +53,48 @@ if __name__ == '__main__':
     dup_fin.close()
 
 
-    inv_len_list=list()
-    while True:
-        l=inv_fin.readline()
-        if l:
-            splits=re.split('\s+',l)
-            inv_start=splits[1]
-            inv_end=splits[2]
-            sv_len=int(inv_end)-int(inv_start)
-            inv_len_list.append(sv_len/1000)
-        else:
-            break
-    inv_fin.close()
+    # inv_len_list=list()
+    # while True:
+    #     l=inv_fin.readline()
+    #     if l:
+    #         splits=re.split('\s+',l)
+    #         inv_start=splits[1]
+    #         inv_end=splits[2]
+    #         sv_len=int(inv_end)-int(inv_start)
+    #         inv_len_list.append(sv_len/1000)
+    #     else:
+    #         break
+    # inv_fin.close()
 
-    # del_ecdf = sm.distributions.ECDF(del_len_list)
-    # x = np.linspace(0, max(del_len_list))
-    # y = del_ecdf(x)
-    # plt.plot(x, y, linewidth = '1',label='DEL',color='r')
+    print(max(del_len_list))
+    del_ecdf = sm.distributions.ECDF(del_len_list)
+    x = np.linspace(0, max(del_len_list))
+    y = del_ecdf(x)
+    plt.plot(x, y, linewidth = '1',label='DEL',color='r')
+
+
+    print(max(ins_len_list))
+    ins_ecdf = sm.distributions.ECDF(ins_len_list)
+    x = np.linspace(0, max(ins_len_list))
+    y = ins_ecdf(x)
+    plt.plot(x, y, linewidth = '1',label='INS',color='g')
+    # #
+    print(max(dup_len_list))
+    dup_ecdf = sm.distributions.ECDF(dup_len_list)
+    x = np.linspace(0, max(dup_len_list))
+    y = dup_ecdf(x)
+    plt.plot(x, y, linewidth = '1',label='DUP',color='b')
+    # #
+    # print(max(inv_len_list))
+    # inv_ecdf = sm.distributions.ECDF(inv_len_list)
+    # x = np.linspace(0, max(inv_len_list))
+    # y = inv_ecdf(x)
+    # plt.plot(x, y, linewidth = '1',label='INV',color='c')
+
+
+    # plt.xticks(np.arange(0, 25, 5))
+    # plt.yticks(np.arange(0, 1.01, 0.2))
     #
-
-    # print(max(ins_len_list))
-    # ins_ecdf = sm.distributions.ECDF(ins_len_list)
-    # x = np.linspace(0, max(ins_len_list))
-    # y = ins_ecdf(x)
-    # plt.plot(x, y, linewidth = '1',label='INS',color='g')
-    # #
-    # print(max(dup_len_list))
-    # dup_ecdf = sm.distributions.ECDF(dup_len_list)
-    # x = np.linspace(0, max(dup_len_list))
-    # y = dup_ecdf(x)
-    # plt.plot(x, y, linewidth = '1',label='DUP',color='b')
-    # #
-    print(max(inv_len_list))
-    inv_ecdf = sm.distributions.ECDF(inv_len_list)
-    x = np.linspace(0, max(inv_len_list))
-    y = inv_ecdf(x)
-    plt.plot(x, y, linewidth = '1',label='INV',color='c')
-
-
-    plt.xticks(np.arange(0, 25, 5))
-    plt.yticks(np.arange(0, 1.01, 0.2))
-
     plt.xlabel("SV Length(kb)", fontsize=10)
     plt.ylabel("CDF", fontsize=10)
     plt.legend(loc='lower right')
