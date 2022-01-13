@@ -11,14 +11,16 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    tags = ['1', '2', '3', '4', '5', '6']
+    # tags = ['1', '2', '3', '4', '5', '6']
+    #
+    # for t in tags:
 
-    for t in tags:
+    for t in range(20,21,1):
 
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/sniffles/tumor/sniffles_tumor_'+t+'.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/sniffles/normal/sniffles_20_normal.vcf', 'r')
+        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_tumor_chr'+str(t)+'_0.2.vcf','r')
+        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_normal_chr'+str(t)+'.vcf', 'r')
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/heter_vary_support_reads/sniffles/somatic/sniffles_somatic_'+t+'.vcf', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_somatic_chr'+str(t)+'_0.2.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()
@@ -71,7 +73,7 @@ if __name__ == '__main__':
             else:
                 i_sv_len=abs(int(tumor_kv['SVLEN']))
 
-            if i_sv_len<50:
+            if i_sv_len<100:
                 continue
 
 
@@ -90,7 +92,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     j_sv_len = abs(int(normal_kv['SVLEN']))
-                    if j_sv_len<50:
+                    if j_sv_len<100:
                         continue
                 j_sv_end = j_sv_start + j_sv_len
 

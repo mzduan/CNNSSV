@@ -21,8 +21,8 @@ def getKV(str):
 def parseArgs(argv):
 	parser = argparse.ArgumentParser(prog="NA19240_eval", description=USAGE, formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("base", type=str, help="Base vcf file of NA19240.")
-	parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
 	parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
+	parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
 	parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
 	parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
 	# parser.add_argument("pbsv", type=str, help="PBSV vcf file of NA19240.")
@@ -347,17 +347,17 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	# for svtype in ["INS", "DEL", "INV"]:
 	for svtype in ["INS", "DEL", "INV", "DUP"]:
 	# for svtype in ["INV"]:
-	# 	if svtype in base.keys():
-		for chr in base[svtype]:
-			for i in base[svtype][chr]:
-				total_base += 1
-				if i[3] == flag:
-					# tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
-					tp_base += 1
+		if svtype in base.keys():
+			for chr in base[svtype]:
+				for i in base[svtype][chr]:
+					total_base += 1
+					if i[3] == flag:
+						# tb.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
+						tp_base += 1
+					# else:
+					# 	fn.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
 				# else:
-				# 	fn.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
-			# else:
-			# 	print(flag, svtype, chr, i[0], i[1], i[2])
+				# 	print(flag, svtype, chr, i[0], i[1], i[2])
 # logging.info("Base count: %d"%(total_base))
 	# logging.info("TP-base count: %d"%(tp_base))
 	logging.info("====%s===="%(callset[flag]))
@@ -373,18 +373,18 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 
 	for svtype in ["INS", "DEL", "INV", "DUP"]:
 	# for svtype in ["INV"]:
-	# 	if svtype in call.keys():
-		for chr in call[svtype]:
-			for i in call[svtype][chr]:
-				total_call += 1
-				if i[3] == flag:
-					tp_call += 1
-					# print(i)
-					# tp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
-				# else:
-				# 	fp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
+		if svtype in call.keys():
+			for chr in call[svtype]:
+				for i in call[svtype][chr]:
+					total_call += 1
+					if i[3] == flag:
+						tp_call += 1
+						# print(i)
+						# tp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
+					# else:
+					# 	fp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
 
-	# fout.close()
+		# fout.close()
 
 
 	logging.info("Camp count: %d"%(total_call))
