@@ -108,7 +108,7 @@ def predict(model_path,features_path,out_path,purity):
         soft_output=soft_max(output)
         numpy_output=soft_output.detach().numpy()
         # print(numpy_output)
-        print(numpy_output[0][1])
+        # print(numpy_output[0][1])
         predicts.append(numpy_output[0][1])
 
         # if torch.argmax(output)==1:
@@ -127,8 +127,8 @@ def predict(model_path,features_path,out_path,purity):
     roc_auc=auc(fpr_lr,tpr_lr)
     print("AUC为：\t",roc_auc)
 
-    np.save('/home/mzduan/somaticSV/roc_data/fpr_'+str(purity)+'.dat',fpr_lr)
-    np.save('/home/mzduan/somaticSV/roc_data/tpr_'+str(purity)+'.dat', tpr_lr)
+    np.save('/home/mzduan/somaticSV/roc_data/heter_fpr_'+str(purity)+'.dat',fpr_lr)
+    np.save('/home/mzduan/somaticSV/roc_data/heter_tpr_'+str(purity)+'.dat', tpr_lr)
     # plt.figure()
     # plt.plot(fpr_lr,tpr_lr,color='darkorange',lw=2,label='ROC cureve(area=%0.2f)' % roc_auc)
     # plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')

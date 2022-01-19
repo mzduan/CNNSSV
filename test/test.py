@@ -1,30 +1,35 @@
 import re
-
+import numpy as np
+import matplotlib.pyplot as plt
 if __name__ == '__main__':
-    del_counts=0
-    ins_counts=0
-    inv_counts=0
-    dup_counts=0
-
-
-    fin=open('/Users/duan/Desktop/sniffles.fp.txt','r')
-    while True:
-        l=fin.readline()
-        if l:
-            infos=re.split('\s+',l)
-            sv_type=infos[2]
-
-            if sv_type=='INS':
-                ins_counts+=1
-            elif sv_type=='INV':
-                inv_counts+=1
-            elif sv_type=='DUP':
-                dup_counts+=1
-            elif sv_type=='DEL':
-                del_counts+=1
-        else:
-            break
-    print(del_counts)
-    print(ins_counts)
-    print(inv_counts)
-    print(dup_counts)
+    fpr_lr_2=np.load('/Users/duan/Desktop/roc_data/fpr_0.2.dat.npy')
+    tpr_lr_2=np.load('/Users/duan/Desktop/roc_data/tpr_0.2.dat.npy')
+    fpr_lr_3=np.load('/Users/duan/Desktop/roc_data/fpr_0.3.dat.npy')
+    tpr_lr_3=np.load('/Users/duan/Desktop/roc_data/tpr_0.3.dat.npy')
+    fpr_lr_4=np.load('/Users/duan/Desktop/roc_data/fpr_0.4.dat.npy')
+    tpr_lr_4=np.load('/Users/duan/Desktop/roc_data/tpr_0.4.dat.npy')
+    fpr_lr_5=np.load('/Users/duan/Desktop/roc_data/fpr_0.5.dat.npy')
+    tpr_lr_5=np.load('/Users/duan/Desktop/roc_data/tpr_0.5.dat.npy')
+    fpr_lr_6=np.load('/Users/duan/Desktop/roc_data/fpr_0.6.dat.npy')
+    tpr_lr_6=np.load('/Users/duan/Desktop/roc_data/tpr_0.6.dat.npy')
+    fpr_lr_7=np.load('/Users/duan/Desktop/roc_data/fpr_0.7.dat.npy')
+    tpr_lr_7=np.load('/Users/duan/Desktop/roc_data/tpr_0.7.dat.npy')
+    fpr_lr_8=np.load('/Users/duan/Desktop/roc_data/fpr_0.8.dat.npy')
+    tpr_lr_8=np.load('/Users/duan/Desktop/roc_data/tpr_0.8.dat.npy')
+    plt.figure()
+    plt.plot(fpr_lr_2,tpr_lr_2,color='darkorange',lw=2,label='purity=0.2(auc=%0.2f)' % 0.905)
+    plt.plot(fpr_lr_3, tpr_lr_3, color='r', lw=2, label='purity=0.3(auc=%0.2f)' % 0.895)
+    plt.plot(fpr_lr_4, tpr_lr_4, color='g', lw=2, label='purity=0.4(auc=%0.2f)' % 0.893)
+    plt.plot(fpr_lr_5, tpr_lr_5, color='b', lw=2, label='purity=0.5(auc=%0.2f)' % 0.884)
+    plt.plot(fpr_lr_6, tpr_lr_6, color='c', lw=2, label='purity=0.6(auc=%0.2f)' % 0.883)
+    plt.plot(fpr_lr_7, tpr_lr_7, color='y', lw=2, label='purity=0.7(auc=%0.2f)' % 0.878)
+    plt.plot(fpr_lr_8, tpr_lr_8, color='lightpink', lw=2, label='purity=0.8(auc=%0.2f)' % 0.877)
+    plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')
+    plt.xlim([0.0,1.0])
+    plt.ylim([0.0,1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC cureve')
+    plt.legend(loc='lower right')
+    plt.savefig('/Users/duan/Desktop/simulate_chr20.png')
+    plt.close()
