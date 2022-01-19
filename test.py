@@ -79,7 +79,6 @@ def predict(model_path,features_path,out_path):
     groundtruth=get_gd()
 
 
-
     test_list=list()
     predicts=list()
 
@@ -103,7 +102,7 @@ def predict(model_path,features_path,out_path):
         #进行softmax
         soft_max=nn.Softmax(dim=1)
         soft_output=soft_max(output)
-        numpy_output=soft_output.numpy()
+        numpy_output=soft_output.detach().numpy()
         print(numpy_output)
         predicts.append(numpy_output)
 
