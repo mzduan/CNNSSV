@@ -309,90 +309,90 @@ if __name__ == '__main__':
 
 
     # 杂合模拟数据，normal样本测序深度发生变化时precision的和F1的变化
-    plt.figure(figsize=(19,8))
-    x_read_depth = [5,10,15,20,25]
-
-    CNNSSV_precision = [0.885,0.987,0.994,0.994,0.994]
-    cutesv_precision = [0.845,0.946,0.957,0.959,0.954]
-    sniffles_precision = [0.756,0.832,0.850,0.860,0.852]
-    nanomonsv_precision = [0.752,.972,1.0,1.0,1.0]
-
-    CNNSSV_f1=[0.835,0.881,0.883,0.881,0.880]
-    cutesv_f1=[0.811,0.855,0.859,0.860,0.858]
-    sniffles_f1=[0.766,0.803,0.811,0.815,0.812]
-    nanomonsv_f1=[0.236,0.244,0.248,0.248,0.239]
-
-    plt.subplot(121)
-    plt.ylim(0.5,1)
-    plt.xlabel("read depth", fontsize=18)
-    plt.ylabel("Precision", fontsize=18)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_precision,'o-',label='CNNSSV',color='r',)
-    plt.plot(x_read_depth, cutesv_precision,'o-',label='cutesv',color='g')
-    plt.plot(x_read_depth, sniffles_precision,'o-',label='sniffles',color='b')
-    plt.plot(x_read_depth, nanomonsv_precision,'o-',label='nanomonsv',color='y')
-    plt.xticks(np.arange(5,26,5))
-    plt.yticks(np.arange(0.00,1.01,0.25))
-
-    plt.subplot(122)
-    plt.ylim(0.5, 1)
-    plt.xlabel("read depth", fontsize=18)
-    plt.ylabel("F1-score", fontsize=18)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
-    plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
-    plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
-    plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
-    plt.xticks(np.arange(5, 26, 5))
-    plt.yticks(np.arange(0.00, 1.01, 0.25))
-
-    plt.legend(loc='lower right', bbox_to_anchor=(1.3, 0),prop={'size': 14})
-    plt.savefig('/Users/duan/Desktop/heter_normal_vary_depth.png')
-    plt.close()
-
-
-
-    #杂合模拟数据，tumor样本测序深度发生变化时recall的和F1的变化
-    plt.figure(figsize=(19,8))
-    x_read_depth = [10,15,20,25,30,35]
-
-    CNNSSV_recall = [0.566,0.688,0.786,0.848,0.866,0.894]
-    cutesv_recall = [0.55,0.686,0.78,0.85,0.876,0.9]
-    sniffles_recall = [0.56,0.674,0.776,0.84,0.876,0.89]
-    nanomonsv_recall = [0.046,0.098,0.142,0.166,0.194,0.224]
-
-    CNNSSV_f1=[0.721,0.811,0.878,0.913,0.927,0.944]
-    cutesv_f1=[0.699,0.802,0.860,0.896,0.914,0.928]
-    sniffles_f1=[0.685,0.763,0.815,0.856,0.857,0.868]
-    nanomonsv_f1=[0.087,0.178,0.248,0.284,0.324,0.365]
-
-    plt.subplot(121)
-    plt.ylim(0.5,1)
-    plt.xlabel("read depth", fontsize=18)
-    plt.ylabel("Recall", fontsize=18)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_recall,'o-',label='CNNSSV',color='r',)
-    plt.plot(x_read_depth, cutesv_recall,'o-',label='cutesv',color='g')
-    plt.plot(x_read_depth, sniffles_recall,'o-',label='sniffles',color='b')
-    plt.plot(x_read_depth, nanomonsv_recall,'o-',label='nanomonsv',color='y')
-    plt.xticks(np.arange(10,36,5))
-    plt.yticks(np.arange(0.00,1.01,0.25))
-
-    plt.subplot(122)
-    plt.ylim(0.5, 1)
-    plt.xlabel("read depth", fontsize=18)
-    plt.ylabel("F1-score", fontsize=18)
-    plt.grid()
-    plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
-    plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
-    plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
-    plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
-    plt.xticks(np.arange(10, 36, 5))
-    plt.yticks(np.arange(0.00, 1.01, 0.25))
-
-    plt.legend(loc='lower right', bbox_to_anchor=(1.3, 0),prop={'size': 14})
-    plt.savefig('/Users/duan/Desktop/heter_tumor_vary_depth.png')
-    plt.close()
+    # plt.figure(figsize=(19,8))
+    # x_read_depth = [5,10,15,20,25]
+    #
+    # CNNSSV_precision = [0.885,0.987,0.994,0.994,0.994]
+    # cutesv_precision = [0.845,0.946,0.957,0.959,0.954]
+    # sniffles_precision = [0.756,0.832,0.850,0.860,0.852]
+    # nanomonsv_precision = [0.752,.972,1.0,1.0,1.0]
+    #
+    # CNNSSV_f1=[0.835,0.881,0.883,0.881,0.880]
+    # cutesv_f1=[0.811,0.855,0.859,0.860,0.858]
+    # sniffles_f1=[0.766,0.803,0.811,0.815,0.812]
+    # nanomonsv_f1=[0.236,0.244,0.248,0.248,0.239]
+    #
+    # plt.subplot(121)
+    # plt.ylim(0.5,1)
+    # plt.xlabel("read depth", fontsize=18)
+    # plt.ylabel("Precision", fontsize=18)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_precision,'o-',label='CNNSSV',color='r',)
+    # plt.plot(x_read_depth, cutesv_precision,'o-',label='cutesv',color='g')
+    # plt.plot(x_read_depth, sniffles_precision,'o-',label='sniffles',color='b')
+    # plt.plot(x_read_depth, nanomonsv_precision,'o-',label='nanomonsv',color='y')
+    # plt.xticks(np.arange(5,26,5))
+    # plt.yticks(np.arange(0.00,1.01,0.25))
+    #
+    # plt.subplot(122)
+    # plt.ylim(0.5, 1)
+    # plt.xlabel("read depth", fontsize=18)
+    # plt.ylabel("F1-score", fontsize=18)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
+    # plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
+    # plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
+    # plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
+    # plt.xticks(np.arange(5, 26, 5))
+    # plt.yticks(np.arange(0.00, 1.01, 0.25))
+    #
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.3, 0),prop={'size': 14})
+    # plt.savefig('/Users/duan/Desktop/heter_normal_vary_depth.png')
+    # plt.close()
+    #
+    #
+    #
+    # #杂合模拟数据，tumor样本测序深度发生变化时recall的和F1的变化
+    # plt.figure(figsize=(19,8))
+    # x_read_depth = [10,15,20,25,30,35]
+    #
+    # CNNSSV_recall = [0.566,0.688,0.786,0.848,0.866,0.894]
+    # cutesv_recall = [0.55,0.686,0.78,0.85,0.876,0.9]
+    # sniffles_recall = [0.56,0.674,0.776,0.84,0.876,0.89]
+    # nanomonsv_recall = [0.046,0.098,0.142,0.166,0.194,0.224]
+    #
+    # CNNSSV_f1=[0.721,0.811,0.878,0.913,0.927,0.944]
+    # cutesv_f1=[0.699,0.802,0.860,0.896,0.914,0.928]
+    # sniffles_f1=[0.685,0.763,0.815,0.856,0.857,0.868]
+    # nanomonsv_f1=[0.087,0.178,0.248,0.284,0.324,0.365]
+    #
+    # plt.subplot(121)
+    # plt.ylim(0.5,1)
+    # plt.xlabel("read depth", fontsize=18)
+    # plt.ylabel("Recall", fontsize=18)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_recall,'o-',label='CNNSSV',color='r',)
+    # plt.plot(x_read_depth, cutesv_recall,'o-',label='cutesv',color='g')
+    # plt.plot(x_read_depth, sniffles_recall,'o-',label='sniffles',color='b')
+    # plt.plot(x_read_depth, nanomonsv_recall,'o-',label='nanomonsv',color='y')
+    # plt.xticks(np.arange(10,36,5))
+    # plt.yticks(np.arange(0.00,1.01,0.25))
+    #
+    # plt.subplot(122)
+    # plt.ylim(0.5, 1)
+    # plt.xlabel("read depth", fontsize=18)
+    # plt.ylabel("F1-score", fontsize=18)
+    # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', )
+    # plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g')
+    # plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b')
+    # plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y')
+    # plt.xticks(np.arange(10, 36, 5))
+    # plt.yticks(np.arange(0.00, 1.01, 0.25))
+    #
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.3, 0),prop={'size': 14})
+    # plt.savefig('/Users/duan/Desktop/heter_tumor_vary_depth.png')
+    # plt.close()
 
 # 绘制柱状图，NA19238和NA19239混合
 #     plt.figure(figsize=(20,10))
@@ -636,65 +636,83 @@ if __name__ == '__main__':
 # 绘制全染色体模拟数据上的结果，点状图
 
     # plt.figure(figsize=(20,10))
-    # CNNSSV_recall_2=0.781
-    # CNNSSV_precision_2=0.943
-    # CNNSSV_recall_5=0.845
-    # CNNSSV_precision_5=0.909
-    # CNNSSV_recall_7 = 0.850
-    # CNNSSV_precision_7 = 0.904
+    CNNSSV_recall_2=0.781
+    CNNSSV_precision_2=0.943
+    CNNSSV_recall_5=0.845
+    CNNSSV_precision_5=0.909
+    CNNSSV_recall_7 = 0.850
+    CNNSSV_precision_7 = 0.904
+
+    cutesv_recall_2 = 0.836
+    cutesv_precision_2 = 0.717
+    cutesv_recall_5 = 0.881
+    cutesv_precision_5 = 0.783
+    cutesv_recall_7 = 0.9
+    cutesv_precision_7 = 0.768
+
+    sniffles_recall_2 = 0.7181
+    sniffles_precision_2 = 0.35
+    sniffles_recall_5 = 0.69
+    sniffles_precision_5 = 0.31
+    sniffles_recall_7 = 0.718
+    sniffles_precision_7 = 0.34
+
+    nano_recall_2 = 0.254
+    nano_precision_2 = 0.818
+    nano_recall_5 = 0.290
+    nano_precision_5 = 0.888
+    nano_recall_7 = 0.3
+    nano_precision_7 = 0.842
+
+
+    manta_recall_2 = 0.081
+    manta_precision_2 = 0.692
+    manta_recall_5 = 0.281
+    manta_precision_5 = 0.632
+    manta_recall_7 = 0.390
+    manta_precision_7 = 0.728
+
+    # manta_recall=[0.143,0.387,0.496]
+    plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
+    plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
+    plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
+
+
+    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='r',label="CNNSSV")
+    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='r',marker='^')
+    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='r',marker='^')
     #
-    # cutesv_recall_2 = 0.836
-    # cutesv_precision_2 = 0.717
-    # cutesv_recall_5 = 0.881
-    # cutesv_precision_5 = 0.783
-    # cutesv_recall_7 = 0.9
-    # cutesv_precision_7 = 0.768
     #
-    # sniffles_recall_2 = 0.7181
-    # sniffles_precision_2 = 0.35
-    # sniffles_recall_5 = 0.69
-    # sniffles_precision_5 = 0.31
-    # sniffles_recall_7 = 0.718
-    # sniffles_precision_7 = 0.33
-    #
-    # nano_recall_2 = 0.081
-    # nano_precision_2 = 0.69
-    # nano_recall_5 = 0.28
-    # nano_precision_5 = 0.63
-    # nano_recall_7 = 0.39
-    # nano_precision_7 = 0.72
-    #
-    # # manta_recall=[0.143,0.387,0.496]
-    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
-    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
-    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
-    #
-    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=10, c='g')
+    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=10, c='g',label="cutesv")
     # plt.scatter(cutesv_recall_5, cutesv_precision_5, s=10, c='g', marker='^')
     # plt.scatter(cutesv_recall_7, cutesv_precision_7, s=10, c='g', marker='s')
     #
-    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=10, c='b')
+    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=10, c='b',label="sniffles")
     # plt.scatter(sniffles_recall_5, sniffles_precision_5, s=10, c='b', marker='^')
     # plt.scatter(sniffles_recall_7, sniffles_precision_7, s=10, c='b', marker='s')
     #
-    # plt.scatter(nano_recall_2, nano_precision_2, s=10, c='c')
+    # plt.scatter(nano_recall_2, nano_precision_2, s=10, c='c',label="nanomonsv")
     # plt.scatter(nano_recall_5, nano_precision_5, s=10, c='c', marker='^')
     # plt.scatter(nano_recall_7, nano_precision_7, s=10, c='c', marker='s')
     #
+    # plt.scatter(manta_recall_2, manta_precision_2, s=10, c='y',label="manta")
+    # plt.scatter(manta_recall_5, manta_precision_5, s=10, c='y', marker='^')
+    # plt.scatter(manta_recall_7, manta_precision_7, s=10, c='y', marker='s')
+
     # plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
-    # # plt.scatter(x, manta_recall, s=20,c='m',label='manta')
-    # # plt.legend(["0.2","0.5","0.7"])
-    # plt.xlabel("recall", fontsize=12)
-    # plt.ylabel("precision", fontsize=12)
-    # plt.xlim(0,1)
-    # plt.ylim(0,1)
-    # # plt.show()
+    # plt.scatter(x, manta_recall, s=20,c='m',label='manta')
+    # plt.legend(["0.2","0.5","0.7"])
+    plt.xlabel("recall", fontsize=12)
+    plt.ylabel("precision", fontsize=12)
+    plt.xlim(0,1)
+    plt.ylim(0,1)
+    # plt.show()
     # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
-    # color = ['r', 'g', 'b', 'c']
-    # # markers = ['o', '^', 's'
-    # plt.legend(loc='upper left')
-    # plt.savefig('/Users/duan/Desktop/random_results_1.png')
-    # plt.close()
+    color = ['r', 'g', 'b', 'c']
+    # markers = ['o', '^', 's'
+    plt.legend(loc='lower left')
+    plt.savefig('/Users/duan/Desktop/random_results_1.png')
+    plt.close()
 
 
 
