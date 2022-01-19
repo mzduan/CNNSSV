@@ -4,6 +4,7 @@ import TestSet
 from torch.utils.data import DataLoader
 import re
 import torch.nn as nn
+import matplotlib.pyplot as plt
 import sys
 from sklearn.metrics import roc_curve, auc
 
@@ -121,4 +122,19 @@ def predict(model_path,features_path,out_path):
         # print("not a somatic sv")
     # fout.close()
     fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
-    print("AUC为：\t",auc(fpr_lr,tpr_lr))
+
+    roc_auc=auc(fpr_lr,tpr_lr)
+    print("AUC为：\t",roc_auc)
+
+    plt.figure()
+    plt.plot(fpr_lr,tpr_lr,color='darkorange',lw=2,label='ROC cureve(area=%0.2f)' % roc_auc)
+    plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')
+    plt.xlim([0.0,1.0])
+    plt.ylim([0.0,1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC曲线')
+    plt.legend(loc='lowe right')
+    plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5')
+    plt.close()
+
