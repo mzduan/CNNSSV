@@ -20,6 +20,7 @@ if __name__ == '__main__':
     parser.add_argument("--max_sv_len", help="min sv len(default=10000)", default=10000, type=int, required=False)
     parser.add_argument("--min_map_qual", help="min map qual(default=20)", default=20, type=int, required=False)
     parser.add_argument("-t", help="thead number", type=int, required=True)
+    parser.add_argument("-p", help="purity", type=int, required=False)
     args = parser.parse_args()
 
     # if os.path.exists(args.wkdir):
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     # print("Generate Features for Cancidate SVs")
     # run(cdel,cins,cinv,cdup,ref_dict,args.tumor,args.normal,args.wkdir,int(args.t))
     print("Predict...")
-    predict(args.model,args.wkdir,args.output)
+    predict(args.model,args.wkdir,args.output,args.p)
     print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
     #
 

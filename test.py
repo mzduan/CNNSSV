@@ -6,6 +6,7 @@ import re
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import sys
+import numpy as np
 from sklearn.metrics import roc_curve, auc
 
 def is_somatic(gd,chrom,start,end,sv_type):
@@ -68,7 +69,7 @@ def get_gd():
 #             error_count=error_count+1
     #    # print(correct_count,error_count)
 
-def predict(model_path,features_path,out_path):
+def predict(model_path,features_path,out_path,purity):
 
     cnn = CNN.CNN()
     cnn.load_state_dict(torch.load(model_path))
@@ -126,15 +127,17 @@ def predict(model_path,features_path,out_path):
     roc_auc=auc(fpr_lr,tpr_lr)
     print("AUC为：\t",roc_auc)
 
-    plt.figure()
-    plt.plot(fpr_lr,tpr_lr,color='darkorange',lw=2,label='ROC cureve(area=%0.2f)' % roc_auc)
-    plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')
-    plt.xlim([0.0,1.0])
-    plt.ylim([0.0,1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC曲线')
-    plt.legend(loc='lower right')
-    plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5.png')
-    plt.close()
+    np.save('home/mzduan/somaticSV/roc_data/fpr_'+str(purity)+'.dat',fpr_lr)
+    np.save('home/mzduan/somaticSV/roc_data/tpr_'+str(purity)+'.dat', tpr_lr)
+    # plt.figure()
+    # plt.plot(fpr_lr,tpr_lr,color='darkorange',lw=2,label='ROC cureve(area=%0.2f)' % roc_auc)
+    # plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')
+    # plt.xlim([0.0,1.0])
+    # plt.ylim([0.0,1.05])
+    # plt.xlabel('False Positive Rate')
+    # plt.ylabel('True Positive Rate')
+    # plt.title('ROC cureve')
+    # plt.legend(loc='lower right')
+    # plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5.png')
+    # plt.close()
 
