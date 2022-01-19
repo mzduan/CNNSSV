@@ -9,7 +9,7 @@ from sklearn.metrics import roc_curve, auc
 
 def is_somatic(gd,chrom,start,end,sv_type):
     for g in gd:
-        if g[3] == chr and g[2] == chrom:
+        if g[3] == chrom and g[2] == sv_type:
             if abs(int(g[0]) - start) <= 200 and abs(int(g[1]) - end) <= 200:
                 return True
 
