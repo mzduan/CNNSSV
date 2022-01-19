@@ -95,8 +95,10 @@ def predict(model_path,features_path,out_path):
         end = start + int(splits[3])
 
         if is_somatic(groundtruth,chro,start,end,sv_type):
+            print(1)
             test_list.append(1)
         else:
+            print(0)
             test_list.append(0)
 
         #进行softmax
@@ -104,6 +106,7 @@ def predict(model_path,features_path,out_path):
         soft_output=soft_max(output)
         numpy_output=soft_output.detach().numpy()
         # print(numpy_output)
+        print(numpy_output[0][1])
         predicts.append(numpy_output[0][1])
 
         # if torch.argmax(output)==1:
@@ -117,6 +120,5 @@ def predict(model_path,features_path,out_path):
         #         fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
         # print("not a somatic sv")
     # fout.close()
-
     fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
     print("AUC为：\t",auc(fpr_lr,tpr_lr))
