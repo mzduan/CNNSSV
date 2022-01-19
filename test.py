@@ -135,6 +135,6 @@ def predict(model_path,features_path,out_path):
     plt.ylabel('True Positive Rate')
     plt.title('ROC曲线')
     plt.legend(loc='lower right')
-    plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5')
+    plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5.png')
     plt.close()
 
