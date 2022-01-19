@@ -103,8 +103,8 @@ def predict(model_path,features_path,out_path):
         soft_max=nn.Softmax(dim=1)
         soft_output=soft_max(output)
         numpy_output=soft_output.detach().numpy()
-        print(numpy_output)
-        predicts.append(numpy_output)
+        # print(numpy_output)
+        predicts.append(numpy_output[0][1])
 
         # if torch.argmax(output)==1:
         #     if sv_type=='INS':
