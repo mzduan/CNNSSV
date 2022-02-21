@@ -76,13 +76,13 @@ def predict(model_path,features_path,out_path,purity):
     test_set=TestSet.TestSet(features_path)
     test_loader=DataLoader(test_set,batch_size=1,shuffle=True)
 
-    # fout=open(out_path,'w')
+    fout=open(out_path,'w')
 
-    groundtruth=get_gd()
+    # groundtruth=get_gd()
 
 
-    test_list=list()
-    predicts=list()
+    # test_list=list()
+    # predicts=list()
 
     for step, (x,sup_x,file_name) in enumerate(test_loader):
 
@@ -96,48 +96,37 @@ def predict(model_path,features_path,out_path,purity):
         start = int(splits[2])
         end = start + int(splits[3])
 
-        if is_somatic(groundtruth,chro,start,end,sv_type):
-            print(1)
-            test_list.append(1)
-        else:
-            print(0)
-            test_list.append(0)
+        # if is_somatic(groundtruth,chro,start,end,sv_type):
+        #     print(1)
+        #     test_list.append(1)
+        # else:
+        #     print(0)
+        #     test_list.append(0)
 
         #进行softmax
-        soft_max=nn.Softmax(dim=1)
-        soft_output=soft_max(output)
-        numpy_output=soft_output.detach().numpy()
+        # soft_max=nn.Softmax(dim=1)
+        # soft_output=soft_max(output)
+        # numpy_output=soft_output.detach().numpy()
         # print(numpy_output)
         # print(numpy_output[0][1])
-        predicts.append(numpy_output[0][1])
+        # predicts.append(numpy_output[0][1])
 
-        # if torch.argmax(output)==1:
-        #     if sv_type=='INS':
-        #         end=start+1
-        #     fout.write(chro+'\t'+str(start)+'\t'+str(end)+'\t'+sv_type+'\t'+str(splits[3])+'\n')
-        # else:
-        #     if support_counts>=3:
-        #         if sv_type == 'INS':
-        #             end = start + 1
-        #         fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
-        # print("not a somatic sv")
-    # fout.close()
-    fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
+        if torch.argmax(output)==1:
+            if sv_type=='INS':
+                end=start+1
+            fout.write(chro+'\t'+str(start)+'\t'+str(end)+'\t'+sv_type+'\t'+str(splits[3])+'\n')
+        else:
+            # if support_counts>=3:
+            #     if sv_type == 'INS':
+            #         end = start + 1
+            #     fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
+            print("not a somatic sv")
+    fout.close()
+    # fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
 
-    roc_auc=auc(fpr_lr,tpr_lr)
-    print("AUC为：\t",roc_auc)
+    # roc_auc=auc(fpr_lr,tpr_lr)
+    # print("AUC为：\t",roc_auc)
 
-    np.save('/home/mzduan/somaticSV/roc_data/heter_fpr_'+str(purity)+'.dat',fpr_lr)
-    np.save('/home/mzduan/somaticSV/roc_data/heter_tpr_'+str(purity)+'.dat', tpr_lr)
-    # plt.figure()
-    # plt.plot(fpr_lr,tpr_lr,color='darkorange',lw=2,label='ROC cureve(area=%0.2f)' % roc_auc)
-    # plt.plot([0,1],[0,1],color='navy',lw=2,linestyle='--')
-    # plt.xlim([0.0,1.0])
-    # plt.ylim([0.0,1.05])
-    # plt.xlabel('False Positive Rate')
-    # plt.ylabel('True Positive Rate')
-    # plt.title('ROC cureve')
-    # plt.legend(loc='lower right')
-    # plt.savefig('/home/mzduan/somaticSV/simulate_chr20_0.5.png')
-    # plt.close()
+    # np.save('/home/mzduan/somaticSV/roc_data/heter_fpr_'+str(purity)+'.dat',fpr_lr)
+    # np.save('/home/mzduan/somaticSV/roc_data/heter_tpr_'+str(purity)+'.dat', tpr_lr)
 
