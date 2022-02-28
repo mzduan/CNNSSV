@@ -773,93 +773,102 @@ if __name__ == '__main__':
 
 # 绘制NA19238_NA19239真实数据上的结果，点状图
 
-    # plt.figure(figsize=(10,10))
-    # CNNSSV_recall_2=0.464
-    # CNNSSV_precision_2=0.582
-    # CNNSSV_recall_5=0.484
-    # CNNSSV_precision_5=0.589
-    # CNNSSV_recall_7 = 0.504
-    # CNNSSV_precision_7 = 0.572
-    #
-    # cutesv_recall_2 = 0.496
-    # cutesv_precision_2 = 0.164
-    # cutesv_recall_5 = 0.556
-    # cutesv_precision_5 =0.111
-    # cutesv_recall_7 = 0.549
-    # cutesv_precision_7 = 0.098
-    #
-    # sniffles_recall_2 = 0.423
-    # sniffles_precision_2 =0.138
-    # sniffles_recall_5 =0.476
-    # sniffles_precision_5 =0.110
-    # sniffles_recall_7 = 0.509
-    # sniffles_precision_7 = 0.111
-    #
-    # nano_recall_2 = 0.132
-    # nano_precision_2 = 0.809
-    # nano_recall_5 = 0.178
-    # nano_precision_5 = 0.609
-    # nano_recall_7 = 0.178
-    # nano_precision_7 =0.520
-    #
+    plt.figure(figsize=(10,10))
+    CNNSSV_recall_2=0.464
+    CNNSSV_precision_2=0.582
+    CNNSSV_recall_5=0.484
+    CNNSSV_precision_5=0.589
+    CNNSSV_recall_7 = 0.504
+    CNNSSV_precision_7 = 0.572
+
+    # CNNSSV_recall_2=0.364
+    # CNNSSV_precision_2=0.382
+    # CNNSSV_recall_5=0.384
+    # CNNSSV_precision_5=0.289
+    # CNNSSV_recall_7 = 0.404
+    # CNNSSV_precision_7 = 0.272
+
+
+
+    cutesv_recall_2 = 0.496
+    cutesv_precision_2 = 0.164
+    cutesv_recall_5 = 0.556
+    cutesv_precision_5 =0.111
+    cutesv_recall_7 = 0.549
+    cutesv_precision_7 = 0.098
+
+    sniffles_recall_2 = 0.423
+    sniffles_precision_2 =0.138
+    sniffles_recall_5 =0.476
+    sniffles_precision_5 =0.110
+    sniffles_recall_7 = 0.509
+    sniffles_precision_7 = 0.111
+
+    nano_recall_2 = 0.132
+    nano_precision_2 = 0.809
+    nano_recall_5 = 0.178
+    nano_precision_5 = 0.609
+    nano_recall_7 = 0.178
+    nano_precision_7 =0.520
+
     # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
     # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
     # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
 
 
-    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=12,c='r',label="CNNSSV")
-    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=12,c='r',marker='^')
-    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=12,c='r',marker='s')
-    #
-    #
-    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=12, c='g',label="cutesv")
-    # plt.scatter(cutesv_recall_5, cutesv_precision_5, s=12, c='g', marker='^')
-    # plt.scatter(cutesv_recall_7, cutesv_precision_7, s=12, c='g', marker='s')
-    #
-    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=12, c='b',label="sniffles")
-    # plt.scatter(sniffles_recall_5, sniffles_precision_5, s=12, c='b', marker='^')
-    # plt.scatter(sniffles_recall_7, sniffles_precision_7, s=12, c='b', marker='s')
-    #
-    # plt.scatter(nano_recall_2, nano_precision_2, s=12, c='c',label="nanomonsv")
-    # plt.scatter(nano_recall_5, nano_precision_5, s=12, c='c', marker='^')
-    # plt.scatter(nano_recall_7, nano_precision_7, s=12, c='c', marker='s')
+    plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=12,c='r',label="CNNSSV")
+    plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=12,c='r',marker='^')
+    plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=12,c='r',marker='s')
 
 
-    # plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
-    # plt.legend(["0.2","0.5","0.7"])
-    # plt.xlabel("recall", fontsize=16)
-    # plt.ylabel("precision", fontsize=16)
-    # plt.xlim(0,1)
-    # plt.ylim(0,1)
-    # # plt.show()
-    # # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
-    # color = ['r', 'g', 'b', 'c']
-    # markers = ['o', '^', 's']
-    # plt.legend(loc='lower left')
-    # plt.savefig('/Users/duan/Desktop/NA19238_NA19239_plot_1.png')
-    # plt.close()
+    plt.scatter(cutesv_recall_2, cutesv_precision_2, s=12, c='g',label="cutesv")
+    plt.scatter(cutesv_recall_5, cutesv_precision_5, s=12, c='g', marker='^')
+    plt.scatter(cutesv_recall_7, cutesv_precision_7, s=12, c='g', marker='s')
+
+    plt.scatter(sniffles_recall_2, sniffles_precision_2, s=12, c='b',label="sniffles")
+    plt.scatter(sniffles_recall_5, sniffles_precision_5, s=12, c='b', marker='^')
+    plt.scatter(sniffles_recall_7, sniffles_precision_7, s=12, c='b', marker='s')
+
+    plt.scatter(nano_recall_2, nano_precision_2, s=12, c='c',label="nanomonsv")
+    plt.scatter(nano_recall_5, nano_precision_5, s=12, c='c', marker='^')
+    plt.scatter(nano_recall_7, nano_precision_7, s=12, c='c', marker='s')
+
+
+    plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
+    plt.legend(["0.2","0.5","0.7"])
+    plt.xlabel("recall", fontsize=16)
+    plt.ylabel("precision", fontsize=16)
+    plt.xlim(0,1)
+    plt.ylim(0,1)
+    # plt.show()
+    # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
+    color = ['r', 'g', 'b', 'c']
+    markers = ['o', '^', 's']
+    plt.legend(loc='lower left')
+    plt.savefig('/home/duan/Desktop/NA19238_NA19239_plot_1.png')
+    plt.close()
 
 
 #画运行时间的折线图，CNNSSV与nanomonsv比较
 
-    plt.figure(figsize=(8,8))
-    x_read_depth = [10,15,20,25,30,35]
-
-    CNNSSV_time=[468,478,540,609,652,626]
-    nanomonsv_time=[530,887,1313,1679,1805,2098]
-
-    # plt.ylim(0.5,1)
-    plt.xlabel("tumor read depth", fontsize=18)
-    plt.ylabel("time(s)", fontsize=18)
-    # plt.grid()
-    plt.plot(x_read_depth, CNNSSV_time,'o-',label='CNNSSV',color='r')
-    for label_x,label_y in zip(x_read_depth,CNNSSV_time):
-        plt.text(label_x,label_y+0.05,'%.2f' %label_y, ha='center',va='bottom',size=10)
-    plt.plot(x_read_depth, nanomonsv_time,'o-',label='nanomonsv',color='g')
-    for label_x, label_y in zip(x_read_depth, nanomonsv_time):
-        plt.text(label_x, label_y + 0.05, '%.2f' % label_y, ha='center', va='bottom', size=10)
-    plt.yticks(np.arange(0.00, 2500, 250))
-    # plt.tick_params(labelsize=)
-    plt.legend(loc='upper left',prop={'size': 14})
-    plt.savefig('/Users/duan/Desktop/simulate_time.png')
-    plt.close()
+    # plt.figure(figsize=(8,8))
+    # x_read_depth = [10,15,20,25,30,35]
+    #
+    # CNNSSV_time=[468,478,540,609,652,626]
+    # nanomonsv_time=[530,887,1313,1679,1805,2098]
+    #
+    # # plt.ylim(0.5,1)
+    # plt.xlabel("tumor read depth", fontsize=18)
+    # plt.ylabel("time(s)", fontsize=18)
+    # # plt.grid()
+    # plt.plot(x_read_depth, CNNSSV_time,'o-',label='CNNSSV',color='r')
+    # for label_x,label_y in zip(x_read_depth,CNNSSV_time):
+    #     plt.text(label_x,label_y+0.05,'%.2f' %label_y, ha='center',va='bottom',size=10)
+    # plt.plot(x_read_depth, nanomonsv_time,'o-',label='nanomonsv',color='g')
+    # for label_x, label_y in zip(x_read_depth, nanomonsv_time):
+    #     plt.text(label_x, label_y + 0.05, '%.2f' % label_y, ha='center', va='bottom', size=10)
+    # plt.yticks(np.arange(0.00, 2500, 250))
+    # # plt.tick_params(labelsize=)
+    # plt.legend(loc='upper left',prop={'size': 14})
+    # plt.savefig('/Users/duan/Desktop/simulate_time.png')
+    # plt.close()
