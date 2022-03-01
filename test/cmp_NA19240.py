@@ -21,10 +21,10 @@ def getKV(str):
 def parseArgs(argv):
 	parser = argparse.ArgumentParser(prog="NA19240_eval", description=USAGE, formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("base", type=str, help="Base vcf file of NA19240.")
-	# parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
+	parser.add_argument("CNNSSV", type=str, help="CNNSSV vcf file of NA19240.")
 	parser.add_argument("cuteSV", type=str, help="CuteSV vcf file of NA19240.")
-	# parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
-	# parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
+	parser.add_argument("sniffles", type=str, help="Sniffles vcf file of NA19240.")
+	parser.add_argument("nanomonsv", type=str, help="nanomonsv vcf file of NA19240.")
 	# parser.add_argument("pbsv", type=str, help="PBSV vcf file of NA19240.")
 	# parser.add_argument("svim", type=str, help="SVIM vcf file of NA19240.")
 	parser.add_argument('-b', '--bias', help = "Bias of overlaping.[%(default)s]", default = 0.7, type = float)
@@ -99,10 +99,10 @@ def load_base(base_path):
 				base_call[ALT][chr].append([pos, info["SVLEN"], info["END"], 0])
 	file.close()
 
-	print(len(base_call['INS']['chr20']))
-	print(len(base_call['DEL']['chr20']))
-	print(len(base_call['INV']['chr20']))
-	print(len(base_call['DUP']['chr20']))
+	# print(len(base_call['INS']['chr20']))
+	# print(len(base_call['DEL']['chr20']))
+	# print(len(base_call['INV']['chr20']))
+	# print(len(base_call['DUP']['chr20']))
 	return base_call
 
 
@@ -376,11 +376,16 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 
 	# fout=open('/Users/duan/Desktop/somatic_tp.bed','w')
 
+	fout = open('/Users/duan/Desktop/' + str(flag) + '_sv.bed', "w")
+
 	for svtype in ["INS", "DEL", "INV", "DUP"]:
 	# for svtype in ["INV"]:
 		if svtype in call.keys():
+			# sv_sum=0
 			for chr in call[svtype]:
+				# sv_sum=sv_sum+len(call[svtype][chr])
 				for i in call[svtype][chr]:
+					fout.write(chr + '\t' + str(i[0]) + '\t' + str(i[2]) + '\t' + svtype + '\t' + str(i[1]) + '\n')
 					total_call += 1
 					if i[3] == flag:
 						tp_call += 1
@@ -388,9 +393,11 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 						# tp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
 					# else:
 					# 	fp.write(chr+'\t'+str(i[0])+'\t'+str(i[2])+'\t'+svtype+'\t'+str(i[1])+'\n')
-
+		# print(svtype)
+		# print(sv_sum)
 		# fout.close()
 
+	fout.close()
 
 	logging.info("Camp count: %d"%(total_call))
 	logging.info("TP-call count: %d"%(tp_call))
@@ -398,8 +405,8 @@ def cmp_callsets(base, call, flag, Bias, Offect):
 	logging.info("Recall: %.2f"%(100.0*tp_base/total_base))
 	logging.info("F-measure: %.2f"%(200.0*tp_base*tp_call/(total_base*tp_call+tp_base*total_call)))
 
-	print(tp_base)
-	print(total_base)
+	# print(tp_base)
+	# print(total_base)
 	# print(tp_base)
 	# print(total_base)
 	# tb.close()
@@ -411,10 +418,10 @@ def main_ctrl(args):
 	# pass
 	base_call = load_base(args.base)
 
-	# nanomonsv_call=load_nanomonsv(args.nanomonsv)
+	nanomonsv_call=load_nanomonsv(args.nanomonsv)
 	cuteSV_call = load_cuteSV(args.cuteSV)
-	# CNNSSV_call = load_CNNSSV(args.CNNSSV)
-	# sniffles_call = load_sniffles(args.sniffles)
+	CNNSSV_call = load_CNNSSV(args.CNNSSV)
+	sniffles_call = load_sniffles(args.sniffles)
 	# pbsv_call = load_pbsv(args.pbsv)
 	# svim_call = load_svim(args.svim)
 	# for svtype in sniffles_call:
@@ -422,12 +429,16 @@ def main_ctrl(args):
 	# 		for i in sniffles_call[svtype][chr]:
 	# 			print(svtype, chr, i)
 
+	# print("开始比较")
 	cmp_callsets(base_call, cuteSV_call, 1, args.bias, args.offect)
-	# cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
+	# print("开始比较")
+	cmp_callsets(base_call, sniffles_call, 2, args.bias, args.offect)
+	# print("开始比较")
 	# cmp_callsets(base_call, pbsv_call, 3, args.bias, args.offect)
 	# cmp_callsets(base_call, svim_call, 4, args.bias, args.offect)
-	# cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
-	# cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
+	cmp_callsets(base_call,CNNSSV_call,5,args.bias,args.offect)
+	# print("开始比较")
+	cmp_callsets(base_call,nanomonsv_call,6,args.bias,args.offect)
 
 	
 

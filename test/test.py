@@ -34,7 +34,7 @@ if __name__ == '__main__':
     # plt.savefig('/Users/duan/Desktop/heter_simulate_chr20.png')
     # plt.close()
 
-    r=0.850
-    p=0.904
+    r=0.536
+    p=0.390
     f1=2*r*p/(r+p)
     print(f1)

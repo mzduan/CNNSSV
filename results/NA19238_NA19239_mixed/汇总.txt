@@ -52,4 +52,5 @@ Nanomonsv
 		Recall:	 17.88
 		Precision:	 52.08
 		F1:	 26.62
+python cmp_NA19240.py /Users/duan/Desktop/getBreakpoint/groundtruth/NA19239_NA19240/NA19239.chr20.somatic.filtered.vcf /Users/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/CNNSSV/0.7.mixed.CNNSSV.chr20.somatic.bed /Users/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/cutesv/cutesv.somatic7.vcf /Users/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/sniffles/sniffles.somatic7.vcf /Users/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/nanomonsv/0.7/tumor.nanomonsv.result.vcf
 
