@@ -73,7 +73,7 @@ if __name__ == '__main__':
             else:
                 i_sv_len=abs(int(tumor_kv['SVLEN']))
 
-            if i_sv_len<100:
+            if i_sv_len<50:
                 continue
 
 
@@ -92,7 +92,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     j_sv_len = abs(int(normal_kv['SVLEN']))
-                    if j_sv_len<100:
+                    if j_sv_len<50:
                         continue
                 j_sv_end = j_sv_start + j_sv_len
 
