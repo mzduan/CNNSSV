@@ -11,17 +11,13 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    # tags = ['1', '2', '3', '4', '5', '6']
-    tags = ['0.2', '0.5', '0.7']
-    #
-    # #
-    # for t in range(2,23,1):
-    # for t in range(20, 21, 1):
-    for t in tags:
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_tumor_'+t+'_minimap2.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_normal_minimap2.vcf', 'r')
+    for t in range(22,12,-1):
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_somatic_'+t+'_minimap2.vcf', 'w')
+        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_tumor.vcf','r')
+        normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_normal.vcf','r')
+        somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
+
+
         tumor_readlines=list()
         normal_readlines=list()
 
@@ -73,7 +69,7 @@ if __name__ == '__main__':
             else:
                 i_sv_len=abs(int(tumor_kv['SVLEN']))
 
-            if i_sv_len<50:
+            if i_sv_len<30:
                 continue
 
 
@@ -92,7 +88,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     j_sv_len = abs(int(normal_kv['SVLEN']))
-                    if j_sv_len<50:
+                    if j_sv_len<30:
                         continue
                 j_sv_end = j_sv_start + j_sv_len
 

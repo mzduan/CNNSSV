@@ -12,15 +12,15 @@ def getKV(str):
 if __name__ == '__main__':
 
 
-    tags=['0.2','0.5','0.7']
-    # #
-    # for t in range(2,23,1):
-    # for t in range(20, 21, 1):
-    for t in tags:
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/cutesv_tumor_'+t+'_minimap2.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/cutesv_normal_minimap2.vcf', 'r')
+    for t in range(22,12,-1):
+        # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf')
+        # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf')
+        # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/cutesv_somatic_'+t+'_minimap2.vcf', 'w')
+
+        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor.vcf','r')
+        normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf','r')
+        somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()
@@ -64,7 +64,7 @@ if __name__ == '__main__':
                 continue
             find_flag=False
 
-            if i_sv_len<50:
+            if i_sv_len<30:
                 continue
 
             for j in normal_readlines:
@@ -77,11 +77,11 @@ if __name__ == '__main__':
                 if 'SVLEN' in j_kv.keys():
                     j_sv_len = abs(int(j_kv['SVLEN']))
                     j_sv_end=j_sv_start+j_sv_len
-                    if j_sv_len<100:
+                    if j_sv_len<30:
                         continue
                 else:
                     continue
-                if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<50 and abs(i_sv_end-j_sv_end) <50:
+                if i_sv_type==j_sv_type and abs(i_sv_start-j_sv_start)<100 and abs(i_sv_end-j_sv_end) <100:
                     find_flag=True
 
             if not find_flag:
