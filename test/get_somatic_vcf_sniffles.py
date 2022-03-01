@@ -12,16 +12,16 @@ def getKV(str):
 if __name__ == '__main__':
 
     # tags = ['1', '2', '3', '4', '5', '6']
+    tags = ['0.2', '0.5', '0.7']
     #
-    # for t in tags:
+    # #
+    # for t in range(2,23,1):
+    # for t in range(20, 21, 1):
+    for t in tags:
+        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_tumor_'+t+'_minimap2.vcf','r')
+        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_normal_minimap2.vcf', 'r')
 
-    for t in range(20,21,1):
-
-        tumor_vcf=open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_tumor_chr'+str(t)+'_0.2.vcf','r')
-        normal_vcf = open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_normal_chr'+str(t)+'.vcf', 'r')
-
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/random/chr'+str(t)+'/sniffles_somatic_chr'+str(t)+'_0.2.vcf', 'w')
-
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_somatic_'+t+'_minimap2.vcf', 'w')
         tumor_readlines=list()
         normal_readlines=list()
 

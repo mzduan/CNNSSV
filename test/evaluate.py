@@ -1,15 +1,15 @@
 import re
 if __name__ == '__main__':
 
-
-    tags = ['2', '3', '4', '5', '6', '7','8']
+    tags = ['0.2', '0.5', '0.7']
+    # tags = ['2', '3', '4', '5', '6', '7','8']
     for t in tags:
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/sniffles/somatic/sniffles_20_somatic_0.'+t+'.bed'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
-        fn_name='/Users/duan/Desktop/fn/sniffles/sniffles_simulate_chr20_0.'+t+'.fn.txt'
+        # fn_name='/Users/duan/Desktop/fn/sniffles/sniffles_simulate_chr20_0.'+t+'.fn.txt'
 
         predict=list()
         with open(predict_bed,'r') as fin:
@@ -87,15 +87,15 @@ if __name__ == '__main__':
                         find_flag=True
                         break
 
-        print("FN:")
-        fn=0
-        with open(fn_name,'w') as fout:
-            for q in groundtruth:
-                if q not in true_g:
-                    # print(q)
-                    fout.write(str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\t'+str(q[3])+'\n')
-                    fn=fn+1
-            print(fn)
+        # print("FN:")
+        # fn=0
+        # with open(fn_name,'w') as fout:
+        #     for q in groundtruth:
+        #         if q not in true_g:
+        #             # print(q)
+        #             fout.write(str(q[0])+'\t'+str(q[1])+'\t'+str(q[2])+'\t'+str(q[3])+'\n')
+        #             fn=fn+1
+        #     print(fn)
 
         # print("FP:")
         # fp=0
