@@ -1,0 +1,52 @@
+CNNSSV
+	purity: 0.2
+		Recall:	 0.758
+		Precision:	 0.6412859560067682
+		F1:	 0.6947754353803849
+	purity: 0.5
+		Recall:	 0.804
+		Precision:	 0.6146788990825688
+		F1:	 0.6967071057192376
+	purity: 0.7
+		Recall:	 0.824
+		Precision:	 0.6149253731343284
+		F1:	 0.7042735042735042
+cutesv:
+	purity: 0.2
+		Recall:	 0.796
+		Precision:	 0.5674470457079153
+		F1:	 0.662567497293567
+	purity: 0.5
+		Recall:	 0.838
+		Precision:	 0.5501551189245087
+		F1:	 0.6642341095365873
+	purity: 0.7
+		Recall:	 0.852
+		Precision:	 0.547
+		F1:	 0.666253037884203
+sniffles:
+	purity: 0.2
+		Recall:	 0.766
+		Precision:	 0.7132216014897579
+		F1:	 0.7386692381870782
+	purity: 0.5
+		Recall:	 0.804
+		Precision:	 0.6955017301038062
+		F1:	 0.7458256029684601
+	purity: 0.7
+		Recall:	 0.796
+		Precision:	 0.6513911620294599
+		F1:	 0.7164716471647166
+nanomonsv:
+	purity: 0.2
+		Recall:	 0.234
+		Precision:	 0.975
+		F1:	 0.3774193548387097
+	purity: 0.5
+		Recall:	 0.264
+		Precision:	 0.9850746268656716
+		F1:	 0.416403785488959
+	purity: 0.7
+		Recall:	 0.272
+		Precision:	 0.9927007299270073
+		F1:	 0.4270015698587128

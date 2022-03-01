@@ -90,7 +90,7 @@ read depth: 20
 read depth: 20
 	purity: 0.5
 		Recall:	 0.936
-		Precision:	 0.8125
+		Precision:	 0.8125.
 		F1:	 0.8698884758364314
 read depth: 20
 	purity: 0.6

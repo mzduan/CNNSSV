@@ -5,7 +5,7 @@ if __name__ == '__main__':
     # tags = ['2', '3', '4', '5', '6', '7','8']
     for t in tags:
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_somatic_'+t+'_minimap2.bed'
+        predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/'+t+'.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
@@ -127,7 +127,7 @@ if __name__ == '__main__':
         recall=len(true_g)/len(groundtruth)
         precision=len(true_p)/len(predict)
         # print("support read:",t)
-        # print("\tpurity:",t)
+        print("\tpurity:",t)
         print("\t\tRecall:\t",recall)
         print("\t\tPrecision:\t",precision)
         print("\t\tF1:\t",2*recall*precision/(recall+precision))

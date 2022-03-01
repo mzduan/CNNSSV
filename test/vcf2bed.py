@@ -16,8 +16,8 @@ if __name__ == '__main__':
     # for t in tags:
     tags = ['0.2', '0.5', '0.7']
     for t in tags:
-        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_somatic_'+t+'_minimap2.vcf', 'r')
-        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/sniffles_somatic_'+t+'_minimap2.bed', 'w')
+        somatic_vcf = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/'+t+'.tumor.nanomonsv.result.vcf', 'r')
+        somatic_bed = open('/Users/duan/Desktop/getBreakpoint/results/simulate/minimap2/'+t+'.tumor.nanomonsv.result.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()
