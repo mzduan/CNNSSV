@@ -18,7 +18,7 @@ if __name__ == '__main__':
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
 
-        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor.vcf','r')
+        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf','r')
         normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf','r')
         somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
 
