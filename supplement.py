@@ -81,7 +81,7 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk):
 
 
-    string_features_recorder=open('/home/mzduan/somaticSV/string_features.txt','a+')
+    string_features_recorder=open('/home/mzduan/somaticSV/string_features_lost.txt','a+')
     fcntl.flock(string_features_recorder, fcntl.LOCK_EX)
 
     ref_bk1=bk[0]
@@ -234,7 +234,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
                 #     print("in ",j)
             # somatic_counts.append(somatic_count)
             radio=somatic_count/k
-            string_features_recorder.write(chro+'\t'+str(bk[0])+'\t'+str(bk[1])+'\t'+sv_type+'\t'+str(somatic_count)+'\t'+str(k)+'\n')
+            # string_features_recorder.write(chro+'\t'+str(bk[0])+'\t'+str(bk[1])+'\t'+sv_type+'\t'+str(somatic_count)+'\t'+str(k)+'\n')
         #对于insertion和inversion来说，最多会产生64个somatic k-mer
         elif sv_type=='INS' or sv_type=='INV':
             for j in range(read_sv_bk1-k+1,read_sv_bk1+1):
@@ -278,11 +278,11 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
                 #     print("in")
             # somatic_counts.append(somatic_count)
             radio = somatic_count / (2*k)
-            string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
+            # string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
         radios.append(radio)
 
-    fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
-    string_features_recorder.close()
+    # fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
+    # string_features_recorder.close()
 
     #对于uncertain的 kmer,计算其在normal和tumor中出现的次数
     # normal_coverage_sum = 0
@@ -383,14 +383,22 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
 
     for aln in normal_region_reads:
         if aln.reference_end > ref_bk1 and aln.reference_start < ref_bk2:
+            tmp_lost_count=0
+            tmp_k=0
             normal_left_radio,normal_right_radio,overlap_left,overlap_right=get_unique_kmer_radio_in_normal(aln, ref_bk1, ref_bk2, k, tumor_support_reads_kmers)
             if overlap_left:
+                tmp_lost_count=int(normal_left_radio*k)
+                tmp_k+=k
                 normal_left_radios.append(normal_left_radio)
             if overlap_right:
+                tmp_lost_count = int(normal_right_radio * k)
+                tmp_k+=k
                 normal_right_radios.append(normal_right_radio)
+            string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(tmp_lost_count) + '\t' + str(tmp_k) + '\n')
     normal_bam.close()
 
-
+    fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
+    string_features_recorder.close()
 
     clusters=list()
     sum_cluster=0
