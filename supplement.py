@@ -82,7 +82,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
 
 
     string_features_recorder=open('/home/mzduan/somaticSV/string_features.txt','a+')
-    fcntl.flock(string_features_recorder, fcntl.LOCK_EX)
+    # fcntl.flock(string_features_recorder, fcntl.LOCK_EX)
 
     ref_bk1=bk[0]
     ref_bk2=bk[0]+bk[1]
@@ -281,7 +281,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
             string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
         radios.append(radio)
 
-    fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
+    # fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
     string_features_recorder.close()
 
     #对于uncertain的 kmer,计算其在normal和tumor中出现的次数
