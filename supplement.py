@@ -2,7 +2,7 @@
 #除了image的特征外，额外融入序列特征(hash sequence)，坐标信息，比对质量信息
 import pysam
 import numpy as np
-
+import fcntl
 def get_reverse_comp(s):
     ret=""
     for i in range(len(s)-1,-1,-1):
@@ -80,8 +80,9 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk):
 
-    string_features_recorder=open('/home/mzduan/somaticSV/string_features.txt','a+')
 
+    string_features_recorder=open('/home/mzduan/somaticSV/string_features.txt','a+')
+    fcntl.flock(string_features_recorder, fcntl.LOCK_EX)
 
     ref_bk1=bk[0]
     ref_bk2=bk[0]+bk[1]
@@ -280,6 +281,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
             string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
         radios.append(radio)
 
+    fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
     string_features_recorder.close()
 
     #对于uncertain的 kmer,计算其在normal和tumor中出现的次数
