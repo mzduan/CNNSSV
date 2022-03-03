@@ -547,8 +547,8 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
         region_start,region_end,bk1_in_revised, bk2_in_revised,\
         somatic_support_reads,germline_support_reads,\
         somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
-        #
-        #
+
+
         # print("somatic sv reads")
         # for aln in somatic_support_reads:
         #     print(aln.query_name)

@@ -80,7 +80,6 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk):
 
-
     ref_bk1=bk[0]
     ref_bk2=bk[0]+bk[1]
     if sv_type=="INS":
@@ -93,17 +92,80 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
     normal_bam = pysam.AlignmentFile(normal_bam_file, 'r')
 
     #如果变异很长，那么此步需要处理的reads数非常多，耗时
-    normal_region_reads = normal_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    # normal_region_reads = normal_bam.fetch(contig=chro, start=ref_bk1 - 1000, end=ref_bk2 + 1000)
+    # for aln in normal_region_reads:
+    #     if aln.is_unmapped or aln.mapping_quality < 20:
+    #         continue
+    #     else:
+    #         seq = aln.query_sequence
+    #         for i in range(0, len(seq) - k + 1):
+    #             kmer = seq[i:i + k]
+    #             rkmer = get_reverse_comp(kmer)
+    #             mkmer = rkmer if rkmer < kmer else kmer
+    #             normal_kmer_set.add(mkmer)
+    # normal_bam.close()
+
+    #改进，只计算断点在normal样本处左右1000bp以内的k-mer
+
+
+    background_bk1_start=ref_bk1-1000
+    background_bk1_end=ref_bk1+1000
+
+    background_bk2_start=ref_bk2-1000
+    background_bk2_end=ref_bk2+1000
+
+    normal_region_reads = normal_bam.fetch(contig=chro, start=background_bk1_start, end=background_bk2_end)
     for aln in normal_region_reads:
         if aln.is_unmapped or aln.mapping_quality < 20:
             continue
         else:
-            seq = aln.query_sequence
-            for i in range(0, len(seq) - k + 1):
-                kmer = seq[i:i + k]
-                rkmer = get_reverse_comp(kmer)
-                mkmer = rkmer if rkmer < kmer else kmer
-                normal_kmer_set.add(mkmer)
+            base_cigar = ""
+            for i in range(len(aln.cigartuples)):
+                if aln.cigartuples[i][0] == 0:
+                    base_cigar = base_cigar + aln.cigartuples[i][1] * 'M'
+                elif aln.cigartuples[i][0] == 1:
+                    base_cigar = base_cigar + aln.cigartuples[i][1] * 'I'
+                elif aln.cigartuples[i][0] == 2:
+                    base_cigar = base_cigar + aln.cigartuples[i][1] * 'D'
+                elif aln.cigartuples[i][0] == 4:
+                    base_cigar = base_cigar + aln.cigartuples[i][1] * 'S'
+            ref_pos=aln.reference_start
+            query_pos=0
+            for i in range(len(base_cigar)):
+                c = base_cigar[i]
+                if c == 'S':
+                    query_pos = query_pos + 1
+                elif c == 'I':
+                    query_pos = query_pos + 1
+                elif c == 'D':
+                    ref_pos = ref_pos + 1
+                elif c == 'M':
+                    ref_pos = ref_pos + 1
+                    query_pos = query_pos + 1
+
+                if background_bk1_end>background_bk2_start and background_bk2_end>background_bk1_start:
+                # 此时实际考虑范围为[background_bk1_start,background_bk2_end]
+                    if ref_pos>=background_bk1_start and ref_pos<=background_bk2_end:
+                            kmer = aln.query_sequence[query_pos:query_pos + k]
+                            if len(kmer)==k:
+                                rkmer = get_reverse_comp(kmer)
+                                mkmer = rkmer if rkmer < kmer else kmer
+                                normal_kmer_set.add(mkmer)
+                else:
+                    if ref_pos>=background_bk1_start and ref_pos<=background_bk1_end:
+                            kmer = aln.query_sequence[query_pos:query_pos + k]
+                            if len(kmer)==k:
+                                rkmer = get_reverse_comp(kmer)
+                                mkmer = rkmer if rkmer < kmer else kmer
+                                normal_kmer_set.add(mkmer)
+                    elif ref_pos>=background_bk2_start and ref_pos<=background_bk2_end:
+                            kmer = aln.query_sequence[query_pos:query_pos + k]
+                            if len(kmer)==k:
+                                rkmer = get_reverse_comp(kmer)
+                                mkmer = rkmer if rkmer < kmer else kmer
+                                normal_kmer_set.add(mkmer)
+                if ref_pos>background_bk2_end:
+                    break
     normal_bam.close()
 
     ref_region=ref_dict[chro][ref_bk1-100:ref_bk2+100]

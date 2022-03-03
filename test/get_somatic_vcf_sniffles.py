@@ -12,7 +12,6 @@ def getKV(str):
 if __name__ == '__main__':
 
     for t in range(22,12,-1):
-
         tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_tumor.vcf','r')
         normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_normal.vcf','r')
         somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
