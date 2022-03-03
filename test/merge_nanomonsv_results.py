@@ -10,6 +10,8 @@ if __name__ == '__main__':
                 if l[0]!='#':
                     fout.write(l)
                 else:
-                    break
+                    continue
+            else:
+                break
     fin.close()
     fout.close()

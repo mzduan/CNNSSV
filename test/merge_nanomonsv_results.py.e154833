@@ -1,0 +1,3 @@
+/opt/tsce4/torque6/share/cu12/mom_priv/jobs/154833.mu01.SC: line 3: syntax error near unexpected token `('
+/opt/tsce4/torque6/share/cu12/mom_priv/jobs/154833.mu01.SC: line 3: `fout=open('/home/mzduan/somaticSV/COLO829_results/nanomonsv_results.vcf','w')'
+Host key verification failed.
