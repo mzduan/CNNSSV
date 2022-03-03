@@ -747,26 +747,26 @@ if __name__ == '__main__':
     # # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
     #
     #
-    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=16,c='r',label="CNNSSV")
-    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=16,c='r',marker='^')
-    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=16,c='r',marker='s')
+    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=50,c='r',label="CNNSSV")
+    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=50,c='r',marker='^')
+    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=50,c='r',marker='s')
     #
     #
-    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=16, c='g',label="cutesv")
-    # plt.scatter(cutesv_recall_5, cutesv_precision_5, s=16, c='g', marker='^')
-    # plt.scatter(cutesv_recall_7, cutesv_precision_7, s=16, c='g', marker='s')
+    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=50, c='g',label="cutesv")
+    # plt.scatter(cutesv_recall_5, cutesv_precision_5, s=50, c='g', marker='^')
+    # plt.scatter(cutesv_recall_7, cutesv_precision_7, s=50, c='g', marker='s')
     #
-    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=16, c='b',label="sniffles")
-    # plt.scatter(sniffles_recall_5, sniffles_precision_5, s=16, c='b', marker='^')
-    # plt.scatter(sniffles_recall_7, sniffles_precision_7, s=16, c='b', marker='s')
+    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=50, c='b',label="sniffles")
+    # plt.scatter(sniffles_recall_5, sniffles_precision_5, s=50, c='b', marker='^')
+    # plt.scatter(sniffles_recall_7, sniffles_precision_7, s=50, c='b', marker='s')
     #
-    # plt.scatter(nano_recall_2, nano_precision_2, s=16, c='y',label="nanomonsv")
-    # plt.scatter(nano_recall_5, nano_precision_5, s=16, c='y', marker='^')
-    # plt.scatter(nano_recall_7, nano_precision_7, s=16, c='y', marker='s')
+    # plt.scatter(nano_recall_2, nano_precision_2, s=50, c='y',label="nanomonsv")
+    # plt.scatter(nano_recall_5, nano_precision_5, s=50, c='y', marker='^')
+    # plt.scatter(nano_recall_7, nano_precision_7, s=50, c='y', marker='s')
     #
-    # plt.scatter(manta_recall_2, manta_precision_2, s=16, c='c',label="manta")
-    # plt.scatter(manta_recall_5, manta_precision_5, s=16, c='c', marker='^')
-    # plt.scatter(manta_recall_7, manta_precision_7, s=16, c='c', marker='s')
+    # plt.scatter(manta_recall_2, manta_precision_2, s=50, c='c',label="manta")
+    # plt.scatter(manta_recall_5, manta_precision_5, s=50, c='c', marker='^')
+    # plt.scatter(manta_recall_7, manta_precision_7, s=50, c='c', marker='s')
     #
     # # plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
     # # plt.scatter(x, manta_recall, s=20,c='m',label='manta')
@@ -869,89 +869,85 @@ if __name__ == '__main__':
 
 # 绘制NA19238_NA19239真实数据上的结果，点状图
 
-#     plt.figure(figsize=(10,10))
-#     # CNNSSV_recall_2=0.464
-#     # CNNSSV_precision_2=0.582
-#     # CNNSSV_recall_5=0.484
-#     # CNNSSV_precision_5=0.589
-#     # CNNSSV_recall_7 = 0.504
-#     # CNNSSV_precision_7 = 0.572
-#
-#     CNNSSV_recall_2 = 0.364
-#     CNNSSV_precision_2 = 0.382
-#     CNNSSV_recall_5 = 0.384
-#     CNNSSV_precision_5 = 0.289
-#     CNNSSV_recall_7 = 0.404
-#     CNNSSV_precision_7 = 0.272
-#
-#     CNNSSV_recall_2 = 0.476
-#     CNNSSV_precision_2 = 0.529
-#     CNNSSV_recall_5 = 0.509
-#     CNNSSV_precision_5 = 0.402
-#     CNNSSV_recall_7 = 0.536
-#     CNNSSV_precision_7 = 0.390
-# # =======
+    plt.figure(figsize=(10,10))
+    # CNNSSV_recall_2=0.464
+    # CNNSSV_precision_2=0.582
+    # CNNSSV_recall_5=0.484
+    # CNNSSV_precision_5=0.589
+    # CNNSSV_recall_7 = 0.504
+    # CNNSSV_precision_7 = 0.572
+
+    # CNNSSV_recall_2 = 0.364
+    # CNNSSV_precision_2 = 0.382
+    # CNNSSV_recall_5 = 0.384
+    # CNNSSV_precision_5 = 0.289
+    # CNNSSV_recall_7 = 0.404
+    # CNNSSV_precision_7 = 0.272
+
+    CNNSSV_recall_2 = 0.476
+    CNNSSV_precision_2 = 0.529
+    CNNSSV_recall_5 = 0.509
+    CNNSSV_precision_5 = 0.402
+    CNNSSV_recall_7 = 0.536
+    CNNSSV_precision_7 = 0.390
+
 #     CNNSSV_recall_2=0.464
 #     CNNSSV_precision_2=0.582
 #     CNNSSV_recall_5=0.484
 #     CNNSSV_precision_5=0.589
 #     CNNSSV_recall_7 = 0.504
 #     CNNSSV_precision_7 = 0.572
+#
+#     CNNSSV_recall_2=0.364
+#     CNNSSV_precision_2=0.382
+#     CNNSSV_recall_5=0.384
+#     CNNSSV_precision_5=0.289
+#     CNNSSV_recall_7 = 0.404
+#     CNNSSV_precision_7 = 0.272
 
-    # CNNSSV_recall_2=0.364
-    # CNNSSV_precision_2=0.382
-    # CNNSSV_recall_5=0.384
-    # CNNSSV_precision_5=0.289
-    # CNNSSV_recall_7 = 0.404
-    # CNNSSV_precision_7 = 0.272
-# >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
+    cutesv_recall_2 = 0.496
+    cutesv_precision_2 = 0.164
+    cutesv_recall_5 = 0.556
+    cutesv_precision_5 =0.111
+    cutesv_recall_7 = 0.549
+    cutesv_precision_7 = 0.098
+
+    sniffles_recall_2 = 0.423
+    sniffles_precision_2 =0.138
+    sniffles_recall_5 =0.476
+    sniffles_precision_5 =0.110
+    sniffles_recall_7 = 0.509
+    sniffles_precision_7 = 0.111
+
+    nano_recall_2 = 0.132
+    nano_precision_2 = 0.809
+    nano_recall_5 = 0.178
+    nano_precision_5 = 0.609
+    nano_recall_7 = 0.178
+    nano_precision_7 =0.520
+
+    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
+    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
+    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
 
 
+    plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=50,c='r',label="CNNSSV")
+    plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=50,c='r',marker='^')
+    plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=50,c='r',marker='s')
 
-#     cutesv_recall_2 = 0.496
-#     cutesv_precision_2 = 0.164
-#     cutesv_recall_5 = 0.556
-#     cutesv_precision_5 =0.111
-#     cutesv_recall_7 = 0.549
-#     cutesv_precision_7 = 0.098
-#
-#     sniffles_recall_2 = 0.423
-#     sniffles_precision_2 =0.138
-#     sniffles_recall_5 =0.476
-#     sniffles_precision_5 =0.110
-#     sniffles_recall_7 = 0.509
-#     sniffles_precision_7 = 0.111
-#
-#     nano_recall_2 = 0.132
-#     nano_precision_2 = 0.809
-#     nano_recall_5 = 0.178
-#     nano_precision_5 = 0.609
-#     nano_recall_7 = 0.178
-#     nano_precision_7 =0.520
-#
-#     # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
-#     # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
-#     # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
-#
-#
-# # <<<<<<< HEAD
-#     plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=16,c='r',label="CNNSSV")
-#     plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=16,c='r',marker='^')
-#     plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=16,c='r',marker='s')
-#
-#
-#     plt.scatter(cutesv_recall_2, cutesv_precision_2, s=16, c='g',label="cutesv")
-#     plt.scatter(cutesv_recall_5, cutesv_precision_5, s=16, c='g', marker='^')
-#     plt.scatter(cutesv_recall_7, cutesv_precision_7, s=16, c='g', marker='s')
-#
-#     plt.scatter(sniffles_recall_2, sniffles_precision_2, s=16, c='b',label="sniffles")
-#     plt.scatter(sniffles_recall_5, sniffles_precision_5, s=16, c='b', marker='^')
-#     plt.scatter(sniffles_recall_7, sniffles_precision_7, s=16, c='b', marker='s')
-#
-#     plt.scatter(nano_recall_2, nano_precision_2, s=16, c='y',label="nanomonsv")
-#     plt.scatter(nano_recall_5, nano_precision_5, s=16, c='y', marker='^')
-#     plt.scatter(nano_recall_7, nano_precision_7, s=16, c='y', marker='s')
-# # =======
+
+    plt.scatter(cutesv_recall_2, cutesv_precision_2, s=50, c='g',label="cutesv")
+    plt.scatter(cutesv_recall_5, cutesv_precision_5, s=50, c='g', marker='^')
+    plt.scatter(cutesv_recall_7, cutesv_precision_7, s=50, c='g', marker='s')
+
+    plt.scatter(sniffles_recall_2, sniffles_precision_2, s=50, c='b',label="sniffles")
+    plt.scatter(sniffles_recall_5, sniffles_precision_5, s=50, c='b', marker='^')
+    plt.scatter(sniffles_recall_7, sniffles_precision_7, s=50, c='b', marker='s')
+
+    plt.scatter(nano_recall_2, nano_precision_2, s=50, c='y',label="nanomonsv")
+    plt.scatter(nano_recall_5, nano_precision_5, s=50, c='y', marker='^')
+    plt.scatter(nano_recall_7, nano_precision_7, s=50, c='y', marker='s')
+# =======
 #     plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=12,c='r',label="CNNSSV")
 #     plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=12,c='r',marker='^')
 #     plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=12,c='r',marker='s')
@@ -968,35 +964,36 @@ if __name__ == '__main__':
 #     plt.scatter(nano_recall_2, nano_precision_2, s=12, c='c',label="nanomonsv")
 #     plt.scatter(nano_recall_5, nano_precision_5, s=12, c='c', marker='^')
 #     plt.scatter(nano_recall_7, nano_precision_7, s=12, c='c', marker='s')
-# # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
-#
-#
-#     plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
-#     plt.legend(["0.2","0.5","0.7"])
-# # <<<<<<< HEAD
+# >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
+
+    plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
+    plt.legend(["0.2","0.5","0.7"])
+# <<<<<<< HEAD
 #     plt.xlabel("recall", fontsize=18)
 #     plt.ylabel("precision", fontsize=18)
 #     plt.xlim(0,1)
 #     plt.ylim(0,1)
 #     plt.tick_params(labelsize=16)
-# # =======
-#     plt.xlabel("recall", fontsize=16)
-#     plt.ylabel("precision", fontsize=16)
-#     plt.xlim(0,1)
-#     plt.ylim(0,1)
-# # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
-#     # plt.show()
-#     # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
-#     color = ['r', 'g', 'b', 'c']
-#     markers = ['o', '^', 's']
-# # <<<<<<< HEAD
-#     plt.legend(loc='lower left',prop={'size': 14})
-#     plt.savefig('/Users/duan/Desktop/NA19238_NA19239_plot_1.png')
-# # =======
+# =======
+    plt.xlabel("recall", fontsize=18)
+    plt.ylabel("precision", fontsize=18)
+    plt.tick_params(labelsize=16)
+    plt.xlim(0,1)
+    plt.ylim(0,1)
+# >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
+    # plt.show()
+    # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
+    color = ['r', 'g', 'b', 'c']
+    markers = ['o', '^', 's']
+# <<<<<<< HEAD
+    plt.legend(loc='lower left',prop={'size': 14})
+    plt.savefig('/Users/duan/Desktop/NA19238_NA19239_plot_1.png')
+# =======
 #     plt.legend(loc='lower left')
 #     plt.savefig('/home/duan/Desktop/NA19238_NA19239_plot_1.png')
-# # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
-#     plt.close()
+# >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
+
+    plt.close()
 
 
 #画运行时间的折线图，CNNSSV与nanomonsv比较
@@ -1261,111 +1258,111 @@ if __name__ == '__main__':
 
 
 
-    plt.figure(figsize=(20, 10))
-    name_list = ['ngmlr', 'minimap2']
-    CNNSSV_ngmlr_f1 = [0.955,0.969,0.969]
-    CNNSSV_minimap2_f1=[0.738,0.745,0.716]
-    # CNNSSV_minimap2_f1 = [0.694,0.696,0.704]
-    cutesv_ngmlr_f1 = [0.930,0.947,0.946]
-    cutesv_minimap2_f1 = [0.662,0.664,0.666]
-    sniffles_ngmlr_f1 = [0.866,0.869,0.864]
-    sniffles_minimap2_f1 = [0.694,0.696,0.704]
-    nanomonsv_ngmlr_f1 = [0.387,0.459,0.507]
-    nanomonsv_minimap2_f1 = [0.377,0.416,0.427]
-
-    x = list(range(2))
-    total_width, n = 0.8, 4
-    width = total_width / n
-
-    plt.subplot(131)
-    plt.tick_params(labelsize=16)
-    ax = plt.gca()  # gca:get current axis得到当前轴
-    # 设置图片的右边框和上边框为不显示
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    plt.ylim(0, 1)
-    plt.xlabel("Purity=0.2", fontsize=18)
-    plt.ylabel("F1-score", fontsize=18)
-    plt.bar(x, [CNNSSV_ngmlr_f1[0], CNNSSV_minimap2_f1[0]], width=width, label='CNNSSV', fc='r')
-    for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[0], CNNSSV_minimap2_f1[0]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [cutesv_ngmlr_f1[0], cutesv_minimap2_f1[0]], width=width, label='cutesv', fc='g',
-            tick_label=name_list)
-    for label_x, label_y in zip(x, [cutesv_ngmlr_f1[0], cutesv_minimap2_f1[0]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [sniffles_ngmlr_f1[0], sniffles_minimap2_f1[0]], width=width, label='sniffles', fc='b')
-    for label_x, label_y in zip(x, [sniffles_ngmlr_f1[0], sniffles_minimap2_f1[0]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [nanomonsv_ngmlr_f1[0], nanomonsv_minimap2_f1[0]], width=width, label='nanomonsv', fc='y')
-    for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[0], nanomonsv_minimap2_f1[0]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-
-    plt.subplot(132)
-    plt.tick_params(labelsize=16)
-    ax = plt.gca()  # gca:get current axis得到当前轴
-    # 设置图片的右边框和上边框为不显示
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    plt.ylim(0, 1)
-    plt.xlabel("Purity=0.5", fontsize=18)
-    plt.ylabel("F1-score", fontsize=18)
-    plt.bar(x, [CNNSSV_ngmlr_f1[1], CNNSSV_minimap2_f1[1]], width=width, label='CNNSSV', fc='r')
-    for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[1], CNNSSV_minimap2_f1[1]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [cutesv_ngmlr_f1[1], cutesv_minimap2_f1[1]], width=width, label='cutesv', fc='g',
-            tick_label=name_list)
-    for label_x, label_y in zip(x, [cutesv_ngmlr_f1[1], cutesv_minimap2_f1[1]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [sniffles_ngmlr_f1[1], sniffles_minimap2_f1[1]], width=width, label='sniffles', fc='b')
-    for label_x, label_y in zip(x, [sniffles_ngmlr_f1[1], sniffles_minimap2_f1[1]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [nanomonsv_ngmlr_f1[1], nanomonsv_minimap2_f1[1]], width=width, label='nanomonsv', fc='y')
-    for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[1], nanomonsv_minimap2_f1[1]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-
-    plt.subplot(133)
-    plt.tick_params(labelsize=16)
-    ax = plt.gca()  # gca:get current axis得到当前轴
-    # 设置图片的右边框和上边框为不显示
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    plt.ylim(0, 1)
-    plt.xlabel("Purity=0.7", fontsize=18)
-    plt.ylabel("F1-score", fontsize=18)
-    plt.bar(x, [CNNSSV_ngmlr_f1[2], CNNSSV_minimap2_f1[2]], width=width, label='CNNSSV', fc='r')
-
-    for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[2], CNNSSV_minimap2_f1[2]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [cutesv_ngmlr_f1[2], cutesv_minimap2_f1[2]], width=width, label='cutesv', fc='g',
-            tick_label=name_list)
-    for label_x, label_y in zip(x, [cutesv_ngmlr_f1[2], cutesv_minimap2_f1[2]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [sniffles_ngmlr_f1[2], sniffles_minimap2_f1[2]], width=width, label='sniffles', fc='b')
-    for label_x, label_y in zip(x, [sniffles_ngmlr_f1[2], sniffles_minimap2_f1[2]]):
-        plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, [nanomonsv_ngmlr_f1[2], nanomonsv_minimap2_f1[2]], width=width, label='nanomonsv', fc='y')
-    for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[2], nanomonsv_minimap2_f1[2]]):
-        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=12)
-    plt.legend(loc='lower right', bbox_to_anchor=(1.45, 0),prop={'size': 14})
-    plt.savefig('/Users/duan/Desktop/minimap2_f1_vs.png')
+    # plt.figure(figsize=(20, 10))
+    # name_list = ['ngmlr', 'minimap2']
+    # CNNSSV_ngmlr_f1 = [0.955,0.969,0.969]
+    # CNNSSV_minimap2_f1=[0.738,0.745,0.716]
+    # # CNNSSV_minimap2_f1 = [0.694,0.696,0.704]
+    # cutesv_ngmlr_f1 = [0.930,0.947,0.946]
+    # cutesv_minimap2_f1 = [0.662,0.664,0.666]
+    # sniffles_ngmlr_f1 = [0.866,0.869,0.864]
+    # sniffles_minimap2_f1 = [0.694,0.696,0.704]
+    # nanomonsv_ngmlr_f1 = [0.387,0.459,0.507]
+    # nanomonsv_minimap2_f1 = [0.377,0.416,0.427]
+    #
+    # x = list(range(2))
+    # total_width, n = 0.8, 4
+    # width = total_width / n
+    #
+    # plt.subplot(131)
+    # plt.tick_params(labelsize=16)
+    # ax = plt.gca()  # gca:get current axis得到当前轴
+    # # 设置图片的右边框和上边框为不显示
+    # ax.spines['right'].set_color('none')
+    # ax.spines['top'].set_color('none')
+    # plt.ylim(0, 1)
+    # plt.xlabel("Purity=0.2", fontsize=18)
+    # plt.ylabel("F1-score", fontsize=18)
+    # plt.bar(x, [CNNSSV_ngmlr_f1[0], CNNSSV_minimap2_f1[0]], width=width, label='CNNSSV', fc='r')
+    # for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[0], CNNSSV_minimap2_f1[0]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [cutesv_ngmlr_f1[0], cutesv_minimap2_f1[0]], width=width, label='cutesv', fc='g',
+    #         tick_label=name_list)
+    # for label_x, label_y in zip(x, [cutesv_ngmlr_f1[0], cutesv_minimap2_f1[0]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [sniffles_ngmlr_f1[0], sniffles_minimap2_f1[0]], width=width, label='sniffles', fc='b')
+    # for label_x, label_y in zip(x, [sniffles_ngmlr_f1[0], sniffles_minimap2_f1[0]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [nanomonsv_ngmlr_f1[0], nanomonsv_minimap2_f1[0]], width=width, label='nanomonsv', fc='y')
+    # for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[0], nanomonsv_minimap2_f1[0]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    #
+    # plt.subplot(132)
+    # plt.tick_params(labelsize=16)
+    # ax = plt.gca()  # gca:get current axis得到当前轴
+    # # 设置图片的右边框和上边框为不显示
+    # ax.spines['right'].set_color('none')
+    # ax.spines['top'].set_color('none')
+    # plt.ylim(0, 1)
+    # plt.xlabel("Purity=0.5", fontsize=18)
+    # plt.ylabel("F1-score", fontsize=18)
+    # plt.bar(x, [CNNSSV_ngmlr_f1[1], CNNSSV_minimap2_f1[1]], width=width, label='CNNSSV', fc='r')
+    # for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[1], CNNSSV_minimap2_f1[1]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [cutesv_ngmlr_f1[1], cutesv_minimap2_f1[1]], width=width, label='cutesv', fc='g',
+    #         tick_label=name_list)
+    # for label_x, label_y in zip(x, [cutesv_ngmlr_f1[1], cutesv_minimap2_f1[1]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [sniffles_ngmlr_f1[1], sniffles_minimap2_f1[1]], width=width, label='sniffles', fc='b')
+    # for label_x, label_y in zip(x, [sniffles_ngmlr_f1[1], sniffles_minimap2_f1[1]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [nanomonsv_ngmlr_f1[1], nanomonsv_minimap2_f1[1]], width=width, label='nanomonsv', fc='y')
+    # for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[1], nanomonsv_minimap2_f1[1]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    #
+    # plt.subplot(133)
+    # plt.tick_params(labelsize=16)
+    # ax = plt.gca()  # gca:get current axis得到当前轴
+    # # 设置图片的右边框和上边框为不显示
+    # ax.spines['right'].set_color('none')
+    # ax.spines['top'].set_color('none')
+    # plt.ylim(0, 1)
+    # plt.xlabel("Purity=0.7", fontsize=18)
+    # plt.ylabel("F1-score", fontsize=18)
+    # plt.bar(x, [CNNSSV_ngmlr_f1[2], CNNSSV_minimap2_f1[2]], width=width, label='CNNSSV', fc='r')
+    #
+    # for label_x, label_y in zip(x, [CNNSSV_ngmlr_f1[2], CNNSSV_minimap2_f1[2]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [cutesv_ngmlr_f1[2], cutesv_minimap2_f1[2]], width=width, label='cutesv', fc='g',
+    #         tick_label=name_list)
+    # for label_x, label_y in zip(x, [cutesv_ngmlr_f1[2], cutesv_minimap2_f1[2]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # # plt.bar(x, sniffles_f1, width=width, label='sniffles', tick_label=name_list, fc='g')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [sniffles_ngmlr_f1[2], sniffles_minimap2_f1[2]], width=width, label='sniffles', fc='b')
+    # for label_x, label_y in zip(x, [sniffles_ngmlr_f1[2], sniffles_minimap2_f1[2]]):
+    #     plt.text(label_x, label_y, '%.3f' % label_y, ha='center', va='bottom', size=12)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, [nanomonsv_ngmlr_f1[2], nanomonsv_minimap2_f1[2]], width=width, label='nanomonsv', fc='y')
+    # for label_x, label_y in zip(x, [nanomonsv_ngmlr_f1[2], nanomonsv_minimap2_f1[2]]):
+    #     plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=12)
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.45, 0),prop={'size': 14})
+    # plt.savefig('/Users/duan/Desktop/minimap2_f1_vs.png')

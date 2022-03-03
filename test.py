@@ -3,6 +3,7 @@ import torch
 import TestSet
 from torch.utils.data import DataLoader
 import re
+import os
 import torch.nn as nn
 import matplotlib.pyplot as plt
 import sys
@@ -119,9 +120,12 @@ def predict(model_path,features_path,out_path,purity):
             # if support_counts>=3:
             #     if sv_type == 'INS':
             #         end = start + 1
-            #     fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + sv_type + '\t' + str(splits[3]) + '\n')
+            #     fout.write(chro + '\t' + str(start) + '\t' + str(end) + '\t' + + '\t' + str(splits[3]) + '\n')
             print("not a somatic sv")
     fout.close()
+
+    os.system('sort '+file_name+' -k 2 -n')
+
     # fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
 
     # roc_auc=auc(fpr_lr,tpr_lr)
