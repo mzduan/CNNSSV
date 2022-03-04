@@ -39,6 +39,14 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 
     query_pos = 0
     ref_pos = aln.reference_start
+
+
+
+
+
+    left_bk_in_query=0
+    right_bk_in_query=0
+
     for i in range(len(base_cigar)):
         c = base_cigar[i]
         if c == 'S':
@@ -52,29 +60,33 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
             query_pos = query_pos + 1
         if ref_pos == left:
             overlap_left=True
-            for j in range(query_pos - k + 1, query_pos + 1):
-                kmer = aln.query_sequence[j:j + k]
-                rkmer = get_reverse_comp(kmer)
-                mkmer = rkmer if rkmer < kmer else kmer
-                # print(ref_pos,kmer,rkmer)
-                if mkmer not in tumor_kmer_set:
-                    # print(ref_pos,kmer,rkmer)
-                    left_lost_count = left_lost_count + 1
-                # else:
-                #     print(ref_pos,kmer,rkmer)
-            # kmer_sum += k
-        if ref_pos == right:
-            overlap_right = True
-            for j in range(query_pos - k + 1, query_pos + 1):
-                kmer = aln.query_sequence[j:j + k]
-                rkmer = get_reverse_comp(kmer)
-                mkmer = rkmer if rkmer < kmer else kmer
-                if mkmer not in tumor_kmer_set:
-                    # print(ref_pos, kmer, rkmer)
-                    right_lost_count = right_lost_count + 1
-            # kmer_sum += k
-        if ref_pos > right:
+            left_bk_in_query=query_pos
+        elif ref_pos == right:
+            overlap_right=True
+            right_bk_in_query=query_pos
+        elif ref_pos > right:
             break
+
+    if overlap_left:
+        for j in range(left_bk_in_query - k + 1, left_bk_in_query + 1):
+            kmer = aln.query_sequence[j:j + k]
+            if len(kmer) < k:
+                continue
+            rkmer = get_reverse_comp(kmer)
+            mkmer = rkmer if rkmer < kmer else kmer
+            if mkmer not in tumor_kmer_set:
+                left_lost_count = left_lost_count + 1
+    if overlap_right:
+        for j in range(right_bk_in_query- k + 1, right_bk_in_query + 1):
+            kmer = aln.query_sequence[j:j + k]
+            if len(kmer) < k:
+                continue
+            rkmer = get_reverse_comp(kmer)
+            mkmer = rkmer if rkmer < kmer else kmer
+            if mkmer not in tumor_kmer_set:
+                right_lost_count = right_lost_count + 1
+
+
     # print(lost_count)
     return left_lost_count/k,right_lost_count/k,overlap_left,overlap_right
 

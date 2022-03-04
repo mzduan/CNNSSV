@@ -2,7 +2,7 @@ import re
 import numpy as np
 if __name__ == '__main__':
 
-    sv_fin=open('/Users/duan/Desktop/string_features.txt','r')
+    sv_fin=open('/Users/duan/Desktop/string_features_lost.txt','r')
     gd_fin=open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r')
 
     DEL_somatic=list()
@@ -91,12 +91,12 @@ if __name__ == '__main__':
     # for p in DUP_somatic:
     #     print(p)
 
-    print(np.mean(DEL_somatic)/32)
-    print(np.mean(INS_somatic)/64)
-    print(np.mean(INV_somatic)/64)
-    print(np.mean(DUP_somatic)/32)
+    print(np.mean(DEL_somatic))
+    print(np.mean(INS_somatic))
+    print(np.mean(INV_somatic))
+    print(np.mean(DUP_somatic))
 
-    print(np.mean(DEL_germline)/32)
-    print(np.mean(INS_germline)/64)
-    print(np.mean(INV_germline)/64)
-    print(np.mean(DUP_germline)/32)
+    print(np.mean(DEL_germline))
+    print(np.mean(INS_germline))
+    print(np.mean(INV_germline))
+    print(np.mean(DUP_germline))
