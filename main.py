@@ -21,6 +21,7 @@ if __name__ == '__main__':
     parser.add_argument("--min_map_qual", help="min map qual(default=20)", default=20, type=int, required=False)
     parser.add_argument("-t", help="thead number", type=int, required=True)
     parser.add_argument("-p", help="purity", type=str, required=False)
+    parser.add_argument("-k", help="k-mer size", type=int, required=False)
     args = parser.parse_args()
 
     if os.path.exists(args.wkdir):
@@ -57,7 +58,7 @@ if __name__ == '__main__':
             for bk in cdup[chro]:
                 fout.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[0] + bk[1]) + '\t' + 'DUP\t'+str(bk[1])+'\n')
     print("Generate Features for Cancidate SVs")
-    run(cdel,cins,cinv,cdup,ref_dict,args.tumor,args.normal,args.wkdir,int(args.t))
+    run(cdel,cins,cinv,cdup,ref_dict,args.tumor,args.normal,args.wkdir,int(args.t),int(args.k))
     # print("Predict...")
     # predict(args.model,args.wkdir,args.output,args.p)
     # print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))

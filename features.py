@@ -171,7 +171,7 @@ def get_ref_reads(sv_type,chro,bk,bam_file,sv_reads):
     bam.close()
     return ref_reads
 
-def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
+def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir,kmer_size):
 
 #  bk的格式：
 # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
@@ -217,7 +217,7 @@ def get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam
 
     type_counts,medium,mean_region_counts,min_lnormal_kmer_radio,max_lnormal_kmer_radio,mean_rnormal_kmer_radio,\
         min_rnormal_kmer_radio,max_rnormal_kmer_radio,mean_rnormal_kmer_radio,mean_read_counts,mean_clus,max_clus=get_somatic_kmer(sv_type, somatic_support_reads,
-                                                         somatic_bam_file,germline_bam_file, ref_dict, chro, bk)
+                                                         somatic_bam_file,germline_bam_file, ref_dict, chro, bk,kmer_size)
 
 
     # print(type_counts,medium,mean_region_counts,mean_read_counts,mean_clus,max_clus)
@@ -538,7 +538,7 @@ def transfer(s_seq_list,g_seq_list,s_direction_list,g_direction_list,s_depth_lis
 #     # np.save(sv_str + '/sup_feat',sub_features)
 
 
-def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir):
+def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir,kmer_size):
 
     print("Generate Features for\t",sv_type,'\t',bk[0],'\t',bk[1])
     try:
@@ -546,7 +546,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
         revised_region_reference_seq, revised2ref, \
         region_start,region_end,bk1_in_revised, bk2_in_revised,\
         somatic_support_reads,germline_support_reads,\
-        somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir)
+        somatic_ref_reads,germline_ref_reads = get_revised_reference(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_file,output_dir,kmer_size)
 
 
         # print("somatic sv reads")
@@ -676,7 +676,7 @@ def generate_features(sv_type,chro,bk,ref_dict,somatic_bam_file,germline_bam_fil
 
 
 import re
-def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
+def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num,kmer_size):
 
     # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
     # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
@@ -713,26 +713,26 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num):
         for bk in cdel[chro]:
             # if bk[0] ==12239216:
             #     generate_features("DEL", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("DEL",chro,bk,ref_dict,tumor,normal,wkdir,kmer_size))
     for key in cins:
         chro=key
         for bk in cins[chro]:
             # if bk[0]==1132476:
             #     generate_features("INS", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("INS",chro,bk,ref_dict,tumor,normal,wkdir,kmer_size))
     for key in cinv:
         chro=key
         for bk in cinv[chro]:
             # if bk[0] ==477908:
             #     generate_features("INV", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("INV",chro,bk,ref_dict,tumor,normal,wkdir,kmer_size))
     for key in cdup:
         chro=key
         for bk in cdup[chro]:
             # if bk[0] == 1626856:
             #     generate_features("DUP", chro, bk, ref_dict, tumor, normal, wkdir)
             # pool.submit(generate_features, "DUP", chro, bk, ref_dict, tumor, normal, wkdir)
-            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir))
+            pool.apply_async(generate_features,("DUP",chro,bk,ref_dict,tumor,normal,wkdir,kmer_size))
     # # pool.shutdown()
     pool.close()
     pool.join()

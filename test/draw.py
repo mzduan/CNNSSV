@@ -1377,18 +1377,18 @@ if __name__ == '__main__':
     # INV_somatic=0.8978674892703863
     # DUP_somatic=0.9075
     #
-    # DEL_germline=0.06164109563253012
-    # INS_germline=0.05931238615664845
-    # INV_germline=0.07434189785624212
-    # DUP_germline=0.05656611658808401
 
 
-    somatic=[0.9055755395683454,0.9580592105263158,0.8978674892703863,0.9075]
-    germline=[0.06164109563253012,0.05931238615664845,0.07434189785624212,0.05656611658808401]
-
+    somatic=[0.9347876537479693,0.9889643463497454,0.9268309566662051,0.9367741935483872]
+    germline=[0.06362951807228916,0.06122568893589517,0.07674002359354025,0.0583908300264093]
 
     plt.figure(figsize=(20,10))
     name_list = ['DEL','INS','INV','DUP']
+    ax = plt.gca()  # gca:get current axis得到当前轴
+    # 设置图片的右边框和上边框为不显示
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
 
     x = list(range(len(somatic)))
     total_width, n = 0.8, 3
@@ -1413,4 +1413,40 @@ if __name__ == '__main__':
     plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0),prop={'size': 14})
     # plt.legend()
     # plt.show()
-    plt.savefig('/Users/duan/Desktop/somatic_unique_k-mer.png')
+    plt.savefig('/Users/duan/Desktop/tumor_unique_k-mer.png')
+
+
+
+    somatic = [0.9409976295990929, 0.9111710356993101, 0.9036470364431882, 0.0696450878095378]
+    germline = [0.05632072812210544, 0.050946663153536347, 0.03771204533985482, 0.0473739909272177]
+
+
+    plt.figure(figsize=(20, 10))
+    name_list = ['DEL', 'INS', 'INV', 'DUP']
+
+    ax = plt.gca()  # gca:get current axis得到当前轴
+        # 设置图片的右边框和上边框为不显示
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    x = list(range(len(somatic)))
+    total_width, n = 0.8, 3
+    width = total_width / n
+    plt.ylim(0, 1)
+    plt.xlabel("SV type", fontsize=18)
+    plt.ylabel("tumor lost k-mer radio", fontsize=18)
+    plt.tick_params(labelsize=16)
+    plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
+    for label_x, label_y in zip(x, somatic):
+        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, germline, width=width, label='germline sv', fc='g')
+    for label_x, label_y in zip(x, germline):
+        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
+
+    plt.xticks([index + width / 2 for index in range(len(name_list))], name_list)
+    # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
+    plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0), prop={'size': 14})
+    # plt.legend()
+    # plt.show()
+    plt.savefig('/Users/duan/Desktop/tumor_lost_k-mer_radio.png')

@@ -2,7 +2,7 @@ import re
 import numpy as np
 if __name__ == '__main__':
 
-    sv_fin=open('/Users/duan/Desktop/string_features_lost.txt','r')
+    sv_fin=open('/Users/duan/Desktop/string_features.txt','r')
     gd_fin=open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r')
 
     DEL_somatic=list()
