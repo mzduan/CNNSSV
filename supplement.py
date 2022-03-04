@@ -401,11 +401,11 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
             tmp_k=0
             normal_left_radio,normal_right_radio,overlap_left,overlap_right=get_unique_kmer_radio_in_normal(aln, ref_bk1, ref_bk2, k, tumor_support_reads_kmers)
             if overlap_left:
-                tmp_lost_count=int(normal_left_radio*k)
+                tmp_lost_count+=int(normal_left_radio*k)
                 tmp_k+=k
                 normal_left_radios.append(normal_left_radio)
             if overlap_right:
-                tmp_lost_count = int(normal_right_radio * k)
+                tmp_lost_count+= int(normal_right_radio * k)
                 tmp_k+=k
                 normal_right_radios.append(normal_right_radio)
             string_features_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(tmp_lost_count) + '\t' + str(tmp_k) + '\n')
