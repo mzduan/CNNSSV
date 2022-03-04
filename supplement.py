@@ -59,11 +59,13 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
             ref_pos = ref_pos + 1
             query_pos = query_pos + 1
         if ref_pos == left:
-            overlap_left=True
-            left_bk_in_query=query_pos
+            if not overlap_left:
+                overlap_left=True
+                left_bk_in_query=query_pos
         elif ref_pos == right:
-            overlap_right=True
-            right_bk_in_query=query_pos
+            if not overlap_right:
+                overlap_right=True
+                right_bk_in_query=query_pos
         elif ref_pos > right:
             break
 

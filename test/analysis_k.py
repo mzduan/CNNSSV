@@ -26,12 +26,12 @@ if __name__ == '__main__':
             sv_type=infos[3]
 
             somatic_unique_kmer_count=int(infos[4])
-
+            count_sum=int(infos[5])
             if sv_type=='INS':
                 sv_end=sv_start+1
             else:
                 sv_end=sv_start+sv_len
-            sv_candidates.append((chrom,sv_start,sv_end,sv_type,somatic_unique_kmer_count))
+            sv_candidates.append((chrom,sv_start,sv_end,sv_type,somatic_unique_kmer_count,count_sum))
         else:
             break
     gd = list()
@@ -62,23 +62,31 @@ if __name__ == '__main__':
                 if abs(int(p[1])-int(g[1]))<=200 and abs(int(p[2])-int(g[2]))<=200:
                     find_flag=True
                     if p[3]=='DEL':
-                        DEL_somatic.append(p[4])
+                        if p[5] != 0:
+                            DEL_somatic.append(p[4]/p[5])
                     elif p[3]=='INS':
-                        INS_somatic.append(p[4])
+                        if p[5] != 0:
+                            INS_somatic.append(p[4]/p[5])
                     elif p[3]=='INV':
-                        INV_somatic.append(p[4])
+                        if p[5] != 0:
+                            INV_somatic.append(p[4]/p[5])
                     elif p[3]=='DUP':
-                        DUP_somatic.append(p[4])
+                        if p[5] != 0:
+                            DUP_somatic.append(p[4]/p[5])
                     break
         if not find_flag:
             if p[3] == 'DEL':
-                DEL_germline.append(p[4])
+                if p[5]!=0:
+                    DEL_germline.append(p[4]/p[5])
             elif p[3] == 'INS':
-                INS_germline.append(p[4])
+                if p[5] != 0:
+                    INS_germline.append(p[4]/p[5])
             elif p[3] == 'INV':
-                INV_germline.append(p[4])
+                if p[5]!=0:
+                    INV_germline.append(p[4]/p[5])
             elif p[3] == 'DUP':
-                DUP_germline.append(p[4])
+                if p[5] != 0:
+                    DUP_germline.append(p[4]/p[5])
     sv_fin.close()
     gd_fin.close()
 
@@ -90,6 +98,17 @@ if __name__ == '__main__':
     #     print(p)
     # for p in DUP_somatic:
     #     print(p)
+
+    # print(np.mean(DEL_somatic)/32)
+    # print(np.mean(INS_somatic)/64)
+    # print(np.mean(INV_somatic)/64)
+    # print(np.mean(DUP_somatic)/32)
+    #
+    # print(np.mean(DEL_germline)/32)
+    # print(np.mean(INS_germline)/64)
+    # print(np.mean(INV_germline)/64)
+    # print(np.mean(DUP_germline)/32)
+
 
     print(np.mean(DEL_somatic))
     print(np.mean(INS_somatic))

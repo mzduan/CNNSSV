@@ -869,7 +869,7 @@ if __name__ == '__main__':
 
 # 绘制NA19238_NA19239真实数据上的结果，点状图
 
-    plt.figure(figsize=(10,10))
+    # plt.figure(figsize=(10,10))
     # CNNSSV_recall_2=0.464
     # CNNSSV_precision_2=0.582
     # CNNSSV_recall_5=0.484
@@ -884,12 +884,12 @@ if __name__ == '__main__':
     # CNNSSV_recall_7 = 0.404
     # CNNSSV_precision_7 = 0.272
 
-    CNNSSV_recall_2 = 0.476
-    CNNSSV_precision_2 = 0.529
-    CNNSSV_recall_5 = 0.509
-    CNNSSV_precision_5 = 0.402
-    CNNSSV_recall_7 = 0.536
-    CNNSSV_precision_7 = 0.390
+    # CNNSSV_recall_2 = 0.476
+    # CNNSSV_precision_2 = 0.529
+    # CNNSSV_recall_5 = 0.509
+    # CNNSSV_precision_5 = 0.402
+    # CNNSSV_recall_7 = 0.536
+    # CNNSSV_precision_7 = 0.390
 
 #     CNNSSV_recall_2=0.464
 #     CNNSSV_precision_2=0.582
@@ -905,48 +905,48 @@ if __name__ == '__main__':
 #     CNNSSV_recall_7 = 0.404
 #     CNNSSV_precision_7 = 0.272
 
-    cutesv_recall_2 = 0.496
-    cutesv_precision_2 = 0.164
-    cutesv_recall_5 = 0.556
-    cutesv_precision_5 =0.111
-    cutesv_recall_7 = 0.549
-    cutesv_precision_7 = 0.098
-
-    sniffles_recall_2 = 0.423
-    sniffles_precision_2 =0.138
-    sniffles_recall_5 =0.476
-    sniffles_precision_5 =0.110
-    sniffles_recall_7 = 0.509
-    sniffles_precision_7 = 0.111
-
-    nano_recall_2 = 0.132
-    nano_precision_2 = 0.809
-    nano_recall_5 = 0.178
-    nano_precision_5 = 0.609
-    nano_recall_7 = 0.178
-    nano_precision_7 =0.520
+    # cutesv_recall_2 = 0.496
+    # cutesv_precision_2 = 0.164
+    # cutesv_recall_5 = 0.556
+    # cutesv_precision_5 =0.111
+    # cutesv_recall_7 = 0.549
+    # cutesv_precision_7 = 0.098
+    #
+    # sniffles_recall_2 = 0.423
+    # sniffles_precision_2 =0.138
+    # sniffles_recall_5 =0.476
+    # sniffles_precision_5 =0.110
+    # sniffles_recall_7 = 0.509
+    # sniffles_precision_7 = 0.111
+    #
+    # nano_recall_2 = 0.132
+    # nano_precision_2 = 0.809
+    # nano_recall_5 = 0.178
+    # nano_precision_5 = 0.609
+    # nano_recall_7 = 0.178
+    # nano_precision_7 =0.520
 
     # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=10,c='',edgecolors='black',label="purity=0.2")
     # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=10,c='',edgecolors='black',marker='^',label="purity=0.5")
     # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=10,c='',edgecolors='black',marker='s',label="purity=0.7")
 
 
-    plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=50,c='r',label="CNNSSV")
-    plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=50,c='r',marker='^')
-    plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=50,c='r',marker='s')
-
-
-    plt.scatter(cutesv_recall_2, cutesv_precision_2, s=50, c='g',label="cutesv")
-    plt.scatter(cutesv_recall_5, cutesv_precision_5, s=50, c='g', marker='^')
-    plt.scatter(cutesv_recall_7, cutesv_precision_7, s=50, c='g', marker='s')
-
-    plt.scatter(sniffles_recall_2, sniffles_precision_2, s=50, c='b',label="sniffles")
-    plt.scatter(sniffles_recall_5, sniffles_precision_5, s=50, c='b', marker='^')
-    plt.scatter(sniffles_recall_7, sniffles_precision_7, s=50, c='b', marker='s')
-
-    plt.scatter(nano_recall_2, nano_precision_2, s=50, c='y',label="nanomonsv")
-    plt.scatter(nano_recall_5, nano_precision_5, s=50, c='y', marker='^')
-    plt.scatter(nano_recall_7, nano_precision_7, s=50, c='y', marker='s')
+    # plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=50,c='r',label="CNNSSV")
+    # plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=50,c='r',marker='^')
+    # plt.scatter(CNNSSV_recall_7, CNNSSV_precision_7, s=50,c='r',marker='s')
+    #
+    #
+    # plt.scatter(cutesv_recall_2, cutesv_precision_2, s=50, c='g',label="cutesv")
+    # plt.scatter(cutesv_recall_5, cutesv_precision_5, s=50, c='g', marker='^')
+    # plt.scatter(cutesv_recall_7, cutesv_precision_7, s=50, c='g', marker='s')
+    #
+    # plt.scatter(sniffles_recall_2, sniffles_precision_2, s=50, c='b',label="sniffles")
+    # plt.scatter(sniffles_recall_5, sniffles_precision_5, s=50, c='b', marker='^')
+    # plt.scatter(sniffles_recall_7, sniffles_precision_7, s=50, c='b', marker='s')
+    #
+    # plt.scatter(nano_recall_2, nano_precision_2, s=50, c='y',label="nanomonsv")
+    # plt.scatter(nano_recall_5, nano_precision_5, s=50, c='y', marker='^')
+    # plt.scatter(nano_recall_7, nano_precision_7, s=50, c='y', marker='s')
 # =======
 #     plt.scatter(CNNSSV_recall_2, CNNSSV_precision_2, s=12,c='r',label="CNNSSV")
 #     plt.scatter(CNNSSV_recall_5, CNNSSV_precision_5, s=12,c='r',marker='^')
@@ -965,9 +965,9 @@ if __name__ == '__main__':
 #     plt.scatter(nano_recall_5, nano_precision_5, s=12, c='c', marker='^')
 #     plt.scatter(nano_recall_7, nano_precision_7, s=12, c='c', marker='s')
 # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
-
-    plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
-    plt.legend(["0.2","0.5","0.7"])
+#
+#     plt.scatter(0.5, 0.5, s=0, c='b', marker='s')
+#     plt.legend(["0.2","0.5","0.7"])
 # <<<<<<< HEAD
 #     plt.xlabel("recall", fontsize=18)
 #     plt.ylabel("precision", fontsize=18)
@@ -975,25 +975,25 @@ if __name__ == '__main__':
 #     plt.ylim(0,1)
 #     plt.tick_params(labelsize=16)
 # =======
-    plt.xlabel("recall", fontsize=18)
-    plt.ylabel("precision", fontsize=18)
-    plt.tick_params(labelsize=16)
-    plt.xlim(0,1)
-    plt.ylim(0,1)
+#     plt.xlabel("recall", fontsize=18)
+#     plt.ylabel("precision", fontsize=18)
+#     plt.tick_params(labelsize=16)
+#     plt.xlim(0,1)
+#     plt.ylim(0,1)
 # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
     # plt.show()
     # method_labels = ['CNNSSV', 'cutesv', 'sniffles', 'nanomonsv']
-    color = ['r', 'g', 'b', 'c']
-    markers = ['o', '^', 's']
+    # color = ['r', 'g', 'b', 'c']
+    # markers = ['o', '^', 's']
 # <<<<<<< HEAD
-    plt.legend(loc='lower left',prop={'size': 14})
-    plt.savefig('/Users/duan/Desktop/NA19238_NA19239_plot_1.png')
+#     plt.legend(loc='lower left',prop={'size': 14})
+#     plt.savefig('/Users/duan/Desktop/NA19238_NA19239_plot_1.png')
 # =======
 #     plt.legend(loc='lower left')
 #     plt.savefig('/home/duan/Desktop/NA19238_NA19239_plot_1.png')
 # >>>>>>> e76c9ea36387362ee4389b25742f9a27d644f821
 
-    plt.close()
+    # plt.close()
 
 
 #画运行时间的折线图，CNNSSV与nanomonsv比较
@@ -1366,3 +1366,51 @@ if __name__ == '__main__':
     #     plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=12)
     # plt.legend(loc='lower right', bbox_to_anchor=(1.45, 0),prop={'size': 14})
     # plt.savefig('/Users/duan/Desktop/minimap2_f1_vs.png')
+
+
+
+#分析k
+
+    #先画一下 somatic_unique_k-mer对于四种变异，在somatic和germline sv附近的数量
+    # DEL_somatic=0.9055755395683454
+    # INS_somatic=0.9580592105263158
+    # INV_somatic=0.8978674892703863
+    # DUP_somatic=0.9075
+    #
+    # DEL_germline=0.06164109563253012
+    # INS_germline=0.05931238615664845
+    # INV_germline=0.07434189785624212
+    # DUP_germline=0.05656611658808401
+
+
+    somatic=[0.9055755395683454,0.9580592105263158,0.8978674892703863,0.9075]
+    germline=[0.06164109563253012,0.05931238615664845,0.07434189785624212,0.05656611658808401]
+
+
+    plt.figure(figsize=(20,10))
+    name_list = ['DEL','INS','INV','DUP']
+
+    x = list(range(len(somatic)))
+    total_width, n = 0.8, 3
+    width = total_width / n
+    plt.ylim(0, 1)
+    plt.xlabel("SV type", fontsize=18)
+    plt.ylabel("somatic unique k-mer radio", fontsize=18)
+    plt.tick_params(labelsize=16)
+    plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
+    for label_x,label_y in zip(x,somatic):
+        plt.text(label_x,label_y,'%.2f' %label_y, ha='center',va='bottom',size=15)
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x, germline, width=width, label='germline sv',fc='g')
+    for label_x, label_y in zip(x, germline):
+        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom',size=15)
+
+
+
+    plt.xticks([index + width/2 for index in range(len(name_list))], name_list)
+    # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
+    plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0),prop={'size': 14})
+    # plt.legend()
+    # plt.show()
+    plt.savefig('/Users/duan/Desktop/somatic_unique_k-mer.png')
