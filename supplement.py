@@ -97,6 +97,9 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
 
     string_features_lost_recorder=open('/home/mzduan/somaticSV/string_features_lost_'+str(kmer_size)+'.txt','a+')
     string_features_unique_recorder = open('/home/mzduan/somaticSV/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
+
+    # string_features_lost_recorder = open('/Users/duan/Desktop/string_features_lost_' + str(kmer_size) + '.txt', 'a+')
+    # string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
     fcntl.flock(string_features_lost_recorder, fcntl.LOCK_EX)
     fcntl.flock(string_features_unique_recorder, fcntl.LOCK_EX)
 
