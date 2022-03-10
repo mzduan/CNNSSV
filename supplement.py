@@ -95,13 +95,13 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk,kmer_size):
 
 
-    string_features_lost_recorder=open('/Users/duan/Desktop/string_features_lost_'+str(kmer_size)+'.txt','a+')
-    string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
+    # string_features_lost_recorder=open('/Users/duan/Desktop/string_features_lost_'+str(kmer_size)+'.txt','a+')
+    # string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
 
     # string_features_lost_recorder = open('/Users/duan/Desktop/string_features_lost_' + str(kmer_size) + '.txt', 'a+')
     # string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
-    fcntl.flock(string_features_lost_recorder, fcntl.LOCK_EX)
-    fcntl.flock(string_features_unique_recorder, fcntl.LOCK_EX)
+    # fcntl.flock(string_features_lost_recorder, fcntl.LOCK_EX)
+    # fcntl.flock(string_features_unique_recorder, fcntl.LOCK_EX)
 
     ref_bk1=bk[0]
     ref_bk2=bk[0]+bk[1]
@@ -253,7 +253,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
                 #     print("in ",j)
             # somatic_counts.append(somatic_count)
             radio=somatic_count/k
-            string_features_unique_recorder.write(chro+'\t'+str(bk[0])+'\t'+str(bk[1])+'\t'+sv_type+'\t'+str(somatic_count)+'\t'+str(k)+'\n')
+            # string_features_unique_recorder.write(chro+'\t'+str(bk[0])+'\t'+str(bk[1])+'\t'+sv_type+'\t'+str(somatic_count)+'\t'+str(k)+'\n')
         #对于insertion和inversion来说，最多会产生64个somatic k-mer
         elif sv_type=='INS' or sv_type=='INV':
             for j in range(read_sv_bk1-k+1,read_sv_bk1+1):
@@ -297,7 +297,7 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
                 #     print("in")
             # somatic_counts.append(somatic_count)
             radio = somatic_count / (2*k)
-            string_features_unique_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
+            # string_features_unique_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(somatic_count) + '\t' + str(2*k) + '\n')
         radios.append(radio)
 
     # fcntl.flock(string_features_recorder, fcntl.LOCK_UN)
@@ -413,11 +413,11 @@ def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_fil
                 tmp_lost_count+= int(normal_right_radio * k)
                 tmp_k+=k
                 normal_right_radios.append(normal_right_radio)
-            string_features_lost_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(tmp_lost_count) + '\t' + str(tmp_k) + '\n')
+            # string_features_lost_recorder.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[1]) + '\t' + sv_type + '\t' + str(tmp_lost_count) + '\t' + str(tmp_k) + '\n')
     normal_bam.close()
 
-    fcntl.flock(string_features_lost_recorder, fcntl.LOCK_UN)
-    string_features_lost_recorder.close()
+    # fcntl.flock(string_features_lost_recorder, fcntl.LOCK_UN)
+    # string_features_lost_recorder.close()
 
     clusters=list()
     sum_cluster=0
