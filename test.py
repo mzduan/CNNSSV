@@ -70,7 +70,7 @@ def get_gd():
 #             error_count=error_count+1
     #    # print(correct_count,error_count)
 
-def predict(model_path,features_path,out_path,purity):
+def predict(model_path,features_path,out_path):
 
     cnn = CNN.CNN()
     cnn.load_state_dict(torch.load(model_path))
@@ -89,9 +89,9 @@ def predict(model_path,features_path,out_path,purity):
 
         file_name=file_name[0]
         output = cnn.forward(x,sup_x)
-        # print(output)
+
         splits = re.split('_', file_name)
-        support_counts = int(splits[4])
+        # support_counts = int(splits[4])
         chro = splits[0]
         sv_type = splits[1]
         start = int(splits[2])

@@ -1395,7 +1395,7 @@ if __name__ == '__main__':
     width = total_width / n
     plt.ylim(0, 1)
     plt.xlabel("SV type", fontsize=18)
-    plt.ylabel("somatic unique k-mer radio", fontsize=18)
+    plt.ylabel("tumor unique k-mer radio", fontsize=18)
     plt.tick_params(labelsize=16)
     plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
     for label_x,label_y in zip(x,somatic):

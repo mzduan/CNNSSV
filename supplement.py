@@ -95,8 +95,8 @@ def get_unique_kmer_radio_in_normal(aln, left, right, k, tumor_kmer_set):
 def get_somatic_kmer(sv_type,somatic_support_reads,tumor_bam_file,normal_bam_file,ref_dict,chro,bk,kmer_size):
 
 
-    string_features_lost_recorder=open('/home/mzduan/somaticSV/string_features_lost_'+str(kmer_size)+'.txt','a+')
-    string_features_unique_recorder = open('/home/mzduan/somaticSV/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
+    string_features_lost_recorder=open('/Users/duan/Desktop/string_features_lost_'+str(kmer_size)+'.txt','a+')
+    string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
 
     # string_features_lost_recorder = open('/Users/duan/Desktop/string_features_lost_' + str(kmer_size) + '.txt', 'a+')
     # string_features_unique_recorder = open('/Users/duan/Desktop/string_features_unique_' + str(kmer_size) + '.txt', 'a+')
