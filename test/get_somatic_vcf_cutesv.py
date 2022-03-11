@@ -12,15 +12,15 @@ def getKV(str):
 if __name__ == '__main__':
 
 
-    for t in range(22,12,-1):
+    for t in range(1,23,1):
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf')
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf')
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
 
-        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf','r')
-        normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf','r')
-        somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
+        tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_tumor_chr'+str(t)+'.vcf','r')
+        normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_normal_chr'+str(t)+'.vcf','r')
+        somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_somatic_chr'+str(t)+'.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()
