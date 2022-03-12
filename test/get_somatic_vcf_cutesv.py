@@ -17,7 +17,7 @@ if __name__ == '__main__':
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf')
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
-
+        print("start handle chr"+str(t))
         tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_tumor_chr'+str(t)+'.vcf','r')
         normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_normal_chr'+str(t)+'.vcf','r')
         somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_somatic_chr'+str(t)+'.vcf', 'w')
@@ -48,6 +48,7 @@ if __name__ == '__main__':
             else:
                 break
 
+        print("finish reading!")
 
         for i in tumor_readlines:
             i_infos=re.split('\s+',i)
@@ -85,8 +86,11 @@ if __name__ == '__main__':
                     find_flag=True
 
             if not find_flag:
+                #print("somatic sv")
                 somatic_vcf.write(i)
-
+                #somatic_vcf.flush()
+            #else:
+             #   print("germline sv")
 
         tumor_vcf.close()
         normal_vcf.close()
