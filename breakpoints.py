@@ -4,8 +4,8 @@ import os
 import cigar
 import numpy as np
 from supplement import get_reverse_comp
-# from concurrent.futures import ThreadPoolExecutor
-import multiprocessing
+from concurrent.futures import ThreadPoolExecutor
+# import multiprocessing
 def local_combine(sigs, candidate_ins_del, svtype, merge_threshold):
     if len(sigs)==0:
         return
@@ -1136,6 +1136,10 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
             # if split_breakpoints:
                 # breakpoints.extend(split_breakpoints)
 
+class MyAln:
+    def __init__(self):
+        self.
+
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
 
@@ -1146,7 +1150,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
-    pool = multiprocessing.Pool(processes=24)
+    pool = ThreadPoolExecutor(max_workers=48)
 
     # record=open(wkdir+'/recorder.txt','w')
 
@@ -1162,8 +1166,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
-            pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
-            # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
+
+            # pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
+            pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
             #     breakpoints.extend(aln_breakpoints)
@@ -1182,9 +1187,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
             #         if split_breakpoints:
             #             breakpoints.extend(split_breakpoints)
-    pool.close()
-    pool.join()
-
+    pool.shutdown()
     bam.close()
     # # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
     # # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
