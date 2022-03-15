@@ -1147,7 +1147,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # pool = ThreadPoolExecutor(max_workers=48)
-    pool=multiprocessing.pool(processes=48)
+    pool=multiprocessing.Pool(processes=48)
     # record=open(wkdir+'/recorder.txt','w')
 
     if chro=="" and start==-1 and end==-1:
