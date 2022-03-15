@@ -1120,7 +1120,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     breakpoints=list()
 
 
-    record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
+    # record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # record=open(wkdir+'/recorder.txt','w')
 
@@ -1133,9 +1133,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            record.write('Query Name:\t'+aln.query_name+'\n')
-            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            record.flush()
+            # record.write('Query Name:\t'+aln.query_name+'\n')
+            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            # record.flush()
             if aln.is_supplementary:   #对于supplementary，只分析alignment
                 aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
                 breakpoints.extend(aln_breakpoints)
@@ -1151,7 +1151,6 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
                     else:
                         query=aln.query_sequence
 
-                    # query=aln.query_sequence
                     # split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
                     # if split_breakpoints:
                     #     breakpoints.extend(split_breakpoints)
