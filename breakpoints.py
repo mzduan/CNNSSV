@@ -1118,6 +1118,7 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 def run_get_breakpoints(aln,min_sv_len,ref_dict):
     if aln.is_supplementary:   #对于supplementary，只分析alignment
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+        print(aln_breakpoints)
         # breakpoints.extend(aln_breakpoints)
     else:   #对于primary，分析alignment和split
 
@@ -1146,7 +1147,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
-    pool = multiprocessing.Pool(processes=int(24))
+    pool = multiprocessing.Pool(processes=24)
 
     # record=open(wkdir+'/recorder.txt','w')
 
