@@ -1139,7 +1139,7 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
                 # breakpoints.extend(split_breakpoints)
 
 class MyAln:
-    def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag):
+    def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag,is_supplementary):
         self.reference_start=start
         self.reference_end=end
         self.reference_name=ref_name
@@ -1149,7 +1149,7 @@ class MyAln:
         self.query_name=query_name
         self.cigarstring=cigarstring
         self.SA_TAG=sa_tag
-
+        self.is_supplementary=is_supplementary
 
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
@@ -1177,7 +1177,8 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
             aln=MyAln(aln.reference_start,aln.reference_end,
                       aln.reference_name,aln.cigartuples,aln.query_length,
-                      aln.query_sequence,aln.query_name,aln.cigarstring,aln.get_tag("SA"))
+                      aln.query_sequence,aln.query_name,aln.cigarstring,aln.get_tag("SA"),
+                      aln.is_supplementary)
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
