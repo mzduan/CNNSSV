@@ -1115,27 +1115,26 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 
     return refined
 
-def run_get_breakpoints(min_sv_len,ref_dict):
-    print("hello,world")
-    # if aln.is_supplementary:   #对于supplementary，只分析alignment
-    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #     # print(aln_breakpoints)
-    #     # breakpoints.extend(aln_breakpoints)
-    # else:   #对于primary，分析alignment和split
-    #
-    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #     # breakpoints.extend(aln_breakpoints)
-    #     if aln.has_tag("SA"):
-    #         supps=retrieve_supp(aln)
-    #
-    #         if aln.is_reverse:
-    #             query=get_reverse_comp(aln.query_sequence)
-    #         else:
-    #             query=aln.query_sequence
-    #         #
-    #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-    #         # if split_breakpoints:
-    #             # breakpoints.extend(split_breakpoints)
+def run_get_breakpoints(aln,min_sv_len,ref_dict):
+    if aln.is_supplementary:   #对于supplementary，只分析alignment
+        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+        # print(aln_breakpoints)
+        # breakpoints.extend(aln_breakpoints)
+    else:   #对于primary，分析alignment和split
+
+        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+        # breakpoints.extend(aln_breakpoints)
+        if aln.has_tag("SA"):
+            supps=retrieve_supp(aln)
+
+            if aln.is_reverse:
+                query=get_reverse_comp(aln.query_sequence)
+            else:
+                query=aln.query_sequence
+            #
+            split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+            # if split_breakpoints:
+                # breakpoints.extend(split_breakpoints)
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
 
@@ -1163,7 +1162,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
 
-            pool.apply_async(run_get_breakpoints,(min_sv_len,ref_dict,))
+            pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
