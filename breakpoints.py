@@ -1116,25 +1116,35 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
     return refined
 
 def run_get_breakpoints(aln,min_sv_len,ref_dict):
-    if aln.is_supplementary:   #对于supplementary，只分析alignment
-        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-        # print(aln_breakpoints)
-        # breakpoints.extend(aln_breakpoints)
-    else:   #对于primary，分析alignment和split
+    # if aln.is_supplementary:   #对于supplementary，只分析alignment
+    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+    #     # print(aln_breakpoints)
+    #     # breakpoints.extend(aln_breakpoints)
+    # else:   #对于primary，分析alignment和split
+    #
+    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+    #     # breakpoints.extend(aln_breakpoints)
+    #     if aln.has_tag("SA"):
+    #         supps=retrieve_supp(aln)
+    #
+    #         if aln.is_reverse:
+    #             query=get_reverse_comp(aln.query_sequence)
+    #         else:
+    #             query=aln.query_sequence
+    #         #
+    #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+    #         # if split_breakpoints:
+    #             # breakpoints.extend(split_breakpoints)
 
-        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-        # breakpoints.extend(aln_breakpoints)
-        if aln.has_tag("SA"):
-            supps=retrieve_supp(aln)
+class MyAln:
+    def __init__(self,start,name,tuples,length,seq,name):
+        self.reference_start=start
+        self.reference_name=name
+        self.cigartuples=tuples
+        self.query_length=length
+        self.query_sequence=seq
+        self.query_name=name
 
-            if aln.is_reverse:
-                query=get_reverse_comp(aln.query_sequence)
-            else:
-                query=aln.query_sequence
-            #
-            split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-            # if split_breakpoints:
-                # breakpoints.extend(split_breakpoints)
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
 
@@ -1158,6 +1168,8 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
+
+            aln=MyAln(aln.reference_start,aln.reference_name,aln.cigartuples,aln.query_length,aln.query_sequence)
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
