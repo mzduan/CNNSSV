@@ -1141,7 +1141,7 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
                 # breakpoints.extend(split_breakpoints)
 
     record = open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt', 'a+')
-    record.write(str(aln.reference_start))
+    record.write(str(aln.reference_start)+'\n')
 class MyAln:
     def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag,is_supplementary,is_reverse):
         self.reference_start=start
