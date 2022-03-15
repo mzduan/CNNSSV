@@ -1116,12 +1116,14 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 
     return refined
 
-def run_get_breakpoints(aln,min_sv_len,ref_dict):
+def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
 
     if aln.is_supplementary:   #对于supplementary，只分析alignment
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
         # print(aln_breakpoints)
-        # breakpoints.extend(aln_breakpoints)
+        lock.acquire()
+        breakpoints.extend(aln_breakpoints)
+        lock.release()
     else:   #对于primary，分析alignment和split
 
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
@@ -1137,11 +1139,14 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
                 query=aln.query_sequence
             #
             split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-            # if split_breakpoints:
-                # breakpoints.extend(split_breakpoints)
-
+            if split_breakpoints:
+                lock.acquire()
+                breakpoints.extend(split_breakpoints)
+                lock.release()
+    lock.acquire()
     record = open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt', 'a+')
     record.write(str(aln.reference_start)+'\n')
+    lock.release()
 class MyAln:
     def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag,is_supplementary,is_reverse):
         self.reference_start=start
@@ -1168,6 +1173,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     # pool = ThreadPoolExecutor(max_workers=48)
     pool=multiprocessing.Pool(processes=48)
+    lock = multiprocessing.Manager().Lock()
     # record=open(wkdir+'/recorder.txt','w')
 
     if chro=="" and start==-1 and end==-1:
@@ -1194,7 +1200,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             # record.flush()
 
-            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
+            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,lock))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
