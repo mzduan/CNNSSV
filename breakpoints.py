@@ -1137,13 +1137,13 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
     #             # breakpoints.extend(split_breakpoints)
 
 class MyAln:
-    def __init__(self,start,name,tuples,length,seq,name):
+    def __init__(self,start,ref_name,tuples,length,seq,query_name):
         self.reference_start=start
-        self.reference_name=name
+        self.reference_name=ref_name
         self.cigartuples=tuples
         self.query_length=length
         self.query_sequence=seq
-        self.query_name=name
+        self.query_name=query_name
 
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
