@@ -429,7 +429,8 @@ def retrieve_supp(aln):
     split_reads=list()
     split_reads.append(primary_info)
 
-    sa_tag = aln.get_tag("SA").split(";")
+    sa_tag=aln.SA_TAG.split(";")
+    # sa_tag = aln.get_tag("SA").split(";")
 
     # if aln.query_name=='m54336U_190829_230546/120719613/ccs':
     #     print(sa_tag)
@@ -1116,35 +1117,39 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
     return refined
 
 def run_get_breakpoints(aln,min_sv_len,ref_dict):
-    print("go")
-    # if aln.is_supplementary:   #对于supplementary，只分析alignment
-    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #     # print(aln_breakpoints)
-    #     # breakpoints.extend(aln_breakpoints)
-    # else:   #对于primary，分析alignment和split
-    #
-    #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-    #     # breakpoints.extend(aln_breakpoints)
-    #     if aln.has_tag("SA"):
-    #         supps=retrieve_supp(aln)
-    #
-    #         if aln.is_reverse:
-    #             query=get_reverse_comp(aln.query_sequence)
-    #         else:
-    #             query=aln.query_sequence
-    #         #
-    #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-    #         # if split_breakpoints:
-    #             # breakpoints.extend(split_breakpoints)
+
+    if aln.is_supplementary:   #对于supplementary，只分析alignment
+        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+        # print(aln_breakpoints)
+        # breakpoints.extend(aln_breakpoints)
+    else:   #对于primary，分析alignment和split
+
+        aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+        # breakpoints.extend(aln_breakpoints)
+        if aln.has_tag("SA"):
+            supps=retrieve_supp(aln)
+
+            if aln.is_reverse:
+                query=get_reverse_comp(aln.query_sequence)
+            else:
+                query=aln.query_sequence
+            #
+            split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+            # if split_breakpoints:
+                # breakpoints.extend(split_breakpoints)
 
 class MyAln:
-    def __init__(self,start,ref_name,tuples,length,seq,query_name):
+    def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag):
         self.reference_start=start
+        self.reference_end=end
         self.reference_name=ref_name
         self.cigartuples=tuples
         self.query_length=length
         self.query_sequence=seq
         self.query_name=query_name
+        self.cigarstring=cigarstring
+        self.SA_TAG=sa_tag
+
 
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
@@ -1170,12 +1175,14 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             continue
         else:
 
-            aln=MyAln(aln.reference_start,aln.reference_name,aln.cigartuples,aln.query_length,aln.query_sequence,aln.query_name)
+            aln=MyAln(aln.reference_start,aln.reference_end,
+                      aln.reference_name,aln.cigartuples,aln.query_length,
+                      aln.query_sequence,aln.query_name,aln.cigarstring,aln.get_tag("SA"))
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
 
-            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
+            pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
