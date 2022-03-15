@@ -1143,10 +1143,6 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
                 lock.acquire()
                 breakpoints.extend(split_breakpoints)
                 lock.release()
-    lock.acquire()
-    record = open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt', 'a+')
-    record.write(str(aln.reference_start)+'\n')
-    lock.release()
 class MyAln:
     def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag,is_supplementary,is_reverse):
         self.reference_start=start
