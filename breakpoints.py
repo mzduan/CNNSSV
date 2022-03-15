@@ -1126,7 +1126,9 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
 
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
         # breakpoints.extend(aln_breakpoints)
-        if aln.has_tag("SA"):
+
+        if aln.SA_TAG!=None:
+        # if aln.has_tag("SA"):
             supps=retrieve_supp(aln)
 
             if aln.is_reverse:
