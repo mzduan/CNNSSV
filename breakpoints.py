@@ -1120,7 +1120,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     breakpoints=list()
 
 
-    record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
+    # record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # record=open(wkdir+'/recorder.txt','w')
 
@@ -1133,16 +1133,16 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            record.write('Query Name:\t'+aln.query_name+'\n')
-            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            record.flush()
-            if aln.is_supplementary:   #对于supplementary，只分析alignment
-                aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-                breakpoints.extend(aln_breakpoints)
-            else:   #对于primary，分析alignment和split
-
-                aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-                breakpoints.extend(aln_breakpoints)
+            # record.write('Query Name:\t'+aln.query_name+'\n')
+            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            # record.flush()
+            # if aln.is_supplementary:   #对于supplementary，只分析alignment
+            #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+            #     breakpoints.extend(aln_breakpoints)
+            # else:   #对于primary，分析alignment和split
+            #
+            #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+            #     breakpoints.extend(aln_breakpoints)
                 # if aln.has_tag("SA"):
                 #     supps=retrieve_supp(aln)
                 #
@@ -1232,7 +1232,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
 
-    record.close()
+    # record.close()
     return cdel,cins,cinv,cdup,
 
 
