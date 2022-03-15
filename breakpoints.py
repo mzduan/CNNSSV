@@ -1143,10 +1143,10 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
                 aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
                 breakpoints.extend(aln_breakpoints)
-                if aln.has_tag("SA"):
-                    supps=retrieve_supp(aln)
-
-                    query=aln.query_sequence
+                # if aln.has_tag("SA"):
+                #     supps=retrieve_supp(aln)
+                #
+                #     query=aln.query_sequence
                     # if aln.is_reverse:
                     #     query=get_reverse_comp(aln.query_sequence)
                     # else:
