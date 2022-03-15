@@ -18,9 +18,9 @@ if __name__ == '__main__':
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
         print("start handle chr"+str(t))
-        tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_tumor_chr'+str(t)+'.vcf','r')
-        normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_normal_chr'+str(t)+'.vcf','r')
-        somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/minimap2/cutesv_minimap2_somatic_chr'+str(t)+'.vcf', 'w')
+        tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_tumor_chr'+str(t)+'.vcf','r')
+        normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_normal_chr'+str(t)+'.vcf','r')
+        somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_somatic_chr'+str(t)+'.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()

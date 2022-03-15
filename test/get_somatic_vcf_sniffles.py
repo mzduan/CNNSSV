@@ -12,9 +12,9 @@ def getKV(str):
 if __name__ == '__main__':
 
     for t in range(22,12,-1):
-        tumor_vcf=open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_tumor.vcf','r')
-        normal_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_normal.vcf','r')
-        somatic_vcf = open('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/sniffles_COLO829_chr'+str(t)+'_somatic.vcf', 'w')
+        tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_tumor_chr'+str(t)+'.vcf','r')
+        normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_tumor_chr'+str(t)+'.vcf','r')
+        somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_somatic_chr'+str(t)+'.vcf', 'w')
 
 
         tumor_readlines=list()
