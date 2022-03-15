@@ -1170,7 +1170,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             continue
         else:
 
-            aln=MyAln(aln.reference_start,aln.reference_name,aln.cigartuples,aln.query_length,aln.query_sequence)
+            aln=MyAln(aln.reference_start,aln.reference_name,aln.cigartuples,aln.query_length,aln.query_sequence,aln.query_name)
             record.write('Query Name:\t'+aln.query_name+'\n')
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
