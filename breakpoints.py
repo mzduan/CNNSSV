@@ -1183,7 +1183,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
                 sa_tag=None
             aln = MyAln(aln.reference_start, aln.reference_end,
                         aln.reference_name, aln.cigartuples, aln.query_length,
-                        aln.query_sequence, aln.query_name, aln.cigarstring, aln.get_tag("SA"),
+                        aln.query_sequence, aln.query_name, aln.cigarstring,sa_tag,
                         aln.is_supplementary, aln.is_reverse)
 
             record.write('Query Name:\t'+aln.query_name+'\n')
