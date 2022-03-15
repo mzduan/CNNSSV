@@ -278,7 +278,7 @@ def analysis_alignment(aln,min_sv_len,ref_dict):
 
     if aln.cigartuples[0][0] == 4:
         softclip_left = aln.cigartuples[0][1]
-    if aln.cigar[-1][0] == 4:
+    if aln.cigartuples[-1][0] == 4:
         softclip_right = aln.cigartuples[-1][1]
 
     for i in range(len(aln.cigartuples)):
