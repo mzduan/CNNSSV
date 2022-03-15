@@ -1146,10 +1146,11 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
                 if aln.has_tag("SA"):
                     supps=retrieve_supp(aln)
 
-                    if aln.is_reverse:
-                        query=get_reverse_comp(aln.query_sequence)
-                    else:
-                        query=aln.query_sequence
+                    query=aln.query_sequence
+                    # if aln.is_reverse:
+                    #     query=get_reverse_comp(aln.query_sequence)
+                    # else:
+                    #     query=aln.query_sequence
 
                     # split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
                     # if split_breakpoints:
