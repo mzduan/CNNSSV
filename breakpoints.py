@@ -1140,6 +1140,8 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
             # if split_breakpoints:
                 # breakpoints.extend(split_breakpoints)
 
+    record = open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt', 'a+')
+    record.write(str(aln.reference_start))
 class MyAln:
     def __init__(self,start,end,ref_name,tuples,length,seq,query_name,cigarstring,sa_tag,is_supplementary,is_reverse):
         self.reference_start=start
@@ -1162,7 +1164,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     breakpoints=list()
 
 
-    record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
+    # record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # pool = ThreadPoolExecutor(max_workers=48)
     pool=multiprocessing.Pool(processes=48)
@@ -1188,9 +1190,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
                         aln.query_sequence, aln.query_name, aln.cigarstring,sa_tag,
                         aln.is_supplementary, aln.is_reverse)
 
-            record.write('Query Name:\t'+aln.query_name+'\n')
-            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            record.flush()
+            # record.write('Query Name:\t'+aln.query_name+'\n')
+            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            # record.flush()
 
             pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
@@ -1291,7 +1293,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
 
-    record.close()
+    # record.close()
     return cdel,cins,cinv,cdup,
 
 
