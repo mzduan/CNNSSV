@@ -1136,11 +1136,6 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
             # if split_breakpoints:
                 # breakpoints.extend(split_breakpoints)
 
-class MyAln:
-    def __init__(self):
-        self.
-
-
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
 
     bam=pysam.AlignmentFile(bam_file,'r')
