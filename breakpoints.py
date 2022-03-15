@@ -4,7 +4,7 @@ import os
 import cigar
 import numpy as np
 from supplement import get_reverse_comp
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
 import multiprocessing
 def local_combine(sigs, candidate_ins_del, svtype, merge_threshold):
     if len(sigs)==0:
@@ -1116,7 +1116,6 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
     return refined
 
 def run_get_breakpoints(aln,min_sv_len,ref_dict):
-    record = open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt', 'a+')
     if aln.is_supplementary:   #对于supplementary，只分析alignment
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
         # print(aln_breakpoints)
@@ -1136,9 +1135,6 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict):
             split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
             # if split_breakpoints:
                 # breakpoints.extend(split_breakpoints)
-    record.write("hello")
-    record.flush()
-    record.close()
 
 
 def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_map_qual=20,chro="",start=-1,end=-1,ref_dict=None):
@@ -1163,10 +1159,10 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            # record.write('Query Name:\t'+aln.query_name+'\n')
-            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            # record.flush()
-            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict))
+            record.write('Query Name:\t'+aln.query_name+'\n')
+            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            record.flush()
+            pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
@@ -1186,9 +1182,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
             #         if split_breakpoints:
             #             breakpoints.extend(split_breakpoints)
-
     pool.close()
     pool.join()
+
     bam.close()
     # # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
     # # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
