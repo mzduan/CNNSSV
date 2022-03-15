@@ -296,10 +296,10 @@ def analysis_alignment(aln,min_sv_len,ref_dict):
                     insert_start=aln.query_length-(query_pos+counts)
                     insert_end=aln.query_length-query_pos
 
-                left_confu=get_left_confusion(aln,i,ref_dict,ref_pos-1,query_pos-1)
-                right_confu=get_right_confusion(aln,i,ref_dict,ref_pos,query_pos+counts)
-                # left_confu=0
-                # right_confu=0
+                # left_confu=get_left_confusion(aln,i,ref_dict,ref_pos-1,query_pos-1)
+                # right_confu=get_right_confusion(aln,i,ref_dict,ref_pos,query_pos+counts)
+                left_confu=0
+                right_confu=0
                 aln_breakpoints.append([chro,'INS',ref_pos,counts,aln.query_name,aln.query_sequence[query_pos:query_pos+counts],insert_start,insert_end,left_confu,right_confu])
             query_pos=query_pos+counts
         elif flag==2:
@@ -309,10 +309,10 @@ def analysis_alignment(aln,min_sv_len,ref_dict):
                     del_pos=aln.query_length-query_pos
 
 
-                left_confu=get_left_confusion(aln,i,ref_dict,ref_pos-1,query_pos-1)
-                right_confu=get_right_confusion(aln,i,ref_dict,ref_pos+counts,query_pos)
-                # left_confu=0
-                # right_confu=0
+                # left_confu=get_left_confusion(aln,i,ref_dict,ref_pos-1,query_pos-1)
+                # right_confu=get_right_confusion(aln,i,ref_dict,ref_pos+counts,query_pos)
+                left_confu=0
+                right_confu=0
                 aln_breakpoints.append([chro,'DEL',ref_pos, counts,aln.query_name,del_pos,del_pos,left_confu,right_confu])
                 # Combine_sig_in_same_read_del.append([ref_pos, counts,'DEL'])
             ref_pos=ref_pos+counts
@@ -463,8 +463,8 @@ def analysis_inv(ele_1, ele_2, read_name, sv_list, SV_size,ref_dict,read_len,que
                 # left_confu=get_right_confusion_splits(ele_2,ref_dict)
                 # print(ele_1,ele_2,read_name,ele_2[3],ele_1[3])
                 ele_2_reverse= [read_len - ele_2[1], read_len - ele_2[0]] + ele_2[2:-1]+[cigar.Cigar(ele_2[-1])._reverse_cigar()]
-                left_confu=get_left_confusion_splits(ele_2_reverse,ref_dict,reversed_query,read_name)
-                # left_confu=0
+                # left_confu=get_left_confusion_splits(ele_2_reverse,ref_dict,reversed_query,read_name)
+                left_confu=0
 
 
                 sv_list.append([chro,"INV","++",ele_2[3],ele_1[3],read_name,ele_1[0],ele_2[0],left_confu,left_confu])  #测的负链
@@ -473,16 +473,16 @@ def analysis_inv(ele_1, ele_2, read_name, sv_list, SV_size,ref_dict,read_len,que
             if ele_2[0] + 0.5 * (ele_2[3] - ele_1[3]) >= ele_1[1]:
                 # left_confu=get_left_confusion_splits(ele_1,ref_dict)
                 # print(ele_1,ele_2,read_name,ele_1[3],ele_2[3])
-                left_confu = get_left_confusion_splits(ele_1, ref_dict,query,read_name)
-                # left_confu=0
+                # left_confu = get_left_confusion_splits(ele_1, ref_dict,query,read_name)
+                left_confu=0
                 sv_list.append([chro,"INV","++", ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1],left_confu,left_confu])  #测的正链
     else:
         # -+
         if ele_2[2] - ele_1[2] >= SV_size:
             if ele_2[0] + 0.5 * (ele_2[2] - ele_1[2]) >= ele_1[1]:
                 # print(ele_1, ele_2, read_name, ele_1[2], ele_2[2])
-                right_confu = get_right_confusion_splits(ele_2,ref_dict,query,read_name)
-                # right_confu=0
+                # right_confu = get_right_confusion_splits(ele_2,ref_dict,query,read_name)
+                right_confu=0
                 sv_list.append([chro,"INV","--", ele_1[2],ele_2[2],read_name,ele_1[0],ele_2[0],right_confu,right_confu])  #测的正链
 
         if ele_1[2] - ele_2[2] >= SV_size:
@@ -490,8 +490,8 @@ def analysis_inv(ele_1, ele_2, read_name, sv_list, SV_size,ref_dict,read_len,que
             if ele_2[0] + 0.5 * (ele_1[2] - ele_2[2]) >= ele_1[1]:
                 # print(ele_1, ele_2, read_name, ele_2[2], ele_1[2])
                 ele_1_reverse=[read_len - ele_1[1], read_len - ele_1[0]] + ele_1[2:-1]+[cigar.Cigar(ele_1[-1])._reverse_cigar()]
-                right_confu=get_right_confusion_splits(ele_1_reverse,ref_dict,reversed_query,read_name)
-                # right_confu=0
+                # right_confu=get_right_confusion_splits(ele_1_reverse,ref_dict,reversed_query,read_name)
+                right_confu=0
                 sv_list.append([chro,"INV","--",ele_2[2],ele_1[2],read_name,ele_1[1],ele_2[1],right_confu,right_confu])  #测的负链
 
 def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
@@ -528,10 +528,10 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                     if ele_2[5] == '-':
                         # +-+
                         if ele_2[0] + 0.5 * (ele_3[2] - ele_1[3]) >= ele_1[1] and ele_3[0] + 0.5 * (ele_3[2] - ele_1[3]) >= ele_2[1]:
-                            left_confu=get_left_confusion_splits(ele_1,ref_dict,query)
-                            right_confu=get_right_confusion_splits(ele_3,ref_dict,query)
-                            # left_confu = 0
-                            # right_confu = 0
+                            # left_confu=get_left_confusion_splits(ele_1,ref_dict,query)
+                            # right_confu=get_right_confusion_splits(ele_3,ref_dict,query)
+                            left_confu = 0
+                            right_confu = 0
                             sv_list.append([chro,"INV","++",ele_1[3],ele_2[3],read_name,ele_1[1],ele_2[1],left_confu,right_confu])
                             sv_list.append([chro,"INV","--",ele_2[2],ele_3[2],read_name,ele_2[0],ele_3[0],left_confu,right_confu])
                     else:
@@ -543,8 +543,8 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                             ele_3_reverse = [read_len - ele_1[1], read_len - ele_1[0]] + ele_1[2:-1] + [
                                 cigar.Cigar(ele_1[-1])._reverse_cigar()]
 
-                            left_confu = get_left_confusion_splits(ele_1_reverse,ref_dict,reversed_seq)
-                            right_confu =get_right_confusion_splits(ele_3_reverse,ref_dict,reversed_seq)
+                            # left_confu = get_left_confusion_splits(ele_1_reverse,ref_dict,reversed_seq)
+                            # right_confu =get_right_confusion_splits(ele_3_reverse,ref_dict,reversed_seq)
                             # left_confu = 0
                             # right_confu = 0
                             sv_list.append([chro,"INV","++",ele_3[3],ele_2[3],read_name,ele_2[0],ele_3[0],left_confu,right_confu])
@@ -588,17 +588,17 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                     dup_read_pos = int((ele_2[0] + ele_1[1]) / 2)
                     if ele_1[5] == '-':
                         dup_read_pos = read_len - dup_read_pos
-                        left_confu=get_left_confusion_splits(ele_1,ref_dict,reversed_seq,read_name)
-                        right_confu=get_right_confusion_splits(ele_2,ref_dict,reversed_seq,read_name)
+                        # left_confu=get_left_confusion_splits(ele_1,ref_dict,reversed_seq,read_name)
+                        # right_confu=get_right_confusion_splits(ele_2,ref_dict,reversed_seq,read_name)
                         #
-                        # left_confu = 0
-                        # right_confu = 0
+                        left_confu = 0
+                        right_confu = 0
                     else:
-                        left_confu=get_left_confusion_splits(ele_1,ref_dict,query,read_name)
-                        right_confu=get_right_confusion_splits(ele_2,ref_dict,query,read_name)
+                        # left_confu=get_left_confusion_splits(ele_1,ref_dict,query,read_name)
+                        # right_confu=get_right_confusion_splits(ele_2,ref_dict,query,read_name)
 
-                        # left_confu = 0
-                        # right_confu = 0
+                        left_confu = 0
+                        right_confu = 0
                     sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos,left_confu,right_confu])
                 if ele_1[3] - ele_2[2] < SV_size:
                     if ele_2[0] + ele_1[3] - ele_2[2] - ele_1[1] >= SV_size:
@@ -609,15 +609,15 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                             if ele_1[5]=='-':
                                 ins_read_pos1=read_len-ele_2[0]
                                 ins_read_pos2=read_len-ele_1[1]
-                                left_confu = get_left_confusion_splits(ele_1, ref_dict,reversed_seq,read_name)
-                                right_confu = get_right_confusion_splits(ele_2, ref_dict,reversed_seq,read_name)
-                                # left_confu = 0
-                                # right_confu = 0
+                                # left_confu = get_left_confusion_splits(ele_1, ref_dict,reversed_seq,read_name)
+                                # right_confu = get_right_confusion_splits(ele_2, ref_dict,reversed_seq,read_name)
+                                left_confu = 0
+                                right_confu = 0
                             else:
-                                left_confu=get_left_confusion_splits(ele_1,ref_dict,query,read_name)
-                                right_confu=get_right_confusion_splits(ele_2,ref_dict,query,read_name)
-                                # left_confu = 0
-                                # right_confu = 0
+                                # left_confu=get_left_confusion_splits(ele_1,ref_dict,query,read_name)
+                                # right_confu=get_right_confusion_splits(ele_2,ref_dict,query,read_name)
+                                left_confu = 0
+                                right_confu = 0
                             #int((ele_2[2] + ele_1[3]) / 2)
                             # print(read_name,ele_1,ele_2)
                             sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),
@@ -632,16 +632,16 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                             del_read_pos=int((ele_1[1]+ele_2[0])/2)
                             if ele_1[5]=='-':
                                 del_read_pos=read_len-del_read_pos
-                                left_confu = get_left_confusion_splits(ele_1, ref_dict,reversed_seq,read_name)
-                                right_confu = get_right_confusion_splits(ele_2, ref_dict,reversed_seq,read_name)
-                                # left_confu = 0
-                                # right_confu = 0
+                                # left_confu = get_left_confusion_splits(ele_1, ref_dict,reversed_seq,read_name)
+                                # right_confu = get_right_confusion_splits(ele_2, ref_dict,reversed_seq,read_name)
+                                left_confu = 0
+                                right_confu = 0
 
                             else:
-                                left_confu=get_left_confusion_splits(ele_1,ref_dict,query)
-                                right_confu=get_right_confusion_splits(ele_2,ref_dict,query)
-                                # left_confu = 0
-                                # right_confu = 0
+                                # left_confu=get_left_confusion_splits(ele_1,ref_dict,query)
+                                # right_confu=get_right_confusion_splits(ele_2,ref_dict,query)
+                                left_confu = 0
+                                right_confu = 0
                             # print(read_name,ele_1,ele_2)
                             sv_list.append([chro,"DEL",ele_1[3],ele_2[2] - ele_2[0] + ele_1[1] - ele_1[3],read_name,del_read_pos,del_read_pos,left_confu,right_confu])
         else:
@@ -673,15 +673,15 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                     if ele_1[5] == '-':
                         ins_read_pos1 = read_len - ele_2[0]
                         ins_read_pos2 = read_len - ele_1[1]
-                        left_confu = get_left_confusion_splits(ele_1, ref_dict, reversed_seq)
-                        right_confu = get_right_confusion_splits(ele_2, ref_dict, reversed_seq)
-                        # left_confu = 0
-                        # right_confu = 0
+                        # left_confu = get_left_confusion_splits(ele_1, ref_dict, reversed_seq)
+                        # right_confu = get_right_confusion_splits(ele_2, ref_dict, reversed_seq)
+                        left_confu = 0
+                        right_confu = 0
                     else:
-                        left_confu = get_left_confusion_splits(ele_1, ref_dict, query)
-                        right_confu = get_right_confusion_splits(ele_2, ref_dict, query)
-                        # left_confu = 0
-                        # right_confu = 0
+                        # left_confu = get_left_confusion_splits(ele_1, ref_dict, query)
+                        # right_confu = get_right_confusion_splits(ele_2, ref_dict, query)
+                        left_confu = 0
+                        right_confu = 0
                     # print(ele_1,ele_2,read_name)
                     sv_list.append([chro,"INS",max(ele_2[2],ele_1[3]),dis_read - dis_ref,read_name,
                                     str(query[ele_1[1] + int(dis_ref / 2):ele_2[0] - int(dis_ref / 2)]),ins_read_pos1,ins_read_pos2,left_confu,right_confu])
@@ -690,15 +690,15 @@ def analysis_split_read(split_reads,read_name,read_len,query,SV_size,ref_dict):
                     dup_read_pos = ele_2[0] #dup前面还有别的变异，这种情况对右断点进行校验
                     if ele_1[5] == '-':
                         dup_read_pos = read_len - dup_read_pos
-                        left_confu = get_left_confusion_splits(ele_1, ref_dict, reversed_seq)
-                        right_confu = get_right_confusion_splits(ele_2, ref_dict, reversed_seq)
-                        # left_confu = 0
-                        # right_confu = 0
+                        # left_confu = get_left_confusion_splits(ele_1, ref_dict, reversed_seq)
+                        # right_confu = get_right_confusion_splits(ele_2, ref_dict, reversed_seq)
+                        left_confu = 0
+                        right_confu = 0
                     else:
-                        left_confu = get_left_confusion_splits(ele_1, ref_dict, query)
-                        right_confu = get_right_confusion_splits(ele_2, ref_dict, query)
-                        # left_confu = 0
-                        # right_confu = 0
+                        # left_confu = get_left_confusion_splits(ele_1, ref_dict, query)
+                        # right_confu = get_right_confusion_splits(ele_2, ref_dict, query)
+                        left_confu = 0
+                        right_confu = 0
 
                     # print(ele_1,ele_2,read_name)
                     sv_list.append([chro,"DUP",ele_2[2],ele_1[3],read_name,dup_read_pos,dup_read_pos,left_confu,right_confu])
@@ -1120,7 +1120,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     breakpoints=list()
 
 
-    # record=open('/home/mzduan/somaticSV/COLO829_results/chr20/CNNSSV_record.txt','w')
+    record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # record=open(wkdir+'/recorder.txt','w')
 
@@ -1133,9 +1133,9 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            # record.write('Query Name:\t'+aln.query_name+'\n')
-            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            # record.flush()
+            record.write('Query Name:\t'+aln.query_name+'\n')
+            record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
+            record.flush()
             if aln.is_supplementary:   #对于supplementary，只分析alignment
                 aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
                 breakpoints.extend(aln_breakpoints)
@@ -1230,7 +1230,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         cdup[key]=cluster_DUP(dup_breakpoints[key],min_support,min_sv_len,max_sv_len)
         # [[pos,len,[read_name_list],...]
 
-    # record.close()
+    record.close()
     return cdel,cins,cinv,cdup,
 
 
