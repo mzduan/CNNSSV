@@ -1175,7 +1175,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
             record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
             record.flush()
 
-            pool.apply(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
+            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,))
             # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
             # if aln.is_supplementary:   #对于supplementary，只分析alignment
             #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
