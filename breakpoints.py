@@ -1116,6 +1116,7 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
     return refined
 
 def run_get_breakpoints(aln,min_sv_len,ref_dict):
+    print("go")
     # if aln.is_supplementary:   #对于supplementary，只分析alignment
     #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
     #     # print(aln_breakpoints)
