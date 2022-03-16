@@ -1189,7 +1189,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-            count_sum+=0
+            count_sum+=1
             if aln.has_tag("SA"):
                 sa_tag=aln.get_tag("SA")
             else:
