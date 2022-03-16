@@ -1243,6 +1243,7 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     inv_breakpoints=dict()
 
     for bk in breakpoints:
+        print(bk)
         if bk[1]=='INS':
             chro=bk[0]
             if chro in ins_breakpoints:
