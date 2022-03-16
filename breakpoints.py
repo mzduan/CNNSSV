@@ -1119,15 +1119,18 @@ def cluster_INV(sv_list,min_support,min_sv_len,max_sv_len):
 def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
 
     if aln.is_supplementary:   #对于supplementary，只分析alignment
+
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
         # print(aln_breakpoints)
         lock.acquire()
+        print(aln_breakpoints)
         breakpoints.extend(aln_breakpoints)
         lock.release()
     else:   #对于primary，分析alignment和split
 
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
         lock.acquire()
+        print(aln_breakpoints)
         breakpoints.extend(aln_breakpoints)
         lock.release()
         if aln.SA_TAG!=None:
@@ -1142,6 +1145,7 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
             split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
             if split_breakpoints:
                 lock.acquire()
+                print(split_breakpoints)
                 breakpoints.extend(split_breakpoints)
                 lock.release()
 class MyAln:
