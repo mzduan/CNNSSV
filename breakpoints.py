@@ -1145,7 +1145,7 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
             split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
             if split_breakpoints:
                 lock.acquire()
-                print(split_breakpoints)
+                print(aln_breakpoints)
                 breakpoints.extend(split_breakpoints)
                 lock.release()
 class MyAln:
@@ -1246,8 +1246,14 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     dup_breakpoints=dict()
     inv_breakpoints=dict()
 
+    print("start================================")
     for bk in breakpoints:
         print(bk)
+
+
+
+
+    for bk in breakpoints:
         if bk[1]=='INS':
             chro=bk[0]
             if chro in ins_breakpoints:
