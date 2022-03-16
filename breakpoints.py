@@ -1127,8 +1127,9 @@ def run_get_breakpoints(aln,min_sv_len,ref_dict,breakpoints,lock):
     else:   #对于primary，分析alignment和split
 
         aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-        # breakpoints.extend(aln_breakpoints)
-
+        lock.acquire()
+        breakpoints.extend(aln_breakpoints)
+        lock.release()
         if aln.SA_TAG!=None:
         # if aln.has_tag("SA"):
             supps=retrieve_supp(aln)
@@ -1177,12 +1178,18 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     else:
         alns=bam.fetch(contig=chro,start=start,end=end)
 
+    count_sum=0
     for aln in alns:
+        if count_sum>100:
+            break
+
+
+
+
         if aln.is_unmapped or aln.mapping_quality<min_map_qual:
             continue
         else:
-
-
+            count_sum+=0
             if aln.has_tag("SA"):
                 sa_tag=aln.get_tag("SA")
             else:
