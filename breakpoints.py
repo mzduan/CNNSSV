@@ -1168,69 +1168,73 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     bam=pysam.AlignmentFile(bam_file,'r')
 
     # breakpoints=list()
-    breakpoints=multiprocessing.Manager().list()
 
     # record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
     # pool = ThreadPoolExecutor(max_workers=48)
-    pool=multiprocessing.Pool(processes=48)
-    lock = multiprocessing.Manager().Lock()
-    # record=open(wkdir+'/recorder.txt','w')
 
+
+    breakpoints=None
     if chro=="" and start==-1 and end==-1:
         alns=bam.fetch()
+        pool=multiprocessing.Pool(processes=48)
+        lock = multiprocessing.Manager().Lock()
+        breakpoints = multiprocessing.Manager().list()
+        count_sum=0
+        for aln in alns:
+            if count_sum>=100:
+                break
+            if aln.is_unmapped or aln.mapping_quality < min_map_qual:
+                continue
+            else:
+                count_sum+=1
+                if aln.has_tag("SA"):
+                    sa_tag = aln.get_tag("SA")
+                else:
+                    sa_tag = None
+                aln = MyAln(aln.reference_start, aln.reference_end,
+                            aln.reference_name, aln.cigartuples, aln.query_length,
+                            aln.query_sequence, aln.query_name, aln.cigarstring, sa_tag,
+                            aln.is_supplementary, aln.is_reverse)
+                pool.apply_async(run_get_breakpoints, (aln, min_sv_len, ref_dict, breakpoints, lock))
+
+        pool.close()
+        pool.join()
+
+
     else:
         alns=bam.fetch(contig=chro,start=start,end=end)
-
-    count_sum=0
-    for aln in alns:
-        if count_sum>100:
-            break
-
-
-
-
-        if aln.is_unmapped or aln.mapping_quality<min_map_qual:
-            continue
-        else:
-            count_sum+=1
-            if aln.has_tag("SA"):
-                sa_tag=aln.get_tag("SA")
+        breakpoints = list()
+        for aln in alns:
+            if aln.is_unmapped or aln.mapping_quality<min_map_qual:
+                continue
             else:
-                sa_tag=None
-            aln = MyAln(aln.reference_start, aln.reference_end,
-                        aln.reference_name, aln.cigartuples, aln.query_length,
-                        aln.query_sequence, aln.query_name, aln.cigarstring,sa_tag,
-                        aln.is_supplementary, aln.is_reverse)
+                if aln.has_tag("SA"):
+                    sa_tag = aln.get_tag("SA")
+                else:
+                    sa_tag = None
+                aln = MyAln(aln.reference_start, aln.reference_end,
+                            aln.reference_name, aln.cigartuples, aln.query_length,
+                            aln.query_sequence, aln.query_name, aln.cigarstring, sa_tag,
+                            aln.is_supplementary, aln.is_reverse)
+                if aln.is_supplementary:   #对于supplementary，只分析alignment
+                    aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+                    breakpoints.extend(aln_breakpoints)
+                else:   #对于primary，分析alignment和split
+                    aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
+                    breakpoints.extend(aln_breakpoints)
+                    if aln.has_tag("SA"):
+                        supps=retrieve_supp(aln)
 
-            # record.write('Query Name:\t'+aln.query_name+'\n')
-            # record.write('Query Reference Start:\t' + str(aln.reference_start) + '\n')
-            # record.flush()
+                        if aln.is_reverse:
+                            query=get_reverse_comp(aln.query_sequence)
+                        else:
+                            query=aln.query_sequence
+                        #
+                        split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
+                        if split_breakpoints:
+                            breakpoints.extend(split_breakpoints)
 
-            pool.apply_async(run_get_breakpoints,(aln,min_sv_len,ref_dict,breakpoints,lock))
-            # pool.submit(run_get_breakpoints,aln,min_sv_len,ref_dict)
-            # if aln.is_supplementary:   #对于supplementary，只分析alignment
-            #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-            #     breakpoints.extend(aln_breakpoints)
-            # else:   #对于primary，分析alignment和split
-            #
-            #     aln_breakpoints=analysis_alignment(aln,min_sv_len,ref_dict)
-            #     breakpoints.extend(aln_breakpoints)
-            #     if aln.has_tag("SA"):
-            #         supps=retrieve_supp(aln)
-            #
-            #         if aln.is_reverse:
-            #             query=get_reverse_comp(aln.query_sequence)
-            #         else:
-            #             query=aln.query_sequence
-            #         #
-            #         split_breakpoints=analysis_split_read(supps,aln.query_name,aln.query_length,query,min_sv_len,ref_dict)
-            #         if split_breakpoints:
-            #             breakpoints.extend(split_breakpoints)
-    pool.close()
-    pool.join()
-
-    # pool.shutdown()
     bam.close()
     # # del: chro,del,start,len,read_name,read_start,read_end,left_confusion,right_confusion
     # # ins: chro,ins,start,len,read_name,ins_query,read_start,read_end,left_confusion,right_confusion
