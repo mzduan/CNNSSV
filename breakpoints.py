@@ -1167,8 +1167,8 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
 
     bam=pysam.AlignmentFile(bam_file,'r')
 
-    breakpoints=list()
-
+    # breakpoints=list()
+    breakpoints=multiprocessing.Manager().list()
 
     # record=open('/data/home/wlzhang/somaticSV/COLO829_results/CNNSSV/ngmlr/chr22/recorder.txt','w')
 
@@ -1246,11 +1246,10 @@ def get_breakpoints(bam_file,min_support=1,min_sv_len=50,max_sv_len=10000,min_ma
     dup_breakpoints=dict()
     inv_breakpoints=dict()
 
-    print("start================================")
+
+    print("start========================")
     for bk in breakpoints:
         print(bk)
-
-
 
 
     for bk in breakpoints:
