@@ -11,7 +11,7 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    for t in range(12,0-1):
+    for t in range(1,23,1):
         tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_tumor_chr'+str(t)+'.vcf','r')
         normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_normal_chr'+str(t)+'.vcf','r')
         somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/sniffles/ngmlr/sniffles_ngmlr_somatic_chr'+str(t)+'.vcf', 'w')
