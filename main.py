@@ -58,8 +58,8 @@ if __name__ == '__main__':
                 fout.write(chro + '\t' + str(bk[0]) + '\t' + str(bk[0] + bk[1]) + '\t' + 'DUP\t'+str(bk[1])+'\n')
     print("Generate Features for Cancidate SVs")
     run(cdel,cins,cinv,cdup,ref_dict,args.tumor,args.normal,args.wkdir,int(args.t),int(args.k))
-    print("Predict...")
-    predict(args.model,args.wkdir,args.output)
-    print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
+    # print("Predict...")
+    # predict(args.model,args.wkdir,args.output)
+    # print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
     #
 
