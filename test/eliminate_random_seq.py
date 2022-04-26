@@ -11,9 +11,9 @@ if __name__ == '__main__':
             if l:
                 infos=re.split('\s+',l)
                 if infos[3]=='tandem':
-                    infos[6]=='0'
+                    infos[6]='0'
                 else:
-                    infos[5]=='0'
+                    infos[5]='0'
                 fout.write(l)
             else:
                 break
