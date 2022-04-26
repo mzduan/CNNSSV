@@ -9,10 +9,10 @@ if __name__ == '__main__':
             if l:
                 infos=re.split('\s+',l)
                 if infos[3]=='tandem':
-                    fout.write(infos[0]+'\t'+infos[1]+'\t'+infos[2]+'\t'+"tandem duplication"+'\t'+infos[5]+'\t'+'0')
+                    fout.write(infos[0]+'\t'+infos[1]+'\t'+infos[2]+'\t'+"tandem duplication"+'\t'+infos[5]+'\t'+'0'+'\n')
 
                 else:
-                    fout.write(infos[0]+'\t'+infos[1]+'\t'+infos[2]+'\t'+infos[3]+'\t'+infos[4]+'\t'+'0')
+                    fout.write(infos[0]+'\t'+infos[1]+'\t'+infos[2]+'\t'+infos[3]+'\t'+infos[4]+'\t'+'0'+'\n')
             else:
                 break
 
