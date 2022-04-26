@@ -45,82 +45,90 @@ if __name__ == '__main__':
 
 
     #纯合模拟数据
-    # plt.figure(figsize=(20,8))
-    # x_read_depth = [0.2,0.3,0.4,0.5,0.6,0.7,0.8]
-    #
-    # CNNSSV_recall = [0.916,0.942,0.946,0.946,0.95,0.948,0.944]
-    # cutesv_recall = [0.91,0.936,0.938,0.942,0.94,0.944,0.94]
-    # sniffles_recall = [0.9,0.93,0.928,0.936,0.932,0.94,0.932]
-    # nanomonsv_recall = [0.24,0.276,0.288,0.298,0.312,0.34,0.34]
-    #
-    # CNNSSV_precision = [0.997, 0.989,0.995,0.993,0.989,0.991,0.989]
-    # cutesv_precision = [0.952,0.956,0.946,0.953,0.960,0.949,0.957]
-    # sniffles_precision = [0.834,0.834,0.809,0.812,0.788,0.800,0.797]
-    # nanomonsv_precision = [1.0,0.992,1.0,1.0,0.993,1.0,1.0]
-    #
-    # CNNSSV_f1=[0.955,0.965,0.970,0.969,0.969,0.969,0.966]
-    # cutesv_f1=[0.930,0.946,0.942,0.947,0.950,0.946,0.948]
-    # sniffles_f1=[0.866,0.879,0.864,0.869,0.854,0.864,0.859]
-    # nanomonsv_f1=[0.387,0.431,0.447,0.459,0.474,0.507,0.507]
-    #
-    # plt.subplot(131)
-    # plt.ylim(0.5, 1)
-    # plt.xlabel("Purity", fontsize=18)
-    # plt.ylabel("F1-score", fontsize=18)
-    # # plt.grid()
-    # ax = plt.gca()  # gca:get current axis得到当前轴
-    # # 设置图片的右边框和上边框为不显示
-    # ax.spines['right'].set_color('none')
-    # ax.spines['top'].set_color('none')
-    # plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', lw=1, markersize=4)
-    # plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g', lw=1, markersize=4)
-    # plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b', lw=1, markersize=4)
-    # plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y', lw=1, markersize=4)
-    # plt.xticks(np.arange(0.2, 0.8, 0.1))
-    # plt.yticks(np.arange(0.2, 1.01, 0.1))
-    # plt.tick_params(labelsize=16)
-    #
-    #
-    # plt.subplot(132)
-    # plt.ylim(0.5,1)
-    # plt.xlabel("Purity", fontsize=18)
-    # plt.ylabel("Recall", fontsize=18)
-    # # plt.grid()
-    # ax = plt.gca()  # gca:get current axis得到当前轴
-    # # 设置图片的右边框和上边框为不显示
-    # ax.spines['right'].set_color('none')
-    # ax.spines['top'].set_color('none')
-    # plt.plot(x_read_depth, CNNSSV_recall,'o-',label='CNNSSV',color='r',lw=1,markersize=4)
-    # plt.plot(x_read_depth, cutesv_recall,'o-',label='cutesv',color='g',lw=1,markersize=4)
-    # plt.plot(x_read_depth, sniffles_recall,'o-',label='sniffles',color='b',lw=1,markersize=4)
-    # plt.plot(x_read_depth, nanomonsv_recall,'o-',label='nanomonsv',color='y',lw=1,markersize=4)
-    # plt.xticks(np.arange(0.2,0.8,0.1))
-    # plt.yticks(np.arange(0.2,1.01,0.1))
-    # plt.tick_params(labelsize=16)
-    #
-    # plt.subplot(133)
-    # plt.ylim(0.5, 1)
-    # plt.xlabel("Purity", fontsize=18)
-    # plt.ylabel("Precsion", fontsize=18)
-    # # plt.grid()
-    # ax = plt.gca()  # gca:get current axis得到当前轴
-    # # 设置图片的右边框和上边框为不显示
-    # ax.spines['right'].set_color('none')
-    # ax.spines['top'].set_color('none')
-    # plt.plot(x_read_depth, CNNSSV_precision, 'o-', label='CNNSSV', color='r',lw=1,markersize=4)
-    # plt.plot(x_read_depth, cutesv_precision, 'o-', label='cutesv', color='g',lw=1,markersize=4)
-    # plt.plot(x_read_depth, sniffles_precision, 'o-', label='sniffles', color='b',lw=1,markersize=4)
-    # plt.plot(x_read_depth, nanomonsv_precision, 'o-', label='nanomonsv', color='y',lw=1,markersize=4)
-    # plt.xticks(np.arange(0.2, 0.8, 0.1))
-    # plt.yticks(np.arange(0.2, 1.01, 0.1))
-    # plt.tick_params(labelsize=16)
-    #
-    # plt.xticks(np.arange(0.2, 0.8, 0.1))
-    # plt.yticks(np.arange(0.2, 1.01, 0.1))
-    # plt.legend(loc='lower right', bbox_to_anchor=(1.45, 0),prop={'size': 14})
-    # plt.tick_params(labelsize=16)
-    # plt.savefig('/Users/duan/Desktop/simulate.png')
-    # plt.close()
+    plt.figure(figsize=(20,8))
+    x_read_depth = [0.2,0.3,0.4,0.5,0.6,0.7,0.8]
+
+    CNNSSV_recall = [0.916,0.942,0.946,0.946,0.95,0.948,0.944]
+    cutesv_recall = [0.91,0.936,0.938,0.942,0.94,0.944,0.94]
+    sniffles_recall = [0.9,0.93,0.928,0.936,0.932,0.94,0.932]
+    nanomonsv_recall = [0.24,0.276,0.288,0.298,0.312,0.34,0.34]
+
+    CNNSSV_precision = [0.997, 0.989,0.995,0.993,0.989,0.991,0.989]
+    cutesv_precision = [0.952,0.956,0.946,0.953,0.960,0.949,0.957]
+    sniffles_precision = [0.834,0.834,0.809,0.812,0.788,0.800,0.797]
+    nanomonsv_precision = [1.0,0.992,1.0,1.0,0.993,1.0,1.0]
+
+    CNNSSV_f1=[0.955,0.965,0.970,0.969,0.969,0.969,0.966]
+    cutesv_f1=[0.930,0.946,0.942,0.947,0.950,0.946,0.948]
+    sniffles_f1=[0.866,0.879,0.864,0.869,0.854,0.864,0.859]
+    nanomonsv_f1=[0.387,0.431,0.447,0.459,0.474,0.507,0.507]
+
+    plt.subplot(131)
+    plt.ylim(0.5, 1)
+    plt.xlabel("Purity", fontsize=18)
+    plt.ylabel("F1-score", fontsize=18)
+    # plt.grid()
+    ax = plt.gca()  # gca:get current axis得到当前轴
+    # 设置图片的右边框和上边框为不显示
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    plt.plot(x_read_depth, CNNSSV_f1, 'o-', label='CNNSSV', color='r', lw=1, markersize=4)
+    plt.plot(x_read_depth, cutesv_f1, 'o-', label='cutesv', color='g', lw=1, markersize=4)
+    plt.plot(x_read_depth, sniffles_f1, 'o-', label='sniffles', color='b', lw=1, markersize=4)
+    plt.plot(x_read_depth, nanomonsv_f1, 'o-', label='nanomonsv', color='y', lw=1, markersize=4)
+    plt.xticks(np.arange(0.2, 0.8, 0.1))
+    plt.yticks(np.arange(0.2, 1.01, 0.1))
+    plt.tick_params(labelsize=16)
+    plt.rcParams['font.sans-serif']=['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.title("(a)F1-score随肿瘤纯度纯度变化",y=-0.14)
+
+    plt.subplot(132)
+    plt.ylim(0.5,1)
+    plt.xlabel("Purity", fontsize=18)
+    plt.ylabel("Recall", fontsize=18)
+    # plt.grid()
+    ax = plt.gca()  # gca:get current axis得到当前轴
+    # 设置图片的右边框和上边框为不显示
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    plt.plot(x_read_depth, CNNSSV_recall,'o-',label='CNNSSV',color='r',lw=1,markersize=4)
+    plt.plot(x_read_depth, cutesv_recall,'o-',label='cutesv',color='g',lw=1,markersize=4)
+    plt.plot(x_read_depth, sniffles_recall,'o-',label='sniffles',color='b',lw=1,markersize=4)
+    plt.plot(x_read_depth, nanomonsv_recall,'o-',label='nanomonsv',color='y',lw=1,markersize=4)
+    plt.xticks(np.arange(0.2,0.8,0.1))
+    plt.yticks(np.arange(0.2,1.01,0.1))
+    plt.tick_params(labelsize=16)
+    plt.rcParams['font.sans-serif']=['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.title("(b)Recall随肿瘤纯度纯度变化",y=-0.2)
+
+    plt.subplot(133)
+    plt.ylim(0.5, 1)
+    plt.xlabel("Purity", fontsize=18)
+    plt.ylabel("Precsion", fontsize=18)
+    # plt.grid()
+    ax = plt.gca()  # gca:get current axis得到当前轴
+    # 设置图片的右边框和上边框为不显示
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    plt.plot(x_read_depth, CNNSSV_precision, 'o-', label='CNNSSV', color='r',lw=1,markersize=4)
+    plt.plot(x_read_depth, cutesv_precision, 'o-', label='cutesv', color='g',lw=1,markersize=4)
+    plt.plot(x_read_depth, sniffles_precision, 'o-', label='sniffles', color='b',lw=1,markersize=4)
+    plt.plot(x_read_depth, nanomonsv_precision, 'o-', label='nanomonsv', color='y',lw=1,markersize=4)
+    plt.xticks(np.arange(0.2, 0.8, 0.1))
+    plt.yticks(np.arange(0.2, 1.01, 0.1))
+    plt.tick_params(labelsize=16)
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.title("(c)Precision随肿瘤纯度纯度变化",y=-0.1)
+
+    plt.xticks(np.arange(0.2, 0.8, 0.1))
+    plt.yticks(np.arange(0.2, 1.01, 0.1))
+    plt.legend(loc='lower right', bbox_to_anchor=(1.45, 0),prop={'size': 14})
+    plt.tick_params(labelsize=16)
+    plt.savefig('/Users/duan/Desktop/simulate.png')
+    plt.close()
 
 
 
@@ -1379,74 +1387,74 @@ if __name__ == '__main__':
     #
 
 
-    somatic=[0.9347876537479693,0.9889643463497454,0.9268309566662051,0.9367741935483872]
-    germline=[0.06362951807228916,0.06122568893589517,0.07674002359354025,0.0583908300264093]
-
-    plt.figure(figsize=(20,10))
-    name_list = ['DEL','INS','INV','DUP']
-    ax = plt.gca()  # gca:get current axis得到当前轴
-    # 设置图片的右边框和上边框为不显示
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-
-
-    x = list(range(len(somatic)))
-    total_width, n = 0.8, 3
-    width = total_width / n
-    plt.ylim(0, 1)
-    plt.xlabel("SV type", fontsize=18)
-    plt.ylabel("tumor unique k-mer radio", fontsize=18)
-    plt.tick_params(labelsize=16)
-    plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
-    for label_x,label_y in zip(x,somatic):
-        plt.text(label_x,label_y,'%.2f' %label_y, ha='center',va='bottom',size=15)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, germline, width=width, label='germline sv',fc='g')
-    for label_x, label_y in zip(x, germline):
-        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom',size=15)
-
-
-
-    plt.xticks([index + width/2 for index in range(len(name_list))], name_list)
-    # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
-    plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0),prop={'size': 14})
-    # plt.legend()
-    # plt.show()
-    plt.savefig('/Users/duan/Desktop/tumor_unique_k-mer.png')
-
-
-
-    somatic = [0.9409976295990929, 0.9111710356993101, 0.9036470364431882, 0.0696450878095378]
-    germline = [0.05632072812210544, 0.050946663153536347, 0.03771204533985482, 0.0473739909272177]
-
-
-    plt.figure(figsize=(20, 10))
-    name_list = ['DEL', 'INS', 'INV', 'DUP']
-
-    ax = plt.gca()  # gca:get current axis得到当前轴
-        # 设置图片的右边框和上边框为不显示
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-    x = list(range(len(somatic)))
-    total_width, n = 0.8, 3
-    width = total_width / n
-    plt.ylim(0, 1)
-    plt.xlabel("SV type", fontsize=18)
-    plt.ylabel("tumor lost k-mer radio", fontsize=18)
-    plt.tick_params(labelsize=16)
-    plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
-    for label_x, label_y in zip(x, somatic):
-        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
-    for i in range(len(x)):
-        x[i] = x[i] + width
-    plt.bar(x, germline, width=width, label='germline sv', fc='g')
-    for label_x, label_y in zip(x, germline):
-        plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
-
-    plt.xticks([index + width / 2 for index in range(len(name_list))], name_list)
-    # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
-    plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0), prop={'size': 14})
-    # plt.legend()
-    # plt.show()
-    plt.savefig('/Users/duan/Desktop/tumor_lost_k-mer_radio.png')
+    # somatic=[0.9347876537479693,0.9889643463497454,0.9268309566662051,0.9367741935483872]
+    # germline=[0.06362951807228916,0.06122568893589517,0.07674002359354025,0.0583908300264093]
+    #
+    # plt.figure(figsize=(20,10))
+    # name_list = ['DEL','INS','INV','DUP']
+    # ax = plt.gca()  # gca:get current axis得到当前轴
+    # # 设置图片的右边框和上边框为不显示
+    # ax.spines['right'].set_color('none')
+    # ax.spines['top'].set_color('none')
+    #
+    #
+    # x = list(range(len(somatic)))
+    # total_width, n = 0.8, 3
+    # width = total_width / n
+    # plt.ylim(0, 1)
+    # plt.xlabel("SV type", fontsize=18)
+    # plt.ylabel("tumor unique k-mer radio", fontsize=18)
+    # plt.tick_params(labelsize=16)
+    # plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
+    # for label_x,label_y in zip(x,somatic):
+    #     plt.text(label_x,label_y,'%.2f' %label_y, ha='center',va='bottom',size=15)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, germline, width=width, label='germline sv',fc='g')
+    # for label_x, label_y in zip(x, germline):
+    #     plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom',size=15)
+    #
+    #
+    #
+    # plt.xticks([index + width/2 for index in range(len(name_list))], name_list)
+    # # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0),prop={'size': 14})
+    # # plt.legend()
+    # # plt.show()
+    # plt.savefig('/Users/duan/Desktop/tumor_unique_k-mer.png')
+    #
+    #
+    #
+    # somatic = [0.9409976295990929, 0.9111710356993101, 0.9036470364431882, 0.0696450878095378]
+    # germline = [0.05632072812210544, 0.050946663153536347, 0.03771204533985482, 0.0473739909272177]
+    #
+    #
+    # plt.figure(figsize=(20, 10))
+    # name_list = ['DEL', 'INS', 'INV', 'DUP']
+    #
+    # ax = plt.gca()  # gca:get current axis得到当前轴
+    #     # 设置图片的右边框和上边框为不显示
+    # ax.spines['right'].set_color('none')
+    # ax.spines['top'].set_color('none')
+    # x = list(range(len(somatic)))
+    # total_width, n = 0.8, 3
+    # width = total_width / n
+    # plt.ylim(0, 1)
+    # plt.xlabel("SV type", fontsize=18)
+    # plt.ylabel("tumor lost k-mer radio", fontsize=18)
+    # plt.tick_params(labelsize=16)
+    # plt.bar(x, somatic, width=width, label='somatic sv', fc='r')
+    # for label_x, label_y in zip(x, somatic):
+    #     plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, germline, width=width, label='germline sv', fc='g')
+    # for label_x, label_y in zip(x, germline):
+    #     plt.text(label_x, label_y, '%.2f' % label_y, ha='center', va='bottom', size=15)
+    #
+    # plt.xticks([index + width / 2 for index in range(len(name_list))], name_list)
+    # # plt.legend(loc='lower left',prop={'size': 16},bbox_to_anchor=(1.45, 0))
+    # plt.legend(loc='lower right', bbox_to_anchor=(1.13, 0), prop={'size': 14})
+    # # plt.legend()
+    # # plt.show()
+    # plt.savefig('/Users/duan/Desktop/tumor_lost_k-mer_radio.png')

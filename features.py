@@ -679,31 +679,7 @@ def run(cdel,cins,cinv,cdup,ref_dict,tumor,normal,wkdir,thread_num,kmer_size):
     # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
     # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
 
-    # fin = open('/home/duan/Desktop/getBreakpoint/results/NA19238_NA19239_mixed/CNNSSV/CNNSSV.somatic7.fnc', 'r')
-    # del_pos_set=set()
-    # ins_pos_set = set()
-    # inv_pos_set = set()
-    # dup_pos_set = set()
-    # while True:
-    #     l=fin.readline()
-    #     if l:
-    #         splits = re.split('\s+', l)
-    #         sv_start = int(splits[1])
-    #         sv_type=splits[3]
-    #         if sv_type=='DEL':
-    #             del_pos_set.add(sv_start)
-    #         elif sv_type=='INS':
-    #             ins_pos_set.add(sv_start)
-    #         elif sv_type=='DUP':
-    #             dup_pos_set.add(sv_start)
-    #         elif sv_type=='INV':
-    #             inv_pos_set.add(sv_start)
-    #     else:
-    #         break
-    # fin.close()
-
     pool = multiprocessing.Pool(processes=int(thread_num))
-    # pool = ThreadPoolExecutor(max_workers=thread_num)
     for key in cdel:
         chro=key
         for bk in cdel[chro]:
