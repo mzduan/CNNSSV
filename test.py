@@ -124,7 +124,7 @@ def predict(model_path,features_path,out_path):
             print("not a somatic sv")
     fout.close()
 
-    os.system('sort '+file_name+' -k 2 -n')
+    # os.system('sort '+file_name+' -k 2 -n')
 
     # fpr_lr, tpr_lr, thres_lr = roc_curve(test_list,predicts)
 
