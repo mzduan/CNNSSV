@@ -11,16 +11,17 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-
-    for t in range(1,23,1):
+    tags = ['1000', '1500']
+    for t in tags:
+    # for t in range(1,23,1):
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf')
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_normal.vcf')
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_somatic.vcf')
 
         print("start handle chr"+str(t))
-        tumor_vcf=open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_tumor_chr'+str(t)+'.vcf','r')
-        normal_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_normal_chr'+str(t)+'.vcf','r')
-        somatic_vcf = open('/data/home/wlzhang/somaticSV/COLO829_results/cutesv/ngmlr/cutesv_ngmlr_somatic_chr'+str(t)+'.vcf', 'w')
+        tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/cutesv/cutesv_tumor_'+t+'.vcf','r')
+        normal_vcf = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/cutesv/cutesv_normal_'+t+'.vcf','r')
+        somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/cutesv/cutesv_somatic_'+t+'.vcf', 'w')
 
         tumor_readlines=list()
         normal_readlines=list()

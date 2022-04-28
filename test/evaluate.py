@@ -1,11 +1,11 @@
 import re
 if __name__ == '__main__':
 
-    tags = ['0.2', '0.5', '0.7']
+    tags = ['1000','1500']
     # tags = ['2', '3', '4', '5', '6', '7','8']
     for t in tags:
 
-        predict_bed='/Users/duan/Desktop/getBreakpoint/CNNSSV_3_10_test_somatic.bed'
+        predict_bed='/home/duan/Desktop/getBreakpoint/results/vary_sv_len/nanomonsv/tumor.nanomonsv.result.'+t+'.bed'
         # predict_bed='/Users/duan/Desktop/getBreakpoint/results/simulate/nanomonsv/20_0.3.tumor.nanomonsv.result.bed'
         # predict_bed='/Users/duan/Downloads/chr20_0.2_predict.bed'
         # fn_name='/home/duan/Desktop/getBreakpoint/results/simulate/CNN/11_9/chr20_0.7_simulate_somatic.fn.bed'
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
 
         groundtruth=list()
-        with open('/Users/duan/Desktop/getBreakpoint/groundtruth/simulate/chr20.somatic.bed','r') as fin:
+        with open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/gd/chr20.'+t+'.somatic.bed','r') as fin:
             while True:
                 l=fin.readline()
                 if l:
@@ -127,7 +127,7 @@ if __name__ == '__main__':
         recall=len(true_g)/len(groundtruth)
         precision=len(true_p)/len(predict)
         # print("support read:",t)
-        print("\tpurity:",t)
+        print("\tmean_sv_len:",t)
         print("\t\tRecall:\t",recall)
         print("\t\tPrecision:\t",precision)
         print("\t\tF1:\t",2*recall*precision/(recall+precision))
