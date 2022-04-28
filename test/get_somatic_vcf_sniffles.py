@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
 
 
-    tags = ['1000', '1500']
+    tags = ['500', '2000','2500']
     for t in tags:
     # for t in range(1,23,1):
         tumor_vcf=open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/sniffles/sniffles_tumor_'+t+'.vcf','r')

@@ -14,10 +14,10 @@ if __name__ == '__main__':
     # tags=['0.3']
     # tags=['1','2','3','4','5','6']
     # for t in tags:
-    tags = ['1000', '1500']
+    tags = ['500', '2000','2500']
     for t in tags:
-        somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/nanomonsv/tumor.nanomonsv.result.'+t+'.vcf', 'r')
-        somatic_bed = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/nanomonsv/tumor.nanomonsv.result.'+t+'.bed', 'w')
+        somatic_vcf = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/sniffles/sniffles_somatic_'+t+'.vcf', 'r')
+        somatic_bed = open('/home/duan/Desktop/getBreakpoint/results/vary_sv_len/sniffles/sniffles_somatic_'+t+'.bed', 'w')
 
         while True:
             l=somatic_vcf.readline()

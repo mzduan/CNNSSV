@@ -11,7 +11,7 @@ def getKV(str):
     return ret
 if __name__ == '__main__':
 
-    tags = ['1000', '1500']
+    tags = ['500', '2000','2500']
     for t in tags:
     # for t in range(1,23,1):
         # print('/home/mzduan/somaticSV/COLO829_results/chr'+str(t)+'/cutesv_COLO829_chr'+str(t)+'_tumor_.vcf')
