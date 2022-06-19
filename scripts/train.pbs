@@ -1,0 +1,9 @@
+#!/bin/bash
+#PBS -N trainning
+#PBS -q batch
+#PBS -l nodes=cu02:ppn=1
+
+script='/home/mzduan/somaticSV/getBreakpoint/train.py'
+feat_path='/home/mzduan/somaticSV/CCS/tag_with_confusion_normal'
+model_output='/home/mzduan/somaticSV/model/CNN_sup_with_confusion_normal.model'
+python $script $feat_path $model_output

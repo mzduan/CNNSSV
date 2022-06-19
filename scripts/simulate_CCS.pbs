@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N simulate_sv_len_500
+#PBS -q batch
+#PBS -l nodes=cu02:ppn=28
+
+thread=28
+ref_dir='/home/mzduan/GRCh38/chr/'
+work_dir='/home/mzduan/somaticSV/vary_sv_len/'
+
+for i in '500'
+#for i in {'1000','1500','2000','2500'}
+do
+	
+#	VISOR LASeR -g $ref_dir'chr'$i'.fa' -s $work_dir'heter/heter_normal' -bed $work_dir'heter/heter_normal.bed' -o $work_dir'/heter/heter_normal_bam_5' --threads $thread -c 5 --readstype PB
+#	VISOR LASeR -g $ref_dir'chr'$i'.fa' -s $work_dir'heter/heter_normal' -bed $work_dir'heter/heter_normal.bed' -o $work_dir'/heter/heter_normal_bam_10' --threads $thread -c 10 --readstype PB
+#	VISOR LASeR -g $ref_dir'chr'$i'.fa' -s $work_dir'heter/heter_normal' -bed $work_dir'heter/heter_normal.bed' -o $work_dir'/heter/heter_normal_bam_15' --threads $thread -c 15 --readstype PB
+#	VISOR LASeR -g $ref_dir'chr'$i'.fa' -s $work_dir'heter/heter_normal' -bed $work_dir'heter/heter_normal.bed' -o $work_dir'/heter/heter_normal_bam_25' --threads $thread -c 25 --readstype PB
+
+done
+
