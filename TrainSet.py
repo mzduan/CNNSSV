@@ -115,6 +115,5 @@ class TrainSet(data.Dataset):
 
 
     def __getitem__(self, index):
-        # torch.tensor(self.sup_features[index], dtype=torch.float)
         return torch.tensor(self.features[index],dtype=torch.float),torch.tensor(self.sup_features[index], dtype=torch.float),\
                torch.tensor(self.labels[index],dtype=torch.long)

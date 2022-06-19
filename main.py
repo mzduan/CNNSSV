@@ -2,7 +2,6 @@ import argparse
 from breakpoints import get_breakpoints
 from features import run
 from test import predict
-import sys
 import os
 import time
 import reference
@@ -32,12 +31,15 @@ if __name__ == '__main__':
 
     ref_dict = reference.initial_fa(args.ref)
     cdel,cins,cinv,cdup=get_breakpoints(args.tumor,args.min_support_read,args.min_sv_len,args.max_sv_len,args.min_map_qual,ref_dict=ref_dict)
-    # # get_breakpoints(args.tumor, args.min_support_read, args.min_sv_len, args.max_sv_len, args.min_map_qual,ref_dict=ref_dict)
-    # # # DEL:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
-    # # # INS:   [[pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
-    # # # INV:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
-    # # # DUP:   [[pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
-    # #
+
+
+    # cdel,cins,cinv,cdup内容如下：
+    # DEL: [pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+    # INS: [pos,len,[read_name_list],insert_seq,[read_start_list],[read_end_list],[ref_start_list],[len_list],mean_left_confu,mean_right_confu]
+    # INV: [pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
+    # DUP: [pos,len,[read_name_list],[read_start_list],[read_end_list],[ref_start_list],[ref_end_list],mean_left_confu,mean_right_confu]
+
+
     with open(args.wkdir+'/tumor.candidate.bed','w') as fout:
         for key in cdel:
             chro=key
@@ -60,5 +62,6 @@ if __name__ == '__main__':
     print("Predict...")
     predict(args.model,args.wkdir,args.output)
     print(time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()))
-    #
+
+
 

@@ -13,20 +13,6 @@ def merge_seq_direction(seq1,seq2,zero):
         elif c1!=zero and c2!=zero:
             merged_seq = merged_seq + c1
     return merged_seq
-# def merge_basequal_mapq(qual_list1,qual_list2):
-#     merged_qual=list()
-#     for i in range(len(qual_list1)):
-#         q1=qual_list1[i]
-#         q2=qual_list2[i]
-#         if q1=='0' and q2=='0':
-#             merged_qual.append('0')
-#         elif q1!='0' and q2=='0':
-#             merged_qual.append(q1)
-#         elif q1=='0' and q2!='0':
-#             merged_qual.append(q2)
-#         elif q1!='0' and q2!='0':
-#             merged_qual.append(q1)
-#     return merged_qual
 
 def merge_depth(depth1,depth2):
     seq_len=len(depth1)
@@ -64,15 +50,9 @@ def merge_same_read(read_seq_list,read_direction_list,read_depth_list,read_name_
 
                 merged_direction = merge_seq_direction(read_direction_list[name2column[k][0]], read_direction_list[name2column[k][i]],'0')
                 read_direction_list[name2column[k][0]]=merged_direction
-                # print(read_depth_list[name2column[k][0]])
-                # print(read_depth_list[name2column[k][i]])
                 merged_depth = merge_depth(read_depth_list[name2column[k][0]], read_depth_list[name2column[k][i]])
-                # print(merged_depth)
-                # print(' ')
-                read_depth_list[name2column[k][0]]=merged_depth
 
-                # merged_basequal=merge_basequal_mapq(read_basequal_list[name2column[k][0]],read_basequal_list[name2column[k][i]])
-                # read_basequal_list[name2column[k][0]] = merged_basequal
+                read_depth_list[name2column[k][0]]=merged_depth
 
 
                 to_delete.append(name2column[k][i])
@@ -85,8 +65,4 @@ def merge_same_read(read_seq_list,read_direction_list,read_depth_list,read_name_
         del read_depth_list[i]
         # del read_basequal_list[i]
         del read_name_list[i-3]
-
-
-
-
     return read_seq_list,read_direction_list,read_depth_list

@@ -56,21 +56,6 @@ class CNN(nn.Module):
             # nn.ReLU()
         )
 
-        # self.fc1 = nn.Sequential(
-        #     nn.Linear(in_features=64*4*60, out_features=128),
-        #     nn.ReLU()
-        # )
-        # self.fc2=nn.Sequential(
-        #     nn.Linear(in_features=128, out_features=2),
-        #     # nn.ReLU()
-        # )
-
-
-
-        # self.softmax=nn.Softmax(dim=1)
-
-
-
     def forward(self, x,sup_x):
 
         x = self.conv1(x)
@@ -81,6 +66,4 @@ class CNN(nn.Module):
         f = self.fc2(sup_x)
         combined=torch.cat((c.view(c.size(0), -1),f.view(f.size(0), -1)), dim=1)
         final_output=self.fc3(combined)
-        # final_output = self.fc1(x)
-        # final_output = self.fc2(final_output)
         return final_output
